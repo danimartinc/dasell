@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:DaSell/screens/bottom_navigation.dart';
-import 'package:DaSell/screens/tabs/add_product_screen.dart';
+import 'package:DaSell/screens/tabs/add_product/add_product_screen.dart';
 
 //Widgets
 import 'package:DaSell/widgets/home/ad_item.dart';

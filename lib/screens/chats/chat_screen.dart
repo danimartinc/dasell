@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 //Screens
-import 'package:DaSell/screens/tabs/users_chat_screen.dart';
+import 'package:DaSell/screens/tabs/chat/users_chat_screen.dart';
 
 //Widgets
 import 'package:DaSell/widgets/chat/new_message.dart';

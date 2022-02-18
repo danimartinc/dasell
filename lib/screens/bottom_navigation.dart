@@ -10,11 +10,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:DaSell/screens/home/search.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import './tabs/home_screen.dart';
-import 'tabs/users_chat_screen.dart';
+import 'tabs/home/home_screen.dart';
+import 'tabs/chat/users_chat_screen.dart';
 import 'tabs/profile/profile_screen.dart';
-import 'tabs/ads_tab_screen.dart';
-import 'tabs/add_product_screen.dart';
+import 'tabs/ads/ads_tab_screen.dart';
+import 'tabs/add_product/add_product_screen.dart';
 
 
 class BottomNavigationScreen extends StatefulWidget {

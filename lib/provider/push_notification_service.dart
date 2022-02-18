@@ -6,7 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 
 import 'package:DaSell/models/navigator_service.dart';
-import 'package:DaSell/screens/tabs/users_chat_screen.dart';
+import 'package:DaSell/screens/tabs/chat/users_chat_screen.dart';
 
 
 // SHA1: 33:E2:CC:3B:84:7C:A4:7C:2C:CC:7D:4F:96:A8:A8:52:80:CB:1D:1C

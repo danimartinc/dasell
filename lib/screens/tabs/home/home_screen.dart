@@ -16,7 +16,7 @@ import 'package:DaSell/widgets/home/filter.dart';
 
 //Screens
 import 'package:DaSell/screens/home/search.dart';
-import 'add_product_screen.dart';
+import '../add_product/add_product_screen.dart';
 
 //Providers
 import 'package:DaSell/provider/ad_provider.dart';

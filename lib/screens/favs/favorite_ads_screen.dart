@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:DaSell/screens/bottom_navigation.dart';
-import 'package:DaSell/screens/tabs/home_screen.dart';
+import 'package:DaSell/screens/tabs/home/home_screen.dart';
 
 //Widgets
 import 'package:DaSell/widgets/home/ad_item.dart';
