@@ -54,6 +54,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: widget.isEditable ? Text('Elegir localización') : Text('Ubicación actual'),

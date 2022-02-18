@@ -11,6 +11,7 @@ class BtnCancelMonitoring extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final mapBloc = BlocProvider.of<MapBloc>(context);
+    LocationBloc? locationBloc;
     final size = MediaQuery.of(context).size;
 
     return Container(
@@ -24,10 +25,8 @@ class BtnCancelMonitoring extends StatelessWidget {
         shape: const StadiumBorder(),
         onPressed: () async {
                 
-                  // TODO: Disparar dispose, cancelar seguimiento
-
-             
-                  
+          // TODO: Disparar dispose, cancelar seguimiento
+          locationBloc?.close();        
         },
       ),
     );

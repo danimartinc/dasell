@@ -12,8 +12,10 @@ class LoadingScreen extends StatelessWidget {
    
    @override
    Widget build(BuildContext context) {
-     final Set<String> data = ModalRoute.of(context)!.settings.arguments as Set<String>;
-   return Scaffold(
+
+    final Set<String> data = ModalRoute.of(context)!.settings.arguments as Set<String>;
+    
+    return Scaffold(
       body: BlocBuilder<GpsBloc, GpsState>(
         builder: (context, state) {
           return state.isAllGranted

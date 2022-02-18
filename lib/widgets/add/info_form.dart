@@ -147,33 +147,10 @@ class _BookInfoFormState extends State<BookInfoForm> {
                       height: 15,
                     ),
 
-                    /*TextFormField(
-                      key: ValueKey('author'),
-                      validator: (value) {
-                        if (value!.length > 7) {
-                          return null;
-                        } else {
-                          return 'El nombre del autor debe tener más de 7 caracteres';
-                        }
-                      },
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(
-                        labelText: 'Autor',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
-                      onSaved: (newValue) {
-                        author = newValue!;
-                      },
-                    ),*/
-
                     SizedBox(
                       height: 15,
                     ),
+                    
                     TextFormField(
                       key: ValueKey('desc'),
                       onChanged: (value) {

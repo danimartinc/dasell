@@ -2,6 +2,7 @@
 import 'package:DaSell/models/user.dart';
 //Screens
 import 'package:DaSell/screens/chats/chat_screen.dart';
+import 'package:DaSell/screens/tabs/utils/badge_requester.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class UsersChatScreen extends StatefulWidget {
+
   static const routeName = '/chatScreen';
 
   @override
@@ -16,6 +18,7 @@ class UsersChatScreen extends StatefulWidget {
 }
 
 class _UsersChatScreenState extends State<UsersChatScreen> {
+
   var docId;
   var receiverId;
   var receiverName;
@@ -26,7 +29,14 @@ class _UsersChatScreenState extends State<UsersChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final size = MediaQuery.of(context).size;
+
+    String getTimeAgoText(DateTime date) {
+      // return '3 minutes ago';
+      return timeago.format(date, locale: 'es');
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -45,7 +55,9 @@ class _UsersChatScreenState extends State<UsersChatScreen> {
           // }
 
           if (snapshot.hasData) {
+
             var documents = snapshot.data!.docs;
+
             return ListView.builder(
               itemCount: documents.length,
               itemBuilder: (context, index) {
@@ -111,38 +123,7 @@ class _UsersChatScreenState extends State<UsersChatScreen> {
                                         ? documents[index]['lastMessage']
                                         : 'Tú: ${documents[index]['lastMessage']}',
                                   ),
-                                  trailing: /*Padding(
-
-                            padding: const EdgeInsets.fromLTRB(0, 8, 4, 4),
-                            child: (snapshot.hasData && snapshot.data!.docs.length > 0)
-                            ? Container(
-                              width: 60,
-                              height: 50,
-                              child: Column(
-                                children: <Widget>[
-                                  Text((snapshot.hasData && snapshot.data!.docs.length >0)
-                                    ? readTimestamp(snapshot.data!.docs[0]['timestamp'])
-                                    : '',style: TextStyle(fontSize: size.width * 0.03),
-                                  ),
-                                  Padding(
-                                      padding:const EdgeInsets.fromLTRB( 0, 5, 0, 0),
-                                      child: CircleAvatar(
-                                        radius: 9,
-                                        child: Text(snapshot.data!.docs[0]['badgeCount'] == null ? '' : ((snapshot.data!.docs[0]['badgeCount'] != 0
-                                          ? '${snapshot.data!.docs[0]['badgeCount']}'
-                                          : '')),
-                                        style: TextStyle(fontSize: 10),),
-                                        backgroundColor: snapshot.data!.docs[0]['badgeCount'] == null ? Colors.transparent : (snapshot.data!.docs[0]['badgeCount'] != 0
-                                          ? Colors.red[400]
-                                          : Colors.transparent),
-                                        foregroundColor:Colors.white,
-                                      ),
-                                  ),
-                                ],
-                              ),
-                            ) : Text('')),*/
-
-                                      Column(
+                                  trailing: Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -172,8 +153,7 @@ class _UsersChatScreenState extends State<UsersChatScreen> {
                                       arguments: UserModel(
                                         userName: receiverData.data!['name'],
                                         email: receiverData.data!['email'],
-                                        profilePicture: receiverData
-                                            .data!['profilePicture'],
+                                        profilePicture: receiverData.data!['profilePicture'],
                                         uid: receiverData.data!['uid'],
                                         status: receiverData.data!['status'],
                                       ),
@@ -206,117 +186,6 @@ class _UsersChatScreenState extends State<UsersChatScreen> {
             child: CircularProgressIndicator(),
           );
         },
-      ),
-    );
-  }
-
-  String getTimeAgoText(DateTime date) {
-    // return '3 minutes ago';
-    return timeago.format(date, locale: 'es');
-  }
-}
-
-class BadgeRequester extends StatefulWidget {
-
-  final String docId, uid, recieverId;
-
-  const BadgeRequester({
-    Key? key,
-    required this.recieverId,
-    required this.docId,
-    required this.uid,
-  }) : super(key: key);
-
-  @override
-  _BadgeRequesterState createState() => _BadgeRequesterState();
-}
-
-class _BadgeRequesterState extends State<BadgeRequester> {
-
-  int count = 0;
-  //int totalCount = 0;
-
-  @override
-  void initState() {
-    requestData();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return BadgeCount(count: count );
-  }
-
-  Future<void> requestData() async {
-
-    final doc = await FirebaseFirestore.instance
-        .collection('chats')
-        .doc(widget.uid + widget.recieverId)
-        .get();
-        
-    final messagesResults = await (doc.reference
-            .collection('messages')
-            .where('receiverId', isEqualTo: widget.uid)
-            .where('isRead', isEqualTo: false))
-        .get();
-    
-    /*final totalMessagesResults = await (doc.reference
-            .collection('messages')
-            .where('receiverId', isEqualTo: widget.uid)
-            .where('isRead', isEqualTo: false))
-        .get();*/
-
-    if( this.mounted ) {
-
-          setState(() {
-            count = messagesResults.size;
-            //totalCount = totalMessagesResults.size;
-          });
-    }
-
-
-    }
-
-}
-
-/// Custom UI para mostrar la cantidad de mensajes no leidos
-class BadgeCount extends StatelessWidget {
-
-  final int count;
- // final int totalCount;
-
-  const BadgeCount({
-    Key? key,
-    required this.count,
-   //required this.totalCount,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    if (count <= 0) return const SizedBox();
-    final label = count <= 99 ? '$count' : '99+';
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.red,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      constraints: BoxConstraints(minWidth: 20, maxHeight: 20),
-      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-      child: Text(
-        label,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 10,
-            fontWeight: FontWeight.w400,
-            shadows: const [
-              Shadow(
-                color: Colors.black12,
-                offset: Offset(1, 1),
-                blurRadius: 2,
-              )
-            ]),
       ),
     );
   }

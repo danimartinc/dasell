@@ -45,7 +45,6 @@ class AdProvider with ChangeNotifier {
   Future<UserModel?> getUserDataFromUid( String? uid ) async {
 
     final userData = await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
     final user = UserModel();
 
     user.email          = userData['email'];
@@ -58,10 +57,10 @@ class AdProvider with ChangeNotifier {
 
   Future<AdLocation?> getUserLocation() async {
 
-    if ( loc!.latitude == null ) {
+    final location = Location();
+    final locData  = await location.getLocation();
 
-      final location = Location();
-      final locData  = await location.getLocation();
+    if ( loc!.latitude == null ) {
 
       loc!.latitude  = locData.latitude;
       loc!.longitude = locData.longitude;
@@ -75,8 +74,8 @@ class AdProvider with ChangeNotifier {
   Future<double?> getDistanceFromCoordinates( double? lat, double? long ) async {
 
     final location = Location();
-
     final locData = await location.getLocation();
+
     loc!.latitude  = locData.latitude;
     loc!.longitude = locData.longitude;
 
@@ -86,6 +85,7 @@ class AdProvider with ChangeNotifier {
       lat!,
       long!,
     );
+
     return distance;
   }
 
@@ -101,6 +101,7 @@ class AdProvider with ChangeNotifier {
       lat2,
       long2,
     );
+
     return distance;
   }
 
@@ -116,7 +117,6 @@ class AdProvider with ChangeNotifier {
     }
       _adModel!.title = title;
       _adModel!.categories = cats;
-      //_adModel!.author = author;
       _adModel!.isFav = false;
       _adModel!.isSold = false;
       _adModel!.makeShipments = makeShipments;
@@ -125,13 +125,16 @@ class AdProvider with ChangeNotifier {
   }
 
   void addImagePaths(List<File> images) {
+
     if (_adModel == null) {
       _adModel = AdModel();
     }
+
     _adModel!.fileImages = images;
   }
 
   void addImageAssets(List<Asset> images) {
+
     if (_adModel == null) {
       _adModel = AdModel();
     }
@@ -140,9 +143,11 @@ class AdProvider with ChangeNotifier {
   }
 
   void addLocation( double price, AdLocation location ) {
+
     if (_adModel == null) {
       _adModel = AdModel();
     }
+    
     _adModel!.price = price;
     _adModel!.location = location;
   }
@@ -166,6 +171,7 @@ class AdProvider with ChangeNotifier {
       await ref.putFile(imgFile);
 
       final url = await ref.getDownloadURL();
+      
       print('url is $url');
 
       await FirebaseFirestore.instance
@@ -297,7 +303,6 @@ class AdProvider with ChangeNotifier {
           'createdAt': createdAt,
           'price': _adModel!.price,
           'title': _adModel!.title,
-          //'author': _adModel!.author,
           'description': _adModel!.description,
           'categories': _adModel!.categories,
           'images': downloadedPaths,

@@ -1,8 +1,8 @@
 //Widgets
 import 'package:DaSell/maps/screens/loading_screen.dart';
 import 'package:DaSell/maps/screens/map_screen.dart';
-import 'package:DaSell/widgets/chat/chat_bubble.dart';
-import 'package:DaSell/widgets/chat/map_preview.dart';
+import 'package:DaSell/widgets/chat/widgets/chat_bubble.dart';
+import 'package:DaSell/widgets/chat/widgets/map_preview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -97,7 +97,7 @@ class Messages extends StatelessWidget {
 
             try{
     
-                if (doc['message'] != "Ubicación") {
+                if (doc['message'] != 'Ubicación') {
                   displayItem = MessageBubble(
                     message: doc['message'],
                     isMe: isMe,
@@ -130,6 +130,7 @@ class Messages extends StatelessWidget {
             } catch (e) {
               print(e);
             }
+            
             displayItem = Padding(
               padding: EdgeInsets.all(5),
               child: displayItem,

@@ -14,32 +14,7 @@ class BtnShared extends StatefulWidget {
   @override
   State<BtnShared> createState() => _BtnSharedState();
 }
-/*
-class OrdersBloc {
 
-  Future<List<OrdersModel>> getOrders() async {
-    try {
-      WooCommerceAPI wooCommerceAPI = WooCommerceAPI(
-        url: urlWC,
-        consumerKey: consumerKeyWC,
-        consumerSecret: consumerSecretWC,
-      );
-
-      List<OrdersModel> ordersList = [];
-      var listOrders = await wooCommerceAPI.getAsync(statusProcessing);
-
-      for (var item in listOrders) {
-        ordersList.add(OrdersModel.fromJson(item));
-      }
-
-      return ordersList;
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
-}
-*/
 
 class _BtnSharedState extends State<BtnShared> {
 
@@ -55,10 +30,6 @@ class _BtnSharedState extends State<BtnShared> {
 
   @override
   Widget build(BuildContext context) {
-
-   
-
-    
 
     return Container(
       margin: const EdgeInsets.only( bottom: 10 ),

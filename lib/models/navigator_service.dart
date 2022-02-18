@@ -13,6 +13,7 @@ class NavigatorService {
 }
 
 GetIt locator = GetIt.instance;
+
 void setupLocator() {
   locator.registerLazySingleton(() => NavigatorService());
 }

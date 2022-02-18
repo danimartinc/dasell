@@ -23,6 +23,7 @@ class ImagePickerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       padding: EdgeInsets.fromLTRB(0, 6, 2, 0),
       alignment: Alignment.centerRight,
@@ -79,6 +80,7 @@ class ImagePickerButton extends StatelessWidget {
                                 onTap: () {
                                   Provider.of<AdProvider>(ctx, listen: false)
                                       .uploadProfilePicture(null);
+                                  
                                   Navigator.of(ctx).pop();
                                 },
                                 title: Text('Eliminar'),
