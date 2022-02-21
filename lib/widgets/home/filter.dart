@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Filter extends StatefulWidget {
-
   final Function(RangeValues rv) range;
 
   //Constructor
@@ -9,16 +8,13 @@ class Filter extends StatefulWidget {
 
   @override
   _FilterState createState() => _FilterState();
-
 }
 
 class _FilterState extends State<Filter> {
-
   RangeValues rv = RangeValues(0, 2000);
-  
+
   @override
   Widget build(BuildContext context) {
-    
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

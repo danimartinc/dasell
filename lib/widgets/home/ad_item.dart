@@ -33,7 +33,7 @@ class _AdItemState extends State<AdItem> {
   Widget build( BuildContext context ) {
     
    // final index = ModalRoute.of(context)!.settings.arguments as int;
-   // final cats  = Categories.categories[index];
+   // final cats  = Categories.categories.json[index];
   
   
     return ClipRRect(

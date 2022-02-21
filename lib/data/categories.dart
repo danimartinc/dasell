@@ -1,11 +1,52 @@
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+class CategoryVo {
+  final String name;
+  final List<String> further;
+  final String iconName;
+
+  CategoryVo({
+    required this.name,
+    required this.further,
+    required this.iconName,
+  });
+
+  CategoryVo.fromJson(dynamic json)
+      : name = json['category'],
+        further = json['further'] != null ? json['further'].cast<String>() : [],
+        iconName = json['icon'];
+
+  IconData get icon => _categoryIconByName[iconName]!;
+}
+
+final _categoryIconByName = <String, IconData>{
+  "car": FontAwesomeIcons.car,
+  "motorcycle": FontAwesomeIcons.motorcycle,
+  "tshirt": FontAwesomeIcons.tshirt,
+  "cogs": FontAwesomeIcons.cogs,
+  "houseUser": FontAwesomeIcons.houseUser,
+  "tv": FontAwesomeIcons.tv,
+  "mobileAlt": FontAwesomeIcons.mobileAlt,
+  "laptop": FontAwesomeIcons.laptop,
+  "running": FontAwesomeIcons.running,
+  "biking": FontAwesomeIcons.biking,
+  "gamepad": FontAwesomeIcons.gamepad,
+  "couch": FontAwesomeIcons.couch,
+  "plug": FontAwesomeIcons.plug,
+  "book": FontAwesomeIcons.book,
+  "child": FontAwesomeIcons.child,
+  "addressBook": FontAwesomeIcons.addressBook,
+  "hammer": FontAwesomeIcons.hammer,
+  "industry": FontAwesomeIcons.industry,
+  "briefcase": FontAwesomeIcons.briefcase,
+  "wrench": FontAwesomeIcons.wrench,
+  "ellipsisH": FontAwesomeIcons.ellipsisH,
+};
+
 class Categories {
-  
   static List<String> storedCategories = [];
-  
+
   static void addCategory(String cat) {
     storedCategories.add(cat);
   }
@@ -30,7 +71,7 @@ class Categories {
         'Compacto',
         'Otros'
       ],
-      'icon' : FontAwesomeIcons.car,
+      'icon': FontAwesomeIcons.car,
     },
     {
       'category': 'Motos',
@@ -47,7 +88,7 @@ class Categories {
         'Eléctricas',
         'Competición',
       ],
-      'icon' : FontAwesomeIcons.motorcycle,
+      'icon': FontAwesomeIcons.motorcycle,
     },
     {
       'category': 'Moda y accesorios',
@@ -78,7 +119,7 @@ class Categories {
         'Calcetines',
         'Ropa interior',
       ],
-      'icon' : FontAwesomeIcons.tshirt,
+      'icon': FontAwesomeIcons.tshirt,
     },
     {
       'category': 'Motor y accesorios',
@@ -89,7 +130,7 @@ class Categories {
         'Repuestos de motos y cuatriciclos',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.cogs,
+      'icon': FontAwesomeIcons.cogs,
     },
     {
       'category': 'Inmobiliaria',
@@ -97,7 +138,7 @@ class Categories {
         'Alquiler',
         'Venta',
       ],
-      'icon' : FontAwesomeIcons.houseUser,
+      'icon': FontAwesomeIcons.houseUser,
     },
     {
       'category': 'TV, Audio y Foto',
@@ -113,7 +154,7 @@ class Categories {
         'Vídeo y accesorios',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.tv,
+      'icon': FontAwesomeIcons.tv,
     },
     {
       'category': 'Móviles y Telefonía',
@@ -129,7 +170,7 @@ class Categories {
         'Teléfonos móviles',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.mobileAlt,
+      'icon': FontAwesomeIcons.mobileAlt,
     },
     {
       'category': 'Informática y Electrónica',
@@ -149,7 +190,7 @@ class Categories {
         'Software',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.laptop,
+      'icon': FontAwesomeIcons.laptop,
     },
     {
       'category': 'Deporte y Ocio',
@@ -171,7 +212,7 @@ class Categories {
         'Otros deportes',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.running,
+      'icon': FontAwesomeIcons.running,
     },
     {
       'category': 'Bicicletas',
@@ -184,7 +225,7 @@ class Categories {
         'Bicicletas infantiles',
         'Bicicletas ciudad',
         'Bicicletas de carretera',
-        'Bicicletas eléctricas',    
+        'Bicicletas eléctricas',
         'Bicicletas plegables',
         'Fixies',
         'MTB',
@@ -204,7 +245,7 @@ class Categories {
         'Zapatillas y cubrezapatillas',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.biking,
+      'icon': FontAwesomeIcons.biking,
     },
     {
       'category': 'Consolas y Videojuegos',
@@ -217,9 +258,9 @@ class Categories {
         'Videojuegos',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.gamepad,
+      'icon': FontAwesomeIcons.gamepad,
     },
-     {
+    {
       'category': 'Hogar y Jardín',
       'further': [
         'Armarios',
@@ -230,7 +271,7 @@ class Categories {
         'Juegos de baño',
         'Muebles de baño y espejos',
         'Radiadores de baño',
-        'Toallas de baño y alfombras',    
+        'Toallas de baño y alfombras',
         'Cuberterías',
         'Utensilios',
         'Vajillas',
@@ -258,9 +299,9 @@ class Categories {
         'Muebles áreas comunes',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.couch,
-    }, 
-     {
+      'icon': FontAwesomeIcons.couch,
+    },
+    {
       'category': 'Electrodomésticos',
       'further': [
         'Climatización',
@@ -271,9 +312,9 @@ class Categories {
         'Vitrocerámica',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.plug,
-    }, 
-     {
+      'icon': FontAwesomeIcons.plug,
+    },
+    {
       'category': 'Cine, Libros y Música',
       'further': [
         'CDs Música',
@@ -307,9 +348,9 @@ class Categories {
         'Tocadiscos',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.book,
-    }, 
-     {
+      'icon': FontAwesomeIcons.book,
+    },
+    {
       'category': 'Niños y Bebés',
       'further': [
         'Accesorios de baño',
@@ -349,8 +390,8 @@ class Categories {
         'Tronas',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.child,
-    }, 
+      'icon': FontAwesomeIcons.child,
+    },
     {
       'category': 'Coleccionismo',
       'further': [
@@ -371,9 +412,9 @@ class Categories {
         'Relojes',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.addressBook,
+      'icon': FontAwesomeIcons.addressBook,
     },
-     {
+    {
       'category': 'Materiales de construcción',
       'further': [
         'Balcones',
@@ -389,7 +430,7 @@ class Categories {
         'Herramientas eléctricas',
         'Maquinaria',
         'Madera y otros materiales',
-        'Baldosas y azulejos', 
+        'Baldosas y azulejos',
         'Parquet',
         'Barnices',
         'Pinturas',
@@ -399,9 +440,9 @@ class Categories {
         'Ventanas',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.hammer,
-    }, 
-     {
+      'icon': FontAwesomeIcons.hammer,
+    },
+    {
       'category': 'Industria y Agricultura',
       'further': [
         'Herramientas agrícolas',
@@ -417,17 +458,17 @@ class Categories {
         'Repuestos de maquinaria',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.industry,
-    }, 
-     {
+      'icon': FontAwesomeIcons.industry,
+    },
+    {
       'category': 'Empleo',
       'further': [
         'Busco empleo',
         'Ofertas de empleo',
       ],
-      'icon' : FontAwesomeIcons.briefcase,
-    }, 
-     {
+      'icon': FontAwesomeIcons.briefcase,
+    },
+    {
       'category': 'Servicios',
       'further': [
         'Clases de idiomas',
@@ -445,15 +486,15 @@ class Categories {
         'Terapia y crecimiento personal',
         'Otros',
       ],
-      'icon' : FontAwesomeIcons.wrench,
+      'icon': FontAwesomeIcons.wrench,
     },
-     {
+    {
       'category': 'Otros',
       'further': [
         'Religioso',
         'Espiritual',
       ],
-      'icon' : FontAwesomeIcons.ellipsisH,
-    }, 
+      'icon': FontAwesomeIcons.ellipsisH,
+    },
   ];
 }

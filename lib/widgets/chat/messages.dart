@@ -1,4 +1,5 @@
 //Widgets
+import 'package:DaSell/commons.dart';
 import 'package:DaSell/maps/screens/loading_screen.dart';
 import 'package:DaSell/maps/screens/map_screen.dart';
 import 'package:DaSell/widgets/chat/widgets/chat_bubble.dart';
@@ -36,9 +37,7 @@ class Messages extends StatelessWidget {
           .snapshots(),
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return CommonProgress();
         }
 
         var documents = snapshot.data!.docs;

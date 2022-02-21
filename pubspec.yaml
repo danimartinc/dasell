@@ -102,7 +102,7 @@ flutter:
   assets:
       - assets/images/chat_back.png
       - assets/images/boy.svg
-
+      - assets/json/categories.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

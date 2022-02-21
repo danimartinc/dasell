@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:DaSell/commons.dart';
 import 'package:DaSell/live-map/map_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -60,7 +61,7 @@ class _TrackingAppState extends State<TrackingApp> {
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
 
               if (!snapshot.hasData) {
-                return Center(child: CircularProgressIndicator());
+                return CommonProgress();
               }
 
               return ListView.builder(

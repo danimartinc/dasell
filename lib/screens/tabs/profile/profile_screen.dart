@@ -1,53 +1,32 @@
-import 'package:flutter/material.dart';
-import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart' as pPath;
-import 'package:google_sign_in/google_sign_in.dart';
-
-//Providers
-import 'package:DaSell/provider/ad_provider.dart';
-
-//Widgets
-import 'package:DaSell/widgets/profile/image_picker_button.dart';
+import 'package:DaSell/commons.dart';
 import 'package:DaSell/widgets/profile/profile_switches.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileScreen extends StatefulWidget {
-
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  
   late BuildContext ctx;
   bool isLoading = false;
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final uid = FirebaseAuth.instance.currentUser!.uid;
 
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
-
     ctx = context;
-    
+
     return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-      stream: FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
-      builder: ( ctx, snapshot ) {
+      stream:
+          FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
+      builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return CommonProgress();
         }
 
         return Padding(
@@ -70,8 +49,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.black, width: 2),
                           ),
-                          child: snapshot.data!['profilePicture']  == ''
-                          //name: doc.data()['name'] ?? '' 
+                          child: snapshot.data!['profilePicture'] == ''
+                              //name: doc.data()['name'] ?? ''
                               ? SvgPicture.asset(
                                   'assets/images/boy.svg',
                                 )
@@ -82,6 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                         ),
+
                         /// TODO: ROTO
                         ///Positioned(
                         ///    right: 0,
@@ -130,7 +110,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         context: ctx,
                         builder: (context) => AlertDialog(
                               title: Text('Cerrar sesión'),
-                              content: Text('¿Está seguro de querer cerrar sesión?'),
+                              content:
+                                  Text('¿Está seguro de querer cerrar sesión?'),
                               actions: [
                                 TextButton(
                                   child: Text(
@@ -140,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                   ),
                                   onPressed: () => Navigator.of(context).pop(),
-                                ), 
+                                ),
                                 ElevatedButton(
                                   child: Text('Confirmar'),
                                   onPressed: () {
@@ -151,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ],
                             )),
-                          label: Text('Cerrar sesión'),
+                    label: Text('Cerrar sesión'),
                   )
                 ],
               ),
