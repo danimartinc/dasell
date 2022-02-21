@@ -159,9 +159,10 @@ class _NewMessageState extends State<NewMessage> {
                                     showModalBottomSheet(
                                       backgroundColor: Colors.transparent,
                                       context: context,
-                                      builder: (builder) =>
-                                        BottomSheet()   
-                                    );            
+                                      builder: (builder) => Container(),
+                                      /// TODO: ROTO
+                                      /// BottomSheet()
+                                    );
                                   },
                                                      
                                 ),

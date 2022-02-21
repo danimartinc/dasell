@@ -9,7 +9,7 @@ import 'package:DaSell/data/categories.dart';
 import 'package:DaSell/provider/ad_provider.dart';
 
 //Screens
-import 'package:DaSell/screens/add/adding_images_screen.dart';
+// import 'package:DaSell/screens/add/adding_images_screen.dart';
 import 'package:DaSell/screens/add/further_cat.dart';
 import 'package:DaSell/screens/tabs/add_product/add_product_screen.dart';
 
@@ -67,8 +67,8 @@ class _BookInfoFormState extends State<BookInfoForm> {
         sliderValueMap[ sliderValue!.toInt().toString() ],
         makeShipments
       );
-
-      Navigator.of(context).pushNamed( AddingImagesScreen.routeName );
+      /// TODO: ROTO
+      // Navigator.of(context).pushNamed( AddingImagesScreen.routeName );
     }
   }
 

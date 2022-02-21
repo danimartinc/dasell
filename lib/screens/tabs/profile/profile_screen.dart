@@ -82,15 +82,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                         ),
-                        Positioned(
-                            right: 0,
-                            bottom: 0,
-                            child: ImagePickerButton(
-                              isLoading: isLoading,
-                              ctx: ctx,
-                              pickImage: _pickImage,
-                              profilePic: snapshot.data!['profilePicture'],
-                            )),
+                        /// TODO: ROTO
+                        ///Positioned(
+                        ///    right: 0,
+                        ///    bottom: 0,
+                        ///    child: ImagePickerButton(
+                        ///      isLoading: isLoading,
+                        ///      ctx: ctx,
+                        ///     pickImage: _pickImage,
+                        ///      profilePic: snapshot.data!['profilePicture'],
+                        ///    )),
                       ],
                     ),
                   ),
@@ -143,7 +144,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ElevatedButton(
                                   child: Text('Confirmar'),
                                   onPressed: () {
-                                    _signOut();
+                                    /// TODO: ROTO
+                                    /// _signOut();
                                     Navigator.of(context).pop();
                                   },
                                 ),

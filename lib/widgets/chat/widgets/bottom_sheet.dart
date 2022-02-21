@@ -41,11 +41,11 @@ class _BottomSheetState extends State<BottomSheet> {
                   iconCreation(
                       Icons.camera_alt, Colors.pink, 'Cámara', 
                       () {
-                        pickImage(
-                          context,
-                          ImageSource.camera,
-                        );
-
+                        /// TODO: ROTO
+                        /// pickImage(
+                        ///   context,
+                        ///   ImageSource.camera,
+                        /// );
                         Navigator.of(context).pop();
                       },
                   ),
@@ -54,10 +54,11 @@ class _BottomSheetState extends State<BottomSheet> {
                   ),
                   iconCreation(Icons.insert_photo, Colors.purple,'Galería',
                     () {
-                      pickImage(
-                        context,
-                        ImageSource.gallery,
-                      );
+                      /// TODO: ROTO
+                      ///pickImage(
+                      ///  context,
+                      ///  ImageSource.gallery,
+                      ///);
                       Navigator.of(context).pop();
                     },
                   ),

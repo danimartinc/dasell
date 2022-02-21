@@ -23,7 +23,7 @@ import 'screens/auth/auth_screen.dart';
 import './screens/bottom_navigation.dart';
 import 'screens/add/further_cat.dart';
 import 'screens/add/product_info_one.dart';
-import 'screens/add/adding_images_screen.dart';
+// import 'screens/add/adding_images_screen.dart';
 import 'screens/add/price_and_location_screen.dart';
 import 'screens/home/product_detail_screen.dart';
 import 'screens/chats/chat_screen.dart';
@@ -208,7 +208,8 @@ import 'widgets/home/pallete.dart';
                               UsersChatScreen.routeName: (context) => UsersChatScreen(),
                               FurtherCat.routeName: (context) => FurtherCat(),
                               ProductInfoOne.routeName: (context) => ProductInfoOne(),
-                              AddingImagesScreen.routeName: (context) => AddingImagesScreen(),
+                              /// TODO: ROTO
+                              /// AddingImagesScreen.routeName: (context) => AddingImagesScreen(),
                               PriceAndLocationScreen.routeName: (context) => PriceAndLocationScreen(),
                               BottomNavigationScreen.routeName: (context) => BottomNavigationScreen(),
                               ProductDetailScreen.routeName: (context) => ProductDetailScreen(),

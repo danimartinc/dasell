@@ -7,40 +7,35 @@ import 'package:provider/provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as pPath;
 
-void pickImage( BuildContext context, ImageSource src ) async {
-
+void pickImage(BuildContext context, ImageSource src) async {
   File? _storedImage;
   File? _pickedImage;
   bool isLoading = false;
 
-    final picker = new ImagePicker();
-    
-    final XFile? pickedImageFile = await picker.pickImage(
-        source: src,
-        maxWidth: 600, 
-        imageQuality: 70
-    );
+  final picker = new ImagePicker();
 
-    if (pickedImageFile == null) {
-      return;
-    }
+  final XFile? pickedImageFile =
+      await picker.pickImage(source: src, maxWidth: 600, imageQuality: 70);
 
-    _storedImage = File(pickedImageFile.path);
+  if (pickedImageFile == null) {
+    return;
+  }
 
-    //Parte importante
-    final appDir = await pPath.getApplicationDocumentsDirectory();
-    final fileName = path.basename(_storedImage!.path);
-    final savedImage = await _storedImage!.copy('${appDir.path}/$fileName');
-    _pickedImage = savedImage;
+  _storedImage = File(pickedImageFile.path);
 
-    setState(() {
-      isLoading = true;
-    });
+  //Parte importante
+  final appDir = await pPath.getApplicationDocumentsDirectory();
+  final fileName = path.basename(_storedImage!.path);
+  final savedImage = await _storedImage!.copy('${appDir.path}/$fileName');
+  _pickedImage = savedImage;
 
-    await Provider.of<AdProvider>( context, listen: false )
-        .uploadProfilePicture( _pickedImage! );
-
-    setState(() {
-      isLoading = false;
-    });
+  /// TODO: ROTO
+  /// setState(() {
+  ///   isLoading = true;
+  /// });
+  /// await Provider.of<AdProvider>(context, listen: false)
+  ///     .uploadProfilePicture(_pickedImage!);
+  /// setState(() {
+  ///   isLoading = false;
+  /// });
 }
