@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:DaSell/commons.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -61,15 +61,17 @@ class FirebaseService {
         .update({'isSold': true});
   }
 
-  Future<UserVo2> getUser(String userId) async {
+  Future<UserVo> getUser(String userId) async {
     final userData = await firestore.collection('users').doc(userId).get();
-    return UserVo2.fromJson(userData.data());
-    // final user = UserModel();
-    // user.email          = userData['email'];
-    // user.userName       = userData['name'];
-    // user.profilePicture = userData['profilePicture'];
-    // user.uid            = userData['uid'];
-    //
-    // return user;
+    return UserVo.fromJson(userData.data());
+  }
+
+  StreamSubscription subscribeToChats(
+      Function(QuerySnapshot<Map<String, dynamic>> event) onData) {
+    final stream = FirebaseFirestore.instance
+        .collection('chats')
+        .orderBy('timeStamp', descending: true)
+        .snapshots();
+    return stream.listen(onData);
   }
 }

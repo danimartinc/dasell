@@ -42,17 +42,17 @@ class AdProvider with ChangeNotifier {
     return url;
   }
 
-  Future<UserModel?> getUserDataFromUid( String? uid ) async {
+  Future<UserVo?> getUserDataFromUid( String? uid ) async {
 
     final userData = await FirebaseFirestore.instance.collection('users').doc(uid).get();
-    final user = UserModel();
-
-    user.email          = userData['email'];
-    user.userName       = userData['name'];
-    user.profilePicture = userData['profilePicture'];
-    user.uid            = userData['uid'];
-
-    return user;
+    return UserVo.fromJson(userData.data()!);
+    // final user = UserModel();
+    // user.email          = userData['email'];
+    // user.userName       = userData['name'];
+    // user.profilePicture = userData['profilePicture'];
+    // user.uid            = userData['uid'];
+    //
+    // return user;
   }
 
   Future<AdLocation?> getUserLocation() async {

@@ -13,7 +13,7 @@ abstract class ProductDetailsState extends State<ProductDetails> {
   bool isSold = false;
 
   String mapUrl = '';
-  UserVo2? adUser;
+  UserVo? adUser;
 
   ResponseProductVo get data => widget.data;
   final _firebaseService = FirebaseService.get();
@@ -35,10 +35,7 @@ abstract class ProductDetailsState extends State<ProductDetails> {
         Provider.of<AdProvider>(context, listen: false).getLocationFromLatLang(
       latitude: data.location?.latitude,
       longitude: data.location?.longitude,
-      // latitude: (documents['location']['latitude'] as double? ),
-      // longitude: (documents['location']['longitude'] as double? ),
     );
-    // trace(mapUrl);
 
     adUser = await _firebaseService.getUser(data.uid!);
 

@@ -5,7 +5,7 @@ class ChatRoomVo {
   bool? isRead;
   String? lastMessage;
   String? senderId;
-  String? timeStamp;
+  Timestamp? timeStamp;
   String? docId;
 
   /// no se si es válido
@@ -13,7 +13,8 @@ class ChatRoomVo {
     if(timeStamp==null){
       return null;
     }
-    return DateTime.tryParse(timeStamp!);
+    return timeStamp!.toDate();
+    // return DateTime.tryParse(timeStamp!);
   }
 
   ChatRoomVo(

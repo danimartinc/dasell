@@ -94,7 +94,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final width = MediaQuery.of(context).size.width;
 
     ctx = context;
-    UserModel? userData;
+
+    // UserModel? userData;
+    UserVo? userData;
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
 
@@ -225,7 +227,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ]
             : [],
       ),
-      body: FutureBuilder<UserModel?>(
+      body: FutureBuilder<UserVo?>(
           future: Provider.of<AdProvider>(context).getUserDataFromUid(
             documents['uid'],
           ),
@@ -583,7 +585,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           : Text(
                                               isMe
                                                   ? 'Ti'
-                                                  : userSnapshot.data!.userName!,
+                                                  : userSnapshot.data!.textName,
                                               style: TextStyle(
                                                 fontSize: 18,
                                                 fontFamily: 'Poppins',

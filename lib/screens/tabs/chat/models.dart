@@ -11,7 +11,7 @@ class ChatViewItemVo {
   final UserVo receiver;
 
   String get widgetId {
-    return receiver.uid!;
+    return receiver.uid;
   }
 
   ChatViewItemVo({

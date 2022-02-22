@@ -15,8 +15,9 @@ import 'package:DaSell/widgets/chat/messages.dart';
 import 'package:DaSell/models/user.dart';
 
 class ChatScreen extends StatefulWidget {
-
+  final UserVo user;
   static const routeName = './chat_screen';
+  const ChatScreen({Key? key, required this.user}) : super(key: key);
   
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -24,15 +25,15 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
 
+  UserVo get userData => widget.user;
   @override
   Widget build( BuildContext context ) {
-
-    final userData = ModalRoute.of(context)!.settings.arguments as UserModel?;
+    // final userData = ModalRoute.of(context)!.settings.arguments as UserModel?;
     //final Map<String, dynamic> userMap;
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
     
     print('data is $userData');
-    print('name is ${userData!.userName}');
+    print('name is ${userData.name}');
     print('email is ${userData.email}');
     print('profile is ${userData.profilePicture}');
     print('uid is ${userData.uid}');
@@ -41,8 +42,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
     final uid = FirebaseAuth.instance.currentUser!.uid;
 
-    if ( userData.uid!.compareTo(uid) > 0 ) {
-      documentId = uid + userData.uid!;
+    if ( userData.uid.compareTo(uid) > 0 ) {
+      documentId = uid + userData.uid;
     } else {
       documentId = (userData.uid! + uid);
     }
@@ -115,7 +116,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text( userData.userName!,
+                          Text( userData.textName,
                             style: TextStyle(
                               fontSize: 18.5,
                               fontWeight: FontWeight.bold,

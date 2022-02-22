@@ -13,16 +13,13 @@ abstract class UsersChatController extends State<UsersChatScreen> {
   late StreamSubscription chatStreamSub;
   final List<ChatViewItemVo> dataItems = [];
 
+  final _service = FirebaseService.get();
+
   @override
   void initState() {
-    final stream = FirebaseFirestore.instance
-        .collection('chats')
-        .orderBy('timeStamp', descending: true)
-        .snapshots();
-    chatStreamSub = stream.listen(onChatDataChange);
+    chatStreamSub = _service.subscribeToChats(onChatDataChange);
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -41,10 +38,12 @@ abstract class UsersChatController extends State<UsersChatScreen> {
     return UserVo.fromJson(result.data()!);
   }
 
-  void onChatDataChange(QuerySnapshot<Map<String, dynamic>> event) {
+  Future<void> onChatDataChange(
+      QuerySnapshot<Map<String, dynamic>> event) async {
     final chatRooms = event.docs.map((e) => ChatRoomVo.fromDoc(e)).toList();
     final myId = myUser!.uid;
     dataItems.clear();
+
     chatRooms.forEach((e) async {
       /// si nuestro user es parte del id.
       if (e.docId!.contains(myId)) {
@@ -67,17 +66,18 @@ abstract class UsersChatController extends State<UsersChatScreen> {
           imageUrl: reciever.profilePicture,
         );
         dataItems.add(data);
+        /// refrescamos cada vez q conseguimos el user info.
+        update();
       }
     });
-    /// cambio el modelo o no, refrescamos la pantalla
-    setState(() {});
   }
 
   /// Item on tap.
   void onItemTap(UserVo userModel) {
-    Navigator.of(context).pushNamed(
-      ChatScreen.routeName,
-      arguments: userModel,
-    );
+    context.push(ChatScreen(user:userModel));
+    // Navigator.of(context).pushNamed(
+    //   ChatScreen.routeName,
+    //   arguments: userModel,
+    // );
   }
 }
