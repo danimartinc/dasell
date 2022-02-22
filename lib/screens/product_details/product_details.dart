@@ -1,4 +1,5 @@
 import 'package:DaSell/commons.dart';
+import 'package:DaSell/screens/chats/chat_screen.dart';
 import 'package:DaSell/services/firebase/models/product_vo.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -33,8 +34,43 @@ class _ProductDetailsState extends ProductDetailsState {
         ],
       ),
       body: getContent(),
+      floatingActionButton: Visibility(
+        visible: hasChat,
+        child: FittedBox(
+          child: FloatingActionButton.extended(
+            backgroundColor: Theme.of(context).primaryColor,
+            foregroundColor: Colors.white,
+            elevation: 15,
+            label: Text(''),
+            icon: Icon(FontAwesomeIcons.comments),
+            onPressed: onChatTap,
+          ),
+        ),
+      ),
     );
   }
+
+  //floatingActionButton: !isMe && !isSold
+  //                 ? Container(
+  //                     height: 90.0,
+  //                     width: 90.0,
+  //                     child: FittedBox(
+  //                       child: FloatingActionButton.extended(
+  //                         backgroundColor: Theme.of(context).primaryColor,
+  //                         foregroundColor: Colors.white,
+  //                         elevation: 15,
+  //                         label: Text(''),
+  //                         icon: Icon(
+  //                           FontAwesomeIcons.comments,
+  //                         ),
+  //                         onPressed: () => Navigator.of(context).pushNamed(
+  //                           ChatScreen.routeName,
+  //                           arguments: userData,
+  //                         ),
+  //                       ),
+  //                     ),
+  //
+  //                 )
 
   Widget getContent() {
     return SingleChildScrollView(

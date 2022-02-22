@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:DaSell/commons.dart';
+import 'package:DaSell/screens/chats/chat_screen.dart';
 import 'package:DaSell/services/firebase/models/product_vo.dart';
-import 'package:DaSell/services/firebase/models/user_vo.dart';
 
 import '../../provider/ad_provider.dart';
 import 'product_details.dart';
@@ -108,6 +108,18 @@ abstract class ProductDetailsState extends State<ProductDetails> {
 
   void onCategoryTap(String category) {
     trace("Abrir categoria: $category");
+  }
+
+  bool get hasChat {
+    return !data.isMe && !data.getIsSold();
+  }
+
+  void onChatTap() {
+    context.push(ChatScreen(user: adUser!));
+    //     () => Navigator.of(context).pushNamed(
+    //   ChatScreen.routeName,
+    //   arguments: userData,
+    // ),
   }
 
   void onMapTap() {
