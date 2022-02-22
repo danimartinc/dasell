@@ -181,6 +181,8 @@ class MyApp extends StatelessWidget {
                       PriceAndLocationScreen(),
                   BottomNavigationScreen.routeName: (context) =>
                       BottomNavigationScreen(),
+
+                  /// navegar normalmente.
                   ProductDetailScreen.routeName: (context) =>
                       ProductDetailScreen(),
                   ChatScreen.routeName: (context) => ChatScreen(),

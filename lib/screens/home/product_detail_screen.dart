@@ -96,6 +96,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     ctx = context;
     UserModel? userData;
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+
     dynamic documents = args['docs'];
     docId = documents['id'];
     final bool isMe = args['isMe'];
@@ -406,22 +408,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               ],
                             ),
                         ),
-                      
-                      
-                        //Icon( documents['categories'][indexCategory] ),
 
-                          /*Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Autor: ${documents['author']}',
-                                  style: TextStyle(
-                                      fontFamily: 'Poppins', fontSize: 18),
-                                )
-                              ],
-                            ),
-                          ),*/
                           SizedBox(
                             height: 10,
                           ),

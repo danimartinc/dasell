@@ -1,10 +1,10 @@
 import 'package:DaSell/commons.dart';
 
 import '../provider/push_notification_service.dart';
-import 'firebase_service.dart';
+import 'firebase/firebase_service.dart';
 
 export 'data_service.dart';
-export 'firebase_service.dart';
+export 'firebase/firebase_service.dart';
 export 'navigator_service.dart';
 
 GetIt locator = GetIt.instance;

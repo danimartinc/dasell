@@ -1,3 +1,4 @@
+import 'package:DaSell/services/firebase/models/product_vo.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,6 +9,7 @@ import 'package:DaSell/data/categories.dart';
 
 //Screens
 import 'package:DaSell/screens/home/product_detail_screen.dart';
+
 
 class AdItem extends StatefulWidget {
 

@@ -1,26 +1,30 @@
-import 'package:flutter/material.dart';
+import 'package:DaSell/commons.dart';
 
-class Filter extends StatefulWidget {
-  final Function(RangeValues rv) range;
+class FilterPriceDialog extends StatefulWidget {
+  final Function(RangeValues rv) onRangeSelected;
+  final RangeValues initialValue;
 
-  //Constructor
-  Filter(this.range);
+  const FilterPriceDialog({
+    Key? key,
+    required this.onRangeSelected,
+    this.initialValue = const RangeValues(0, 2000),
+  }) : super(key: key);
 
   @override
-  _FilterState createState() => _FilterState();
+  _FilterPriceDialogState createState() => _FilterPriceDialogState();
 }
 
-class _FilterState extends State<Filter> {
-  RangeValues rv = RangeValues(0, 2000);
+class _FilterPriceDialogState extends State<FilterPriceDialog> {
+  late RangeValues rv = widget.initialValue;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Text(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
             'Precio',
             style: TextStyle(
               fontFamily: 'Poppins',
@@ -28,31 +32,43 @@ class _FilterState extends State<Filter> {
             ),
             textAlign: TextAlign.center,
           ),
-        ),
-        RangeSlider(
-          key: ValueKey('price'),
-          min: 0,
-          max: 2000,
-          values: rv,
-          onChanged: (value) {
-            setState(() {
+          RangeSlider(
+            key: ValueKey('price'),
+            min: 0,
+            max: 2000,
+            values: rv,
+            onChanged: (value) {
               rv = value;
-            });
-          },
-          divisions: 100,
-          labels: RangeLabels(
-            rv.start.toStringAsFixed(0),
-            rv.end.toStringAsFixed(0),
+              update();
+            },
+            divisions: 100,
+            labels: RangeLabels(
+              rv.start.toStringAsFixed(0),
+              rv.end.toStringAsFixed(0),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton(
-            child: Text('Aplicar'),
-            onPressed: () => widget.range(rv),
-          ),
-        )
-      ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                child: Text('Aplicar'),
+                onPressed: () {
+                  widget.onRangeSelected(rv);
+                  Navigator.of(context).pop();
+                },
+              ),
+              Gap(10),
+              ElevatedButton(
+                child: Text('Reinicar'),
+                onPressed: () {
+                  widget.onRangeSelected(RangeValues(0, 2000));
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

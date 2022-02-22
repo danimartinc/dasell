@@ -1,8 +1,11 @@
 import 'package:DaSell/commons.dart';
 import 'package:DaSell/data/categories.dart';
 import 'package:DaSell/provider/ad_provider.dart';
+import 'package:DaSell/screens/home/product_detail_screen.dart';
 import 'package:DaSell/screens/home/search.dart';
+import 'package:DaSell/screens/product_details/product_details.dart';
 import 'package:DaSell/screens/tabs/home/widgets/sort_dialog.dart';
+import 'package:DaSell/services/firebase/models/product_vo.dart';
 import 'package:DaSell/widgets/home/filter.dart';
 import 'package:location/location.dart';
 
@@ -13,19 +16,19 @@ abstract class HomeScreenState extends State<HomeScreen>
 
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final firestore = FirebaseFirestore.instance;
+
   List<dynamic> documents = [];
   List<AdModel?> prods = [];
-  bool isProd = true;
-  double? distance;
-  RangeValues range = RangeValues(0, 2000);
-
+  var priceRange = RangeValues(0, 2000);
   final _firebaseService = FirebaseService.get();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
+    _firebaseService.updateUserToken();
     _firebaseService.setUserOnline(true);
+    _loadData();
   }
 
   @override
@@ -40,23 +43,15 @@ abstract class HomeScreenState extends State<HomeScreen>
     super.didChangeAppLifecycleState(state);
   }
 
-  void setFilters(RangeValues rv) {
-    print('coming here set filters 2');
-    print('start is ${rv.start}');
-    setState(() {
-      range = rv;
-      prods = prods.where(
-        (element) {
-          print('element price is ${element!.price}');
-          print('range start is ${range.start} and ${range.end}');
-          return (element.price! >= range.start) &&
-              (element.price! <= range.end);
-        },
-      ).toList();
-      isProd = true;
-    });
-
-    Navigator.of(context).pop();
+  void onPriceRangeChanged(RangeValues rv) {
+    priceRange = rv;
+    currentProducts = _allProducts.where(
+      (product) {
+        var price = product.price ?? 0;
+        return (price >= priceRange.start) && (price <= priceRange.end);
+      },
+    ).toList();
+    update();
   }
 
   void onFilterTap() {
@@ -64,7 +59,10 @@ abstract class HomeScreenState extends State<HomeScreen>
       context: context,
       builder: (context) {
         return Dialog(
-          child: Filter(setFilters),
+          child: FilterPriceDialog(
+            onRangeSelected: onPriceRangeChanged,
+            initialValue: priceRange,
+          ),
         );
       },
     );
@@ -80,9 +78,7 @@ abstract class HomeScreenState extends State<HomeScreen>
   void onSortTap() {
     showDialog(
       context: context,
-      builder: (context) => SortDialog(
-        onSelect: onSortSelected,
-      ),
+      builder: (context) => SortDialog(onSelect: onSortSelected),
     );
   }
 
@@ -92,36 +88,83 @@ abstract class HomeScreenState extends State<HomeScreen>
       sortByClosest();
     } else {
       /// recientes
-      setState(() {
-        isProd = false;
-      });
+      sortByNewest();
     }
+  }
+
+  void sortByNewest() {
+    currentProducts.sort((a, b) {
+      return a.createdAt!.compareTo(b.createdAt!);
+    });
+    update();
   }
 
   void sortByClosest() async {
     final location = Location();
     final locData = await location.getLocation();
     print('locations is ${locData.latitude},${locData.longitude}');
-    for (int i = 0; i < prods.length; i++) {
-      prods[i]!.fromLoc = Provider.of<AdProvider>(context, listen: false)
-          .getDistanceFromCoordinates2(
-        prods[i]!.location!.latitude!,
-        prods[i]!.location!.longitude!,
+    final adProvider = Provider.of<AdProvider>(context, listen: false);
+    for (int i = 0; i < currentProducts.length; i++) {
+      final vo = currentProducts[i];
+      vo.fromLoc = adProvider.getDistanceFromCoordinates2(
+        vo.location!.latitude!,
+        vo.location!.longitude!,
         locData.latitude!,
         locData.longitude!,
       );
-      print('distance is ${(prods[i]!.fromLoc)}');
     }
+    currentProducts.sort((m1, m2) => m1.fromLoc.compareTo(m2.fromLoc));
+    update();
+  }
 
-    prods.sort((m1, m2) => m1!.fromLoc!.compareTo(m2!.fromLoc!));
+  List<ResponseProductVo> _allProducts = [];
+  List<ResponseProductVo> currentProducts = [];
+  bool isLoading = false;
 
-    print(
-      prods.map(
-        (e) => print('La distancia final es ${e!.fromLoc}'),
-      ),
-    );
-    setState(() {
-      isProd = true;
-    });
+  Future<void> _loadData() async {
+    currentProducts.clear();
+    _allProducts.clear();
+    isLoading = true;
+    update();
+    final products = await _firebaseService.getProducts();
+    if (products == null) {
+      trace('Error cargando productos.');
+    } else {
+      _allProducts.addAll(products);
+    }
+    currentProducts = List.from(_allProducts);
+    isLoading = false;
+    update();
+  }
+
+  Future<void> onRefreshPullDown() async {
+    await Future.delayed(Duration(milliseconds: 100));
+    await _loadData();
+    refreshController.refreshCompleted();
+  }
+
+  void onItemTap(ResponseProductVo vo) {
+    context.push(ProductDetails(data: vo,));
+    // Navigator.of(context).pushNamed(
+    //   ProductDetailScreen.routeName,
+    //   arguments: {
+    //     'docs': vo,
+    //     'isMe': vo.isMe,
+    //   },
+    // );
+  }
+
+  void onItemLike(ResponseProductVo vo) {
+    FirebaseService.get().setLikeProduct(vo.id!, !vo.getFav());
+  }
+
+  void onAddTap() {
+    context.pushReplacementNamed(AddProduct.routeName);
+    // () => {
+// //Navigator.of(context).pushNamed( AddProduct.routeName ),
+// //Navigator.of(context).pushNamed( './add_product_screen' )
+// Navigator.of(context)
+//     .pushReplacementNamed(AddProduct.routeName),
+// }
   }
 }

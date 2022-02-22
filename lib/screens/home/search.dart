@@ -1,27 +1,19 @@
-import 'package:flutter/material.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-
 //Widgets
 import 'package:DaSell/widgets/home/ad_item.dart';
-
-//Models
-import 'package:DaSell/models/ad_location.dart';
-import 'package:DaSell/models/ad_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class Search extends SearchDelegate {
-
   final List<dynamic> docs;
 
   //Constructor
-  Search( this.docs ):super(
-    searchFieldLabel: 'Buscar...' );
+  Search(this.docs) : super(searchFieldLabel: 'Buscar...');
 
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-          icon: Icon( Icons.clear ),
+          icon: Icon(Icons.clear),
           onPressed: () {
             this.query = '';
           })
@@ -45,62 +37,58 @@ class Search extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-
     var suggestionList = [];
     var donateList = [];
 
     if (query.contains('donate:')) {
-      
       final queryDonate = query.replaceAll('donate:', '');
       donateList = docs
           .where(
-            (element) => ( element['price'] as double? ) == 0,
+            (element) => (element['price'] as double?) == 0,
           )
           .toList();
       suggestionList = query.isEmpty
           ? donateList
           : donateList
-              .where(
-                ( element ) =>
-                    element['title']
-                        .toString()
-                        .trim()
-                        .toLowerCase()
-                        .contains(queryDonate.trim()) ||
-                    element['description']
-                        .toString()
-                        .trim()
-                        .toLowerCase()
-                        .contains(queryDonate.trim())
-                    /*element['author']
+              .where((element) =>
+                      element['title']
+                          .toString()
+                          .trim()
+                          .toLowerCase()
+                          .contains(queryDonate.trim()) ||
+                      element['description']
+                          .toString()
+                          .trim()
+                          .toLowerCase()
+                          .contains(queryDonate.trim())
+                  /*element['author']
                         .toString()
                         .trim()
                         .toLowerCase()
                         .contains(queryDonate.trim()),*/
-              )
+                  )
               .toList();
     } else {
       suggestionList = query.isEmpty
           ? docs
           : docs
-              .where(
-                ( element ) =>
-                    element['title']
-                        .toString()
-                        .trim()
-                        .toLowerCase()
-                        .contains( query.trim() ) ||
-                    element['description']
-                        .toString()
-                        .trim()
-                        .toLowerCase()
-                        .contains(query.trim())
-                    /*element['author']
+              .where((element) =>
+                      element['title']
+                          .toString()
+                          .trim()
+                          .toLowerCase()
+                          .contains(query.trim()) ||
+                      element['description']
+                          .toString()
+                          .trim()
+                          .toLowerCase()
+                          .contains(query.trim())
+                  /*element['author']
                         .toString()
                         .toLowerCase()
                         .trim()
                         .contains(query.trim()),*/
-              )
+                  )
               .toList();
     }
 
