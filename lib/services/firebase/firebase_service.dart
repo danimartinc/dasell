@@ -92,6 +92,38 @@ class FirebaseService {
       return otherUser.uid + uid;
     }
   }
+
+  Future<void> sendMessage(
+    String message, {
+    required String docId,
+    required String senderId,
+    required String receiverId,
+  }) async {
+    final ts = Timestamp.now();
+
+    final messageData = {
+      'message': message,
+      'imageUrl': '',
+      'senderId': senderId,
+      'receiverId': receiverId,
+      'timeStamp': ts,
+      'isRead': false,
+    };
+    await firestore
+        .collection('chats')
+        .doc(docId)
+        .collection('messages')
+        .add(messageData);
+
+    final chatData = {
+      'docId': docId,
+      'lastMessage': message,
+      'senderId': senderId,
+      'timeStamp': ts,
+      'isRead': false,
+    };
+    await firestore.collection('chats').doc(docId).set(chatData);
+  }
 }
 
 /// shortcutrs
