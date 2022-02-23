@@ -1,3 +1,4 @@
+import 'package:DaSell/commons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
@@ -159,7 +160,7 @@ class _UserInfoContainer extends StatelessWidget {
           CircleAvatar(
             backgroundImage: NetworkImage(place.user.urlPhoto),
           ),
-          const SizedBox(width: 10),
+          kGap10,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,

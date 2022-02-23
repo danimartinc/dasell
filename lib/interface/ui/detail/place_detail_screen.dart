@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:DaSell/interface/extensions/text_theme_x.dart';
 import 'package:DaSell/interface/models/place.dart';
 import 'package:DaSell/interface/ui/widgets/translate_animation.dart';
 
 
+import 'package:DaSell/commons.dart';
 import 'widgets/animated_detail_header.dart';
 import 'widgets/place_comments_widget.dart';
 
@@ -153,13 +153,13 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                               )
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          kGap10,
                           Text(widget.place.description),
-                          const SizedBox(height: 10),
+                          kGap10,
                           Text(widget.place.description),
-                          const SizedBox(height: 10),
+                          kGap10,
                           Text(widget.place.description),
-                          const SizedBox(height: 20),
+                          kGap20,
                           const Text(
                             'PLACES IN THIS COLLECTION',
                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -195,7 +195,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
                     ),
                   ),
                 ),
-                const SliverToBoxAdapter( child: SizedBox(height: 150) )
+                const SliverToBoxAdapter( child: const Gap(150) )
               ],
             ),
           ),

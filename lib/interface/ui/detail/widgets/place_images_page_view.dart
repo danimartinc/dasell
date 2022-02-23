@@ -3,8 +3,9 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PlaceImagesPageView extends StatefulWidget {
+import '../../../../commons.dart';
 
+class PlaceImagesPageView extends StatefulWidget {
   final List<String> imagesUrl;
 
   const PlaceImagesPageView({
@@ -12,13 +13,11 @@ class PlaceImagesPageView extends StatefulWidget {
     required this.imagesUrl,
   }) : super(key: key);
 
- 
   @override
   State<PlaceImagesPageView> createState() => _PlaceImagesPageViewState();
 }
 
 class _PlaceImagesPageViewState extends State<PlaceImagesPageView> {
-
   int currentIndex = 0;
 
   @override
@@ -34,7 +33,6 @@ class _PlaceImagesPageViewState extends State<PlaceImagesPageView> {
             physics: const BouncingScrollPhysics(),
             controller: PageController(viewportFraction: .9),
             itemBuilder: (context, index) {
-
               final imageUrl = widget.imagesUrl[index];
               final isSelected = currentIndex == index;
 
@@ -67,15 +65,14 @@ class _PlaceImagesPageViewState extends State<PlaceImagesPageView> {
             },
           ),
         ),
-        const SizedBox(height: 10),
+        kGap10,
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
             widget.imagesUrl.length,
             (index) {
-
               final isSelected = currentIndex == index;
-              
+
               return AnimatedContainer(
                 duration: kThemeAnimationDuration,
                 decoration: BoxDecoration(
@@ -89,7 +86,7 @@ class _PlaceImagesPageViewState extends State<PlaceImagesPageView> {
             },
           ),
         ),
-        const SizedBox(height: 10),
+        kGap10,
       ],
     );
   }

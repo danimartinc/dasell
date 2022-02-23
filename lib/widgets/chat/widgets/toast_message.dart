@@ -1,3 +1,4 @@
+import 'package:DaSell/commons.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -34,7 +35,7 @@ class _ToastMessageState extends State<ToastMessage> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon( Icons.check, color: Colors.black87, ),
-        SizedBox( width: 12.0, ),
+        const Gap(12),
         Text(
           'Ubicación compartida',
           style: TextStyle( color: Colors.black, fontSize: 22 ),

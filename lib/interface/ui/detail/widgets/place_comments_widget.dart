@@ -1,18 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:DaSell/commons.dart';
 import 'package:DaSell/interface/models/place.dart';
 
-
 class PlaceCommentsWidget extends StatelessWidget {
-
   const PlaceCommentsWidget({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       height: 130,
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -58,7 +53,7 @@ class PlaceCommentsWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                      const SizedBox(width: 10),
+                      kGap10,
                       const Text(
                         'Comments',
                         style: TextStyle(
@@ -66,7 +61,7 @@ class PlaceCommentsWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      kGap10,
                       const Text(
                         '120',
                         style: TextStyle(
@@ -74,15 +69,14 @@ class PlaceCommentsWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      const Icon(Icons.arrow_forward),
+                      kGap10,
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          const SizedBox(width: 20),
+          kGap20,
           Container(
             height: 60,
             width: 60,

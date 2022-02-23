@@ -1,3 +1,4 @@
+import 'package:DaSell/commons.dart';
 import 'package:flutter/material.dart';
 
 //Widgets
@@ -28,9 +29,7 @@ class AddProduct extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            SizedBox(
-              height: 15,
-            ),
+            Gap(15),
             Expanded(
               child: GridView.builder(
                 itemCount: Categories.categories.length,

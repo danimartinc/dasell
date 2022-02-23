@@ -4,6 +4,8 @@ import 'package:DaSell/interface/extensions/text_theme_x.dart';
 import 'package:DaSell/interface/models/place.dart';
 import 'package:DaSell/interface/ui/widgets/gradient_status_tag.dart';
 
+import '../../../../commons.dart';
+
 //Extensions
 
 
@@ -51,7 +53,7 @@ class PlaceCard extends StatelessWidget {
               CircleAvatar(
                 backgroundImage: NetworkImage( place.user.urlPhoto ),
               ),
-              const SizedBox( width: 10, ),
+              kGap10,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -85,7 +87,7 @@ class PlaceCard extends StatelessWidget {
             place.name,
             style: context.headline2,
           ),
-          const SizedBox( height: 10,),
+          kGap10,
           GradientStatusTag(statusTag: statusTag),
           const Spacer(),
           Row(

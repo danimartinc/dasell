@@ -74,9 +74,7 @@ class _TrackingAppState extends State<TrackingApp> {
                         children: [
                           Text(snapshot.data!.docs[index]['latitude']
                               .toString()),
-                          SizedBox(
-                            width: 20,
-                          ),
+                          kGap20,
                           Text(snapshot.data!.docs[index]['longitude']
                               .toString()),
                         ],

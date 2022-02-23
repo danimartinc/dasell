@@ -1,25 +1,22 @@
-import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:math' as math;
 
+//Providers
+import 'package:DaSell/provider/ad_provider.dart';
+//Screens
+import 'package:DaSell/screens/add/price_and_location_screen.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as pPath;
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
 
-//Providers
-import 'package:DaSell/provider/ad_provider.dart';
-//Widgets
-import 'package:DaSell/widgets/bottom_button.dart';
-//Screens
-import 'package:DaSell/screens/add/price_and_location_screen.dart';
-
+import '../../../commons.dart';
 import 'helpers/load_assets.dart';
 
 class AddingImagesScreen extends StatefulWidget {
-
   static const routeName = './adding_images_screen';
 
   @override
@@ -27,7 +24,6 @@ class AddingImagesScreen extends StatefulWidget {
 }
 
 class _AddingImagesScreenState extends State<AddingImagesScreen> {
-
   File? _storedImage;
   File? _pickedImage;
   late BuildContext ctx;
@@ -38,35 +34,28 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
   late String _error;
   var listt = [];
 
-
   Future<void> _takePicture() async {
-
     isCamera = true;
 
     final picker = new ImagePicker();
     final XFile? pickedFile = await picker.pickImage(
-          source: ImageSource.camera,
-          imageQuality: 100,
-          maxWidth:  600
-    );
-
+        source: ImageSource.camera, imageQuality: 100, maxWidth: 600);
 
     //final picker = ImagePicker();
 
-   /* final imageUri = await picker.getImage(
+    /* final imageUri = await picker.getImage(
       source: ImageSource.camera,
       maxWidth: 600,
       imageQuality: 70,
     ); */
 
-
-    if ( pickedFile == null) {
+    if (pickedFile == null) {
       return;
     }
 
     setState(() {
-      _storedImage = File( pickedFile.path );
-      pathList.add( _storedImage! );
+      _storedImage = File(pickedFile.path);
+      pathList.add(_storedImage!);
       listt = pathList;
     });
 
@@ -78,47 +67,41 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
   }
 
   void submitImage() {
-    
     if (listt.isEmpty) {
       showDialog(
-        context: ctx,
-        //Instrucción 
-        builder: ( ctx ) {
-          return AlertDialog(
-          title: Text('No hay imágenes añadidas'),
-          content: Text('Por favor, añada al menos una imagen'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(ctx).pop(),
-              child: Text(
-                'Aceptar',
-                style: TextStyle(
-                  color: Theme.of(ctx).primaryColor,
+          context: ctx,
+          //Instrucción
+          builder: (ctx) {
+            return AlertDialog(
+              title: Text('No hay imágenes añadidas'),
+              content: Text('Por favor, añada al menos una imagen'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(ctx).pop(),
+                  child: Text(
+                    'Aceptar',
+                    style: TextStyle(
+                      color: Theme.of(ctx).primaryColor,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ],
-          );
-        }
-      );
+              ],
+            );
+          });
 
       return;
-
     } else if (isCamera) {
-        Provider.of<AdProvider>(context, listen: false).addImagePaths(pathList);
+      Provider.of<AdProvider>(context, listen: false).addImagePaths(pathList);
     } else {
-        Provider.of<AdProvider>(context, listen: false).addImageAssets(images);
+      Provider.of<AdProvider>(context, listen: false).addImageAssets(images);
     }
-        Navigator.of(context).pushNamed(PriceAndLocationScreen.routeName);
+    Navigator.of(context).pushNamed(PriceAndLocationScreen.routeName);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
-
     ctx = context;
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Añade imágenes del producto'),
@@ -129,7 +112,7 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
           Expanded(
             child: Column(
               children: [
-                SizedBox( height: 50,),
+                kGap50,
                 Container(
                   width: double.infinity,
                   height: 250,
@@ -137,8 +120,7 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
                       ? Center(
                           child: Text('No hay imágenes seleccionadas'),
                         )
-                      : Stack(
-                        children: [
+                      : Stack(children: [
                           CarouselSlider(
                             items: isCamera
                                 ? pathList.map((e) {
@@ -151,18 +133,18 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
                                       width: 20,
                                       height: 250,
                                     );
-                                }
-                                ),
+                                  }),
                             options: CarouselOptions(
                               height: 400.0,
-                              aspectRatio: 16/9,
+                              aspectRatio: 16 / 9,
                               viewportFraction: 0.5,
                               enableInfiniteScroll: false,
                               enlargeCenterPage: true,
                               reverse: false,
                               autoPlay: true,
-                              autoPlayInterval: Duration( seconds: 15 ),
-                              autoPlayAnimationDuration: Duration(milliseconds: 800),
+                              autoPlayInterval: Duration(seconds: 15),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 800),
                               autoPlayCurve: Curves.fastOutSlowIn,
                               scrollDirection: Axis.horizontal,
                               onPageChanged: (index, reason) {
@@ -219,7 +201,7 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
                   padding: EdgeInsets.all(10),
                   child: Row(
                     children: [
-                      SizedBox( width: 90, ),
+                      const Gap(90),
                       Expanded(
                         flex: 1,
                         child: InkWell(
@@ -229,7 +211,8 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
                                     context: ctx,
                                     builder: (context) {
                                       return AlertDialog(
-                                        content: Text(' Puedes añadir un máximo de seis imágenes'),
+                                        content: Text(
+                                            ' Puedes añadir un máximo de seis imágenes'),
                                         actions: [
                                           ElevatedButton(
                                             child: Text('Aceptar'),
@@ -253,17 +236,15 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
                                   Icons.camera_alt_outlined,
                                   size: 40,
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
+                                kGap10,
                                 _storedImage == null
                                     ? Text(
                                         'Cámara',
                                         style: TextStyle(fontFamily: 'Poppins'),
                                       )
-                                    : Text(       
+                                    : Text(
                                         'Añadir otra imagen',
-                                         textAlign: TextAlign.center,
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(fontFamily: 'Poppins'),
                                       ),
                               ],
@@ -271,9 +252,7 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 15,
-                      ),
+                      kGap15,
                       Expanded(
                           flex: 1,
                           child: InkWell(
@@ -281,7 +260,8 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
                             splashColor: Theme.of(context).primaryColor,
                             child: Container(
                               alignment: Alignment.center,
-                              height: MediaQuery.of(context).size.width / 3 - 10,
+                              height:
+                                  MediaQuery.of(context).size.width / 3 - 10,
                               //width: MediaQuery.of(context).size.height / 3 - 10,
                               color: Theme.of(context).cardColor,
                               child: Column(
@@ -291,9 +271,7 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
                                     Icons.image,
                                     size: 40,
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
+                                  kGap10,
                                   Text(
                                     'Galería',
                                     style: TextStyle(fontFamily: 'Poppins'),
@@ -310,9 +288,7 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                kGap10,
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: Row(
@@ -333,7 +309,7 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox( height: 30, ),
+                            kGap30,
                             Text(
                               'Consejo',
                               textAlign: TextAlign.start,
@@ -361,34 +337,18 @@ class _AddingImagesScreenState extends State<AddingImagesScreen> {
               ],
             ),
           ),
-
-         /* return Button(
-        elevation: 2,
-        highlightElevation: 5,
-        color: Colors.blue,
-        shape: StadiumBorder(),
-        onPressed: this.onPressed,
-        child: Container(
-          width: double.infinity,
-          height: 55,
-          child: Center(
-            child: Text( this.text , style: TextStyle( color: Colors.white, fontSize: 17 )),
+          ElevatedButton(
+            child: Container(
+              width: 60,
+              height: 55,
+              child: Center(
+                child: Text('Siguiente'),
+                //child: Text( this.text , style: TextStyle( color: Colors.white, fontSize: 17 )),
+              ),
+            ),
+            // Icons.arrow_forward,
+            onPressed: submitImage,
           ),
-        ),
-    );*/
-        ElevatedButton(  
-          // shape: StadiumBorder(),
-          child: Container(
-          width: 60,
-          height: 55,
-          child: Center(
-            child: Text('Siguiente',),
-           //child: Text( this.text , style: TextStyle( color: Colors.white, fontSize: 17 )),
-          ),
-          ),
-           // Icons.arrow_forward, 
-          onPressed: submitImage,
-        ),
         ],
       ),
     );

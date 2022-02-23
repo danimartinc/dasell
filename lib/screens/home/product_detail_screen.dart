@@ -1,31 +1,25 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:DaSell/maps/screens/loading_screen.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-
+//Data
+import 'package:DaSell/data/categories.dart';
 //Models
 import 'package:DaSell/models/ad_location.dart';
 import 'package:DaSell/models/user.dart';
-
 //Providers
 import 'package:DaSell/provider/ad_provider.dart';
-
+import 'package:DaSell/screens/add/maps_screen.dart';
 //Screens
 import 'package:DaSell/screens/chats/chat_screen.dart';
-import 'package:DaSell/screens/add/maps_screen.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
-//Data
-import 'package:DaSell/data/categories.dart';
-
+import '../../commons.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-
   static const routeName = './product_detail_screen';
 
   @override
@@ -33,9 +27,7 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-
   final Map<int, String> cal = {
-
     1: 'Jan',
     2: 'Feb',
     3: 'Mar',
@@ -49,9 +41,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     11: 'Nov',
     12: 'Dec',
   };
-  
+
   String mapUrl = '';
-  int current   = 0;
+  int current = 0;
   AdLocation? loc;
   late BuildContext ctx;
   var docId;
@@ -59,7 +51,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   //Método
   void deleteAd(BuildContext ctx) async {
-
     Navigator.of(ctx).pop();
 
     await FirebaseFirestore.instance
@@ -72,7 +63,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   //Método que permite marcar un producto como vendido
   void markAsSold(BuildContext ctx) async {
-
     Navigator.of(ctx).pop();
 
     await FirebaseFirestore.instance
@@ -81,24 +71,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           docId.toString(),
         )
         .update({'isSold': true});
-    
-        setState(() {
-          isSold = true;
-        });
+
+    setState(() {
+      isSold = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-
-     //Mediante MediaQuery, obtengo el ancho de pantalla disponible del dispositivo
+    //Mediante MediaQuery, obtengo el ancho de pantalla disponible del dispositivo
     final width = MediaQuery.of(context).size.width;
 
     ctx = context;
 
     // UserModel? userData;
     UserVo? userData;
-    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     dynamic documents = args['docs'];
     docId = documents['id'];
@@ -107,17 +96,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final images = documents['images'] as List<dynamic>;
     Timestamp dateTime = documents['createdAt'];
 
-    mapUrl = Provider.of<AdProvider>(context, listen: false).getLocationFromLatLang(
-      latitude: (documents['location']['latitude'] as double? ),
-      longitude: (documents['location']['longitude'] as double? ),
+    mapUrl =
+        Provider.of<AdProvider>(context, listen: false).getLocationFromLatLang(
+      latitude: (documents['location']['latitude'] as double?),
+      longitude: (documents['location']['longitude'] as double?),
     );
-
 
     //final data = ModalRoute.of(context)!.settings.arguments as Map<String?, dynamic>;
     //final indexCategory = data["indexCategory"];
     //final indexFurther  = data["indexFurther"];
 
-    int indexCategory = Categories.categories.indexWhere( (element) => element['category'] == documents['categories'][0] );
+    int indexCategory = Categories.categories.indexWhere(
+        (element) => element['category'] == documents['categories'][0]);
 
     final cats = Categories.categories[indexCategory];
 
@@ -132,7 +122,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   icon: Icon(
                     Icons.more_vert,
                   ),
-                  itemBuilder: ( _ ) => [
+                  itemBuilder: (_) => [
                     PopupMenuItem(
                       child: Text('Eliminar publicación'),
                       value: 'delete',
@@ -146,9 +136,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     if (value == 'delete') {
                       showDialog(
                         context: ctx,
-                        builder: ( context ) => AlertDialog(
+                        builder: (context) => AlertDialog(
                           title: Text('Eliminar esta publicación'),
-                          content: Text('¿Está seguro de querer eliminar esta publicación?'),
+                          content: Text(
+                              '¿Está seguro de querer eliminar esta publicación?'),
                           actions: [
                             TextButton(
                               child: Text(
@@ -159,15 +150,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               ),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
-                            
                             ElevatedButton(
-                              style:  ElevatedButton.styleFrom(
+                              style: ElevatedButton.styleFrom(
                                 primary: Theme.of(context).primaryColor,
                                 onPrimary: Colors.white,
                                 //elevation: 0,
                                 //tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 //shape: RoundedRectangleBorder(
-                                  //borderRadius: BorderRadius.zero,
+                                //borderRadius: BorderRadius.zero,
                                 //),
                               ),
                               //color: Theme.of(context).primaryColor,
@@ -178,17 +168,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 Navigator.of(context).pop();
                               },
                             ),
-
-                            
                           ],
                         ),
                       );
-                    } else if ( value == 'sell' ) {
+                    } else if (value == 'sell') {
                       showDialog(
                         context: ctx,
                         builder: (context) => AlertDialog(
                           title: Text('Marcar cómo vendido'),
-                          content: Text( '¿Deseas ocultar este artículo como publicado para el resto de usuarios?' ),
+                          content: Text(
+                              '¿Deseas ocultar este artículo como publicado para el resto de usuarios?'),
                           actions: [
                             TextButton(
                               child: Text(
@@ -200,13 +189,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                             ElevatedButton(
-                              style:  ElevatedButton.styleFrom(
+                              style: ElevatedButton.styleFrom(
                                 primary: Theme.of(context).primaryColor,
                                 onPrimary: Colors.white,
                                 //elevation: 0,
                                 //tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 //shape: RoundedRectangleBorder(
-                                  //borderRadius: BorderRadius.zero,
+                                //borderRadius: BorderRadius.zero,
                                 //),
                               ),
                               //color: Theme.of(context).primaryColor,
@@ -216,8 +205,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 markAsSold(context);
                               },
                             ),
-
-                        
                           ],
                         ),
                       );
@@ -231,128 +218,128 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           future: Provider.of<AdProvider>(context).getUserDataFromUid(
             documents['uid'],
           ),
-          builder: ( context, userSnapshot ) {
+          builder: (context, userSnapshot) {
+            //Comprobamos que si tenemos información
+            if (userSnapshot.hasData) {
+              //Widget con la información
+              userData = userSnapshot.data;
 
-          //Comprobamos que si tenemos información
-           if ( userSnapshot.hasData ) {
-            
-            //Widget con la información
-            userData = userSnapshot.data;
-
-            return FutureBuilder(
-                future: Provider.of<AdProvider>(context, listen: false)
-                          .getDistanceFromCoordinates(
-                            documents['location']['latitude'] as double?,
-                            documents['location']['longitude'] as double?,
-                ),
-                builder: ( context, locSnapshot ) {
-                  return Padding(
-                    padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              Hero(
-                                tag: documents['id'],
-                                child: CarouselSlider.builder(
-                                  itemCount: images.length,
-                                  itemBuilder: ( ctx, int i, __ ) {
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all( Radius.circular(12) )
-                                      ),  
-                                      width: double.infinity,
-                                      height: 200,
-                                      child: CachedNetworkImage(
-                                        imageUrl: images[i],
-                                        fit: BoxFit.cover,
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
-                                      ),
-                                    );
-                                  },
-                                  options: CarouselOptions(
-                                    height: 300.0,
-                                    aspectRatio: 16/9,
-                                    viewportFraction: 1,
-                                    enableInfiniteScroll: false,
-                                    enlargeCenterPage: true,
-                                    reverse: false,
-                                    autoPlay: true,
-                                    autoPlayInterval: Duration( seconds: 15 ),
-                                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                                    autoPlayCurve: Curves.fastOutSlowIn,
-                                    scrollDirection: Axis.horizontal,
-                                    onPageChanged: (index, reason) {
-                                      setState(() {
-                                        current = index;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 5,
-                                left: 0,
-                                right: 0,
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: images.map((url) {
-                                      int index = images.indexOf(url);
+              return FutureBuilder(
+                  future: Provider.of<AdProvider>(context, listen: false)
+                      .getDistanceFromCoordinates(
+                    documents['location']['latitude'] as double?,
+                    documents['location']['longitude'] as double?,
+                  ),
+                  builder: (context, locSnapshot) {
+                    return Padding(
+                      padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
+                              children: [
+                                Hero(
+                                  tag: documents['id'],
+                                  child: CarouselSlider.builder(
+                                    itemCount: images.length,
+                                    itemBuilder: (ctx, int i, __) {
                                       return Container(
-                                        width: 8.0,
-                                        height: 8.0,
-                                        margin: EdgeInsets.symmetric(
-                                            vertical: 10.0, horizontal: 2.0
-                                        ),
                                         decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: current == index
-                                              ? Theme.of(context).scaffoldBackgroundColor
-                                              : Colors.grey,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(12))),
+                                        width: double.infinity,
+                                        height: 200,
+                                        child: CachedNetworkImage(
+                                          imageUrl: images[i],
+                                          fit: BoxFit.cover,
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         ),
                                       );
-                                    }).toList()),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              isSold ? 'Vendido' : '${documents['price']} €',
-                              style: TextStyle(
-                                fontSize: 29,
-                                fontWeight: FontWeight.bold,
+                                    },
+                                    options: CarouselOptions(
+                                      height: 300.0,
+                                      aspectRatio: 16 / 9,
+                                      viewportFraction: 1,
+                                      enableInfiniteScroll: false,
+                                      enlargeCenterPage: true,
+                                      reverse: false,
+                                      autoPlay: true,
+                                      autoPlayInterval: Duration(seconds: 15),
+                                      autoPlayAnimationDuration:
+                                          Duration(milliseconds: 800),
+                                      autoPlayCurve: Curves.fastOutSlowIn,
+                                      scrollDirection: Axis.horizontal,
+                                      onPageChanged: (index, reason) {
+                                        setState(() {
+                                          current = index;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 5,
+                                  left: 0,
+                                  right: 0,
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: images.map((url) {
+                                        int index = images.indexOf(url);
+                                        return Container(
+                                          width: 8.0,
+                                          height: 8.0,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 2.0),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: current == index
+                                                ? Theme.of(context)
+                                                    .scaffoldBackgroundColor
+                                                : Colors.grey,
+                                          ),
+                                        );
+                                      }).toList()),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                isSold ? 'Vendido' : '${documents['price']} €',
+                                style: TextStyle(
+                                  fontSize: 29,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              documents['title'],
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 18,
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                documents['title'],
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Row(
                                 children: [
-                                  Icon( FontAwesomeIcons.boxOpen ),
-                                  SizedBox( width: 30 ),
+                                  Icon(FontAwesomeIcons.boxOpen),
+                                  SizedBox(width: 30),
                                   Text(
                                     documents['makeShipments'] == true
                                         ? 'Acepta envíos - desde 2,50 €'
@@ -366,289 +353,307 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           : Colors.green,
                                     ),
                                   ),
-
                                 ],
-                          ),  
-                          ), 
-
-                          Divider(
-                            thickness: 1,
-                          ),
-                        
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                                  children: [
-                                    MaterialButton(
-                                      minWidth: width - 240,
-                                      child:  Text( documents['categories'][0], style: TextStyle( color: Colors.white ) ),
-                                      color: Colors.indigo,
-                                      //Redondeamos los bordes del botón
-                                      shape: StadiumBorder(),
-                                      elevation: 0,
-                                      splashColor: Colors.transparent,
-                                      //Disparamos el método getCoordsStartAndDestination para confirmar el destino
-                                      onPressed: () => {
-                                        //this.calculateDestinationRoute( context );
-                                        //Navigator.of(context).pushNamed( HomeScreen.routeName );
-                                      }
-                                    ),
-                                    MaterialButton(
-                                      minWidth: width - 240,
-                                      child:  Text( documents['categories'][1], style: TextStyle( color: Colors.white ) ),
-                                      color: Colors.indigo,
-                                      //Redondeamos los bordes del botón
-                                      shape: StadiumBorder(),
-                                      elevation: 0,
-                                      splashColor: Colors.transparent,
-                                      //Disparamos el método getCoordsStartAndDestination para confirmar el destino
-                                      onPressed: () => {
-                                        //this.calculateDestinationRoute( context );
-                                        //Navigator.of(context).pushNamed( HomeScreen.routeName );
-                                      }
-                                    ),   
-                              ],
-                            ),
-                        ),
-
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    height: 170,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).cardColor,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.menu_book_outlined,
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric( horizontal: 4 ),
-                                          child: Text(
-                                            'Estado del artículo:\n' + 
-                                             (  documents['condition'] ?? "" ),
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Poppins',
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    height: 170,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).cardColor,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.location_on_outlined,
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric( horizontal: 6 ),
-                                          child: locSnapshot.connectionState == ConnectionState.waiting
-                                              ? Center(
-                                                  child: CircularProgressIndicator(),
-                                                )
-                                              : Text(
-                                                  (locSnapshot.data as double) < 1000
-                                                      ? '${( locSnapshot.data as double ).toStringAsFixed(2)} m desde tu ubicación'
-                                                      : '${(( locSnapshot.data as double ) / 1000).toStringAsFixed(2)} km desde tu ubicación',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                  ),
-                                                ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    height: 170,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).cardColor,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.calendar_today,
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          'Fecha de publicación',
-                                          style: TextStyle(fontFamily: 'Poppins'),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          dateTime.toDate().day.toString() +
-                                              ' ' +
-                                            cal[dateTime.toDate().month]!,
-                                          style: TextStyle(fontFamily: 'Poppins'),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.indigo.withOpacity(
-                                  0.2,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
                               ),
+                            ),
+                            Divider(
+                              thickness: 1,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
                               child: Row(
                                 children: [
-                                  userSnapshot.connectionState == ConnectionState.waiting
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : userSnapshot.data!.profilePicture == ''
-                                      ? Container(
-                                              height: 60,
-                                              width: 60,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                  color: Colors.black,
-                                                  width: 1,
-                                                ),
-                                              ),
-                                              child: SvgPicture.asset(
-                                                  'assets/images/boy.svg'),
-                                            )
-                                          : CircleAvatar(
-                                              radius: 30,
-                                              backgroundImage: NetworkImage(
-                                                userSnapshot.data!.profilePicture!,
-                                              ),
-                                            ),
-                                  SizedBox(
-                                    width: 25,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Producto publicado por',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontFamily: 'Poppins',
-                                        ),
+                                  MaterialButton(
+                                      minWidth: width - 240,
+                                      child: Text(documents['categories'][0],
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      color: Colors.indigo,
+                                      //Redondeamos los bordes del botón
+                                      shape: StadiumBorder(),
+                                      elevation: 0,
+                                      splashColor: Colors.transparent,
+                                      //Disparamos el método getCoordsStartAndDestination para confirmar el destino
+                                      onPressed: () => {
+                                            //this.calculateDestinationRoute( context );
+                                            //Navigator.of(context).pushNamed( HomeScreen.routeName );
+                                          }),
+                                  MaterialButton(
+                                      minWidth: width - 240,
+                                      child: Text(documents['categories'][1],
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      color: Colors.indigo,
+                                      //Redondeamos los bordes del botón
+                                      shape: StadiumBorder(),
+                                      elevation: 0,
+                                      splashColor: Colors.transparent,
+                                      //Disparamos el método getCoordsStartAndDestination para confirmar el destino
+                                      onPressed: () => {
+                                            //this.calculateDestinationRoute( context );
+                                            //Navigator.of(context).pushNamed( HomeScreen.routeName );
+                                          }),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      height: 170,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).cardColor,
                                       ),
-                                      userSnapshot.connectionState == ConnectionState.waiting
-                                          ? Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            )
-                                          : Text(
-                                              isMe
-                                                  ? 'Ti'
-                                                  : userSnapshot.data!.textName,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.menu_book_outlined,
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 4),
+                                            child: Text(
+                                              'Estado del artículo:\n' +
+                                                  (documents['condition'] ??
+                                                      ""),
+                                              textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                fontSize: 18,
                                                 fontFamily: 'Poppins',
                                               ),
                                             ),
-                                    ],
-                                  )
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      height: 170,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).cardColor,
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.location_on_outlined,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 6),
+                                            child: locSnapshot
+                                                        .connectionState ==
+                                                    ConnectionState.waiting
+                                                ? Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  )
+                                                : Text(
+                                                    (locSnapshot.data
+                                                                as double) <
+                                                            1000
+                                                        ? '${(locSnapshot.data as double).toStringAsFixed(2)} m desde tu ubicación'
+                                                        : '${((locSnapshot.data as double) / 1000).toStringAsFixed(2)} km desde tu ubicación',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Poppins',
+                                                    ),
+                                                  ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      height: 170,
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).cardColor,
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.calendar_today,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'Fecha de publicación',
+                                            style: TextStyle(
+                                                fontFamily: 'Poppins'),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Text(
+                                            dateTime.toDate().day.toString() +
+                                                ' ' +
+                                                cal[dateTime.toDate().month]!,
+                                            style: TextStyle(
+                                                fontFamily: 'Poppins'),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                          ),
-
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: AutoSizeText(
-                              documents['description'],
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 18,
-                              ),
-            
-                              minFontSize: 18,
-                              maxLines: 4,
-                              //overflow: TextOverflow.ellipsis,
-                            ),
-           
-                          ),
-                          SizedBox(
-                            width: 25,
-                          ),
-                          if ((documents['location']['address'] as String)
-                              .isNotEmpty)
                             Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon( FontAwesomeIcons.mapMarkedAlt, size: 30, ),
-                                      SizedBox( width: 15, ),
+                              child: Container(
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.indigo.withOpacity(
+                                    0.2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Row(
+                                  children: [
+                                    userSnapshot.connectionState ==
+                                            ConnectionState.waiting
+                                        ? Center(
+                                            child: CircularProgressIndicator(),
+                                          )
+                                        : userSnapshot.data!.profilePicture ==
+                                                ''
+                                            ? Container(
+                                                height: 60,
+                                                width: 60,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    color: Colors.black,
+                                                    width: 1,
+                                                  ),
+                                                ),
+                                                child: SvgPicture.asset(
+                                                    'assets/images/boy.svg'),
+                                              )
+                                            : CircleAvatar(
+                                                radius: 30,
+                                                backgroundImage: NetworkImage(
+                                                  userSnapshot
+                                                      .data!.profilePicture!,
+                                                ),
+                                              ),
+                                    SizedBox(
+                                      width: 25,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Producto publicado por',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'Poppins',
+                                          ),
+                                        ),
+                                        userSnapshot.connectionState ==
+                                                ConnectionState.waiting
+                                            ? Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              )
+                                            : Text(
+                                                isMe
+                                                    ? 'Ti'
+                                                    : userSnapshot
+                                                        .data!.textName,
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontFamily: 'Poppins',
+                                                ),
+                                              ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: AutoSizeText(
+                                documents['description'],
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 18,
+                                ),
+
+                                minFontSize: 18,
+                                maxLines: 4,
+                                //overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            kGap25,
+                            if ((documents['location']['address'] as String)
+                                .isNotEmpty)
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  children: [
+                                    Row(children: [
+                                      Icon(
+                                        FontAwesomeIcons.mapMarkedAlt,
+                                        size: 30,
+                                      ),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
                                       Expanded(
                                         child: AutoSizeText(
                                           '${documents['location']['address']}',
                                           style: TextStyle(
-                                            fontFamily: 'Poppins', fontSize: 18
-                                          ),
-                                              minFontSize: 18,
-                                           maxLines: 4,
+                                              fontFamily: 'Poppins',
+                                              fontSize: 18),
+                                          minFontSize: 18,
+                                          maxLines: 4,
                                         ),
                                       )
-                                    ]
-                                  ),
-                                ],
+                                    ]),
+                                  ],
+                                ),
                               ),
-                            ),
-                          GestureDetector(
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                fullscreenDialog: true,
-                                builder: (context) => 
-                                  ClipRRect(
+                            GestureDetector(
+                              onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  fullscreenDialog: true,
+                                  builder: (context) => ClipRRect(
                                     clipBehavior: Clip.antiAlias,
-                                    child:  Column(
+                                    child: Column(
                                       children: [
                                         GoogleMapScreen(
                                           placeLocation: AdLocation(
@@ -663,70 +668,65 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       ],
                                     ),
                                   ),
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Container(
-                                width: double.infinity,
-                                height: 200,
-                                decoration: BoxDecoration(
-                                   borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                    width: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: mapUrl.isEmpty
+                                        ? Text('No hay ubicación')
+                                        : Image.network(
+                                            mapUrl,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                 ),
-                                child: Center(
-                                  child: mapUrl.isEmpty
-                                      ? Text('No hay ubicación')
-                                      : Image.network(
-                                          mapUrl,
-                                          fit: BoxFit.cover,
-                                        ),
-                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 70,
-                          ),
-                        ],
+                            SizedBox(
+                              height: 70,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                });
-          } else {
-            //CircularProgressIndicator(), permite indicar al usuario que se está cargando información 
-            return Center(child: CircularProgressIndicator(strokeWidth: 2 ) );
-          }
-
-            
+                    );
+                  });
+            } else {
+              //CircularProgressIndicator(), permite indicar al usuario que se está cargando información
+              return Center(child: CircularProgressIndicator(strokeWidth: 2));
+            }
           }),
-            floatingActionButton: !isMe && !isSold
-                ? Container(
-                    height: 90.0,
-                    width: 90.0,
-                    child: FittedBox(
-                      child: FloatingActionButton.extended(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: Colors.white,
-                        elevation: 15,
-                        label: Text(''),
-                        icon: Icon(
-                          FontAwesomeIcons.comments,
-                        ),
-                        onPressed: () => Navigator.of(context).pushNamed(
-                          ChatScreen.routeName,
-                          arguments: userData,
-                        ),
-                      ),
-                    ),
-              
-                )
-  
-                : null,
+      floatingActionButton: !isMe && !isSold
+          ? Container(
+              height: 90.0,
+              width: 90.0,
+              child: FittedBox(
+                child: FloatingActionButton.extended(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  foregroundColor: Colors.white,
+                  elevation: 15,
+                  label: Text(''),
+                  icon: Icon(
+                    FontAwesomeIcons.comments,
+                  ),
+                  onPressed: () => Navigator.of(context).pushNamed(
+                    ChatScreen.routeName,
+                    arguments: userData,
+                  ),
+                ),
+              ),
+            )
+          : null,
     );
   }
 }
-

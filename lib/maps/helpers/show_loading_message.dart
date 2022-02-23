@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:DaSell/const/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ void showLoadingMessage( BuildContext context ) {
           child: Column(
             children: const [
               Text('Calculando ruta'),
-              SizedBox( height: 15 ),
+              kGap15,
               CircularProgressIndicator( strokeWidth: 3, color: Colors.black )
             ],
           ),
