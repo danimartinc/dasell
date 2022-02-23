@@ -58,15 +58,17 @@ class ProductCategoryButtons extends StatelessWidget {
 
 class ProductUserAvatar extends StatelessWidget {
   final String? imageUrl;
+  final double radius;
 
-  const ProductUserAvatar({Key? key, this.imageUrl}) : super(key: key);
+  const ProductUserAvatar({Key? key, this.radius = 30, this.imageUrl})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (imageUrl?.isNotEmpty == true) {
       return Container(
-        height: 60,
-        width: 60,
+        height: radius * 2,
+        width: radius * 2,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(
@@ -78,7 +80,7 @@ class ProductUserAvatar extends StatelessWidget {
       );
     }
     return CircleAvatar(
-      radius: 30,
+      radius: radius,
       backgroundImage: NetworkImage(imageUrl!),
     );
   }

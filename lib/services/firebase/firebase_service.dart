@@ -5,7 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'models/product_vo.dart';
-import 'models/user_vo.dart';
 
 class FirebaseService {
   static FirebaseService get() => locator.get();
@@ -21,6 +20,9 @@ class FirebaseService {
   bool get hasUser => auth.currentUser != null;
 
   String get uid => auth.currentUser!.uid;
+
+  /// assign this when u login....
+  // UserVo? myUser;
 
   Future<void> updateUserToken() async {
     var token = await fcm.getToken();
@@ -66,12 +68,35 @@ class FirebaseService {
     return UserVo.fromJson(userData.data());
   }
 
-  StreamSubscription subscribeToChats(
-      Function(QuerySnapshot<Map<String, dynamic>> event) onData) {
+  StreamSubscription subscribeToChats(QueryStreamDataCallback onData) {
     final stream = FirebaseFirestore.instance
         .collection('chats')
         .orderBy('timeStamp', descending: true)
         .snapshots();
     return stream.listen(onData);
   }
+
+  StreamSubscription subscribeToUser(
+    String userId,
+    DocStreamDataCallback onData,
+  ) {
+    final stream =
+        FirebaseFirestore.instance.collection('users').doc(userId).snapshots();
+    return stream.listen(onData);
+  }
+
+  String getChatDocId(UserVo otherUser) {
+    if (otherUser.uid.compareTo(uid) > 0) {
+      return uid + otherUser.uid;
+    } else {
+      return otherUser.uid + uid;
+    }
+  }
 }
+
+/// shortcutrs
+///
+typedef DocStreamDataCallback = void Function(
+    DocumentSnapshot<Map<String, dynamic>> event);
+typedef QueryStreamDataCallback = void Function(
+    QuerySnapshot<Map<String, dynamic>> event);

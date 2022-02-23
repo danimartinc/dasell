@@ -46,6 +46,8 @@ class UserVo {
 
   String? get status => _status;
 
+  String get textStatus => _status ?? '';
+
   String get textName => name ?? '-';
 
   @override
