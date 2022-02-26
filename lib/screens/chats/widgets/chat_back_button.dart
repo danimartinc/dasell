@@ -21,6 +21,7 @@ class ChatBackButton extends StatelessWidget {
             children: [
               Icon(Icons.arrow_back, size: 24),
               Gap(6),
+              //TODO: Roi
               ProductUserAvatar(
                 imageUrl: imageUrl,
                 radius: 20,

@@ -67,6 +67,7 @@ class ProductUserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: Roi
     if (imageUrl?.isNotEmpty == true) {
       return Container(
         height: radius * 2,

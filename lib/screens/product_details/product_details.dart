@@ -219,6 +219,7 @@ class _ProductDetailsState extends ProductDetailsState {
                     children: [
                       if (!hasAdUser) CommonProgress(),
                       if (hasAdUser)
+                      //TODO: Roi
                         ProductUserAvatar(imageUrl: adUser?.profilePicture),
                       Gap(25),
                       Column(
