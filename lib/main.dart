@@ -1,0 +1,205 @@
+import 'commons.dart';
+
+
+
+
+
+
+
+
+
+
+
+import 'package:DaSell/maps/screens/loading_screen.dart';
+
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:theme_provider/theme_provider.dart';
+
+import './screens/bottom_navigation.dart';
+
+import 'const/pallete.dart';
+import 'maps/blocs/blocs.dart';
+import 'maps/services/traffic_service.dart';
+
+import 'provider/ad_provider.dart';
+import 'provider/move_map_provider.dart';
+
+
+import 'screens/add/add_images/adding_images_screen.dart';
+import 'screens/add/further_cat/further_cat.dart';
+import 'screens/add/price_location/price_and_location_screen.dart';
+import 'screens/add/product_info_one/product_info_one.dart';
+import 'screens/auth/auth_screen.dart';
+
+import 'screens/chats/chat_screen.dart';
+import 'screens/home/product_detail_screen.dart';
+
+//Screens
+import 'widgets/loading/data_backup_home.dart';
+
+void main() async {
+  await initApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider( create: (context) => GpsBloc()),
+        BlocProvider( create: (context) => LocationBloc()),
+        BlocProvider( create: (context) => MapBloc(locationBloc: BlocProvider.of<LocationBloc>(context))),
+        BlocProvider( create: (context) => SearchBloc(trafficService: TrafficService()))
+      ],
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => AdProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => new NotificationModel(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => new MoveMap(),
+          )
+        ],
+        child: ThemeProvider(
+          saveThemesOnChange: true,
+          themes: [
+            AppTheme(
+              id: 'light_theme',
+              // Id(or name) of the theme(Has to be unique)
+              description: 'ThemeLight',
+              data: ThemeData(
+                fontFamily: 'Roboto',
+                primarySwatch: Palette.kToDark,
+                /*colorScheme: ColorScheme.fromSwatch().copyWith(
+                              secondary: Colors.indigo, // Your accent color
+                            ),*/
+                accentColor: Colors.indigo.shade800,
+                cardColor: Colors.grey[200],
+                backgroundColor: Colors.indigo,
+                bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                  backgroundColor: Colors.white,
+                  selectedItemColor: Colors.indigo,
+                  unselectedItemColor: Colors.indigo,
+                ),
+                scaffoldBackgroundColor: Colors.white,
+                accentColorBrightness: Brightness.dark,
+                buttonTheme: ButtonTheme.of(context).copyWith(
+                  buttonColor: Colors.indigo,
+                  textTheme: ButtonTextTheme.primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ),
+            AppTheme.dark(
+              id: 'dark_theme',
+            ).copyWith(
+              id: 'dark_theme',
+              data: ThemeData.dark().copyWith(
+                appBarTheme: AppBarTheme(
+                  color: Color(0xff2a2a2a),
+                ),
+                primaryColor: Color(0xff03dac6),
+                //accentColor: Color(0xff03dac6),
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+                  secondary: Color(0xff03dac6), // Your accent color
+                ),
+                cardColor: Color(0xff2a2a2a),
+                bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                  backgroundColor: Color(0xff2a2a2a),
+                  selectedItemColor: Color(0xff03dac6),
+                  unselectedItemColor: Color(0xff03dac7),
+                ),
+                buttonTheme: ButtonTheme.of(context).copyWith(
+                  buttonColor: Color(0xff03dac6),
+                  textTheme: ButtonTextTheme.primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            )
+          ],
+          child: ThemeConsumer(
+            child: Builder(
+              builder: (themeContext) => MaterialApp(
+                navigatorKey: locator<NavigatorService>().navigatorKey,
+                onGenerateRoute: (routeSettings) {
+                  switch (routeSettings.name) {
+                    case 'chat':
+                      return MaterialPageRoute(
+                          builder: (context) => UsersChatScreen());
+                    //case "product":
+                    //return MaterialPageRoute(builder: (context) => AddProduct() );
+                    default:
+                      return MaterialPageRoute(builder: (context) => MyApp());
+                  }
+                },
+                title: 'DaSell',
+                theme: ThemeProvider.themeOf(themeContext).data,
+                debugShowCheckedModeBanner: false,
+                //typical android way
+                // home: FirebaseAuth.instance.currentUser() == null
+                //     ? AuthScreen()
+                //     : ChatScreen(),
+
+                //alternatinve way, here the screen will get changed as soon as
+                //the authstate changes
+                //you don't need to call navigator.of.pushnamed in auth screen as
+                //this method will get called as soon as the authstate changes
+                home: StreamBuilder(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    SystemChrome.setSystemUIOverlayStyle(
+                      SystemUiOverlayStyle().copyWith(
+                        statusBarBrightness: Brightness.light,
+                        statusBarColor:
+                            ThemeProvider.themeOf(context).id == 'light_theme'
+                                ? Colors.indigo.shade800
+                                : Color(0xff2a2a2a),
+                        statusBarIconBrightness: Brightness.light,
+                        systemNavigationBarColor:
+                            ThemeProvider.themeOf(context).id == 'light_theme'
+                                ? Colors.black54
+                                : Color(0xff2a2a2a),
+                        systemNavigationBarDividerColor: Colors.indigo.shade100,
+                        systemNavigationBarIconBrightness: Brightness.dark,
+                      ),
+                    );
+
+                    return snapshot.hasData
+                        ? BottomNavigationScreen()
+                        : AuthScreen();
+                  },
+                ),
+                routes: {
+                  UsersChatScreen.routeName: (context) => UsersChatScreen(),
+                  FurtherCat.routeName: (context) => FurtherCat(),
+                  ProductInfoOne.routeName: (context) => ProductInfoOne(),
+                  AddingImagesScreen.routeName: (context) => AddingImagesScreen(),
+                  PriceAndLocationScreen.routeName: (context) => PriceAndLocationScreen(),
+                  BottomNavigationScreen.routeName: (context) => BottomNavigationScreen(),
+                  /// navegar normalmente.
+                  ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
+                  //ChatScreen.routeName: (context) => ChatScreen(),
+                  AddProduct.routeName: (context) => AddProduct(),
+                  HomeScreen.routeName: (context) => HomeScreen(),
+                  DataBackupHome.routeName: (context) => DataBackupHome(),
+                  // MapLoadingScreen.routeName: (context) => MapLoadingScreen(),
+                  //MyMap.routeName: ( context ) => MyMap(),
+                },
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
