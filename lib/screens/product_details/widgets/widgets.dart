@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:DaSell/commons.dart';
 
 import '../../add/maps/maps_screen.dart';
-
 
 /// SEPARA DE ACA LAS CLASSES SI QUERES Y FIJATE COMO LAS REUSAS.
 /// sino deja todo junto.
@@ -68,7 +69,7 @@ class ProductUserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //TODO: Roi
-    if (imageUrl?.isNotEmpty == true) {
+    if (imageUrl?.isEmpty == true) {
       return Container(
         height: radius * 2,
         width: radius * 2,
@@ -82,9 +83,17 @@ class ProductUserAvatar extends StatelessWidget {
         child: SvgPicture.asset('assets/images/boy.svg'),
       );
     }
-    return CircleAvatar(
-      radius: radius,
-      backgroundImage: NetworkImage(imageUrl!),
-    );
+    final url = imageUrl!;
+    if (url.startsWith('http')) {
+      return CircleAvatar(
+        radius: radius,
+        backgroundImage: NetworkImage(url),
+      );
+    } else {
+      return CircleAvatar(
+        radius: radius,
+        backgroundImage: FileImage(File(url)),
+      );
+    }
   }
 }

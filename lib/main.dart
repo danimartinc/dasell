@@ -1,41 +1,20 @@
-import 'commons.dart';
-
-
-
-
-
-
-
-
-
-
-
-import 'package:DaSell/maps/screens/loading_screen.dart';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:theme_provider/theme_provider.dart';
 
 import './screens/bottom_navigation.dart';
-
+import 'commons.dart';
 import 'const/pallete.dart';
 import 'maps/blocs/blocs.dart';
 import 'maps/services/traffic_service.dart';
-
 import 'provider/ad_provider.dart';
 import 'provider/move_map_provider.dart';
-
-
 import 'screens/add/add_images/adding_images_screen.dart';
 import 'screens/add/further_cat/further_cat.dart';
 import 'screens/add/price_location/price_and_location_screen.dart';
 import 'screens/add/product_info_one/product_info_one.dart';
 import 'screens/auth/auth_screen.dart';
-
-import 'screens/chats/chat_screen.dart';
 import 'screens/home/product_detail_screen.dart';
-
 //Screens
 import 'widgets/loading/data_backup_home.dart';
 
@@ -49,10 +28,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider( create: (context) => GpsBloc()),
-        BlocProvider( create: (context) => LocationBloc()),
-        BlocProvider( create: (context) => MapBloc(locationBloc: BlocProvider.of<LocationBloc>(context))),
-        BlocProvider( create: (context) => SearchBloc(trafficService: TrafficService()))
+        BlocProvider(create: (context) => GpsBloc()),
+        BlocProvider(create: (context) => LocationBloc()),
+        BlocProvider(
+            create: (context) =>
+                MapBloc(locationBloc: BlocProvider.of<LocationBloc>(context))),
+        BlocProvider(
+            create: (context) => SearchBloc(trafficService: TrafficService()))
       ],
       child: MultiProvider(
         providers: [
@@ -183,11 +165,16 @@ class MyApp extends StatelessWidget {
                   UsersChatScreen.routeName: (context) => UsersChatScreen(),
                   FurtherCat.routeName: (context) => FurtherCat(),
                   ProductInfoOne.routeName: (context) => ProductInfoOne(),
-                  AddingImagesScreen.routeName: (context) => AddingImagesScreen(),
-                  PriceAndLocationScreen.routeName: (context) => PriceAndLocationScreen(),
-                  BottomNavigationScreen.routeName: (context) => BottomNavigationScreen(),
+                  AddingImagesScreen.routeName: (context) =>
+                      AddingImagesScreen(),
+                  PriceAndLocationScreen.routeName: (context) =>
+                      PriceAndLocationScreen(),
+                  BottomNavigationScreen.routeName: (context) =>
+                      BottomNavigationScreen(),
+
                   /// navegar normalmente.
-                  ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
+                  ProductDetailScreen.routeName: (context) =>
+                      ProductDetailScreen(),
                   //ChatScreen.routeName: (context) => ChatScreen(),
                   AddProduct.routeName: (context) => AddProduct(),
                   HomeScreen.routeName: (context) => HomeScreen(),
