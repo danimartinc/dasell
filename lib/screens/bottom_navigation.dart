@@ -220,12 +220,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ),
                   ),
                 ],
-                onTap: (index) {
-                  setState(() {
-                    Provider.of<MenuProvider>(context).setIndex(0);
-                    //selectedPageIndex = index;
-                  });
-                },
+                onTap: (index) =>  Provider.of<MenuProvider>(context, listen: false ).setIndex(index)
+                //selectedPageIndex = index;
               ),
             ),
             IgnorePointer(
