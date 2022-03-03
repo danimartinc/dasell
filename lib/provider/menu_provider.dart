@@ -7,7 +7,7 @@ class MenuProvider extends ChangeNotifier{
   int index = 0;
 
   void setIndex ( int index ){
-    index = index;
+    this.index = index;
     notifyListeners();
   }
 }
