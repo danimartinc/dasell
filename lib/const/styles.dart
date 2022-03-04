@@ -37,7 +37,9 @@ const bookButtonTextStyle = TextStyle(
     letterSpacing: 1.1,
   );
 
+//Loading
+const mainDataBackupColor = Color(0xFF5113AA);
+const secondaryDataBackupColor = Color(0xFFBC53FA);
+const backgroundColor = Color(0xFFfce7fe);
 
-
-
-  const nextbtnColor = Color(0xFF006BF3);
+const nextbtnColor = Color(0xFF006BF3);

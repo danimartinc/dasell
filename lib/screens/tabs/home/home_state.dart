@@ -1,6 +1,7 @@
 import 'package:DaSell/commons.dart';
 import 'package:DaSell/data/categories.dart';
 import 'package:DaSell/provider/ad_provider.dart';
+import 'package:DaSell/provider/menu_provider.dart';
 import 'package:DaSell/screens/home/product_detail_screen.dart';
 import 'package:DaSell/screens/home/search.dart';
 import 'package:DaSell/screens/product_details/product_details.dart';
@@ -181,12 +182,6 @@ abstract class HomeScreenState extends State<HomeScreen>
   }
 
   void onAddTap() {
-    context.pushReplacementNamed(AddProduct.routeName);
-    // () => {
-// //Navigator.of(context).pushNamed( AddProduct.routeName ),
-// //Navigator.of(context).pushNamed( './add_product_screen' )
-// Navigator.of(context)
-//     .pushReplacementNamed(AddProduct.routeName),
-// }
+    Provider.of<MenuProvider>( context, listen: false ).setIndex(2);
   }
 }

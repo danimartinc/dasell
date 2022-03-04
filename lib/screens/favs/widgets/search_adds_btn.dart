@@ -1,5 +1,4 @@
 import '../../../commons.dart';
-import '../../bottom_navigation.dart';
 
 class SearchAdssBtn extends StatelessWidget {
 
@@ -41,7 +40,7 @@ class SearchAdssBtn extends StatelessWidget {
             elevation: 0,
             splashColor: Colors.transparent,
             onPressed: () => {
-              Navigator.of(context).pushNamed( BottomNavigationScreen.routeName ),
+              Provider.of<MenuProvider>( context, listen: false ).setIndex(0)
             }
           ),
         ],

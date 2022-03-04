@@ -1,13 +1,11 @@
+import '../../commons.dart';
+import 'package:flutter/services.dart';
 
-import 'package:flutter/material.dart';
 
 import 'data_backup_cloud_page.dart';
 import 'data_backup_completed_page.dart';
 import 'data_backup_initial_page.dart';
 
-const mainDataBackupColor = Color(0xFF5113AA);
-const secondaryDataBackupColor = Color(0xFFBC53FA);
-const backgroundColor = Color(0xFFfce7fe);
 
 class DataBackupHome extends StatefulWidget {
   
@@ -30,6 +28,11 @@ class _DataBackupHomeState extends State<DataBackupHome> with SingleTickerProvid
 
   @override
   void initState() {
+
+     SystemChrome.setSystemUIOverlayStyle( const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
+    
     _animationController = AnimationController(
       vsync: this, 
       duration: const Duration(

@@ -1,7 +1,5 @@
-import 'package:DaSell/provider/menu_provider.dart';
-
 import 'commons.dart';
-import 'routes.dart';
+
 
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +8,6 @@ import 'package:theme_provider/theme_provider.dart';
 import 'const/pallete.dart';
 import 'maps/blocs/blocs.dart';
 import 'maps/services/traffic_service.dart';
-import 'provider/ad_provider.dart';
-import 'provider/move_map_provider.dart';
 //Screens
 import 'screens/auth/auth_screen.dart';
 import './screens/bottom_navigation.dart';
@@ -31,12 +27,18 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => GpsBloc()),
-        BlocProvider(create: (context) => LocationBloc()),
         BlocProvider(
-            create: (context) => MapBloc(locationBloc: BlocProvider.of<LocationBloc>(context))),
+          create: (context) => GpsBloc()
+        ),
         BlocProvider(
-            create: (context) => SearchBloc(trafficService: TrafficService()))
+          create: (context) => LocationBloc()
+        ),
+        BlocProvider(
+          create: (context) => MapBloc(locationBloc: BlocProvider.of<LocationBloc>(context))
+        ),
+        BlocProvider(
+          create: (context) => SearchBloc(trafficService: TrafficService())
+        ),
       ],
       child: MultiProvider(
         providers: [

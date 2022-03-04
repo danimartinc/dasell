@@ -50,25 +50,17 @@ abstract class ProductDetailsState extends State<ProductDetails> {
     if (result == true) {
       await _firebaseService.deleteAd(data.id);
       update();
-      //ToastMessage(text: 'Publicación eliminada',);
-      showToast();
+      //CustomToastMessage( message: 'Publicación eliminada', backgroundColor: Colors.green.shade600,);
+      showDeleteToast();
     }
 
-
-
-    Fluttertoast.showToast(
-        msg: "This is a Toast message",  // message
-        toastLength: Toast.LENGTH_SHORT, // length
-        gravity: ToastGravity.CENTER,    // location
-        //timeInSecForIos: 1               // duration
-    );
   }
 
-  void showToast() => Fluttertoast.showToast(
-    msg: 'Ubicación compartida',
-    fontSize: 18,
+  void showDeleteToast() => Fluttertoast.showToast(
+    msg: 'Publicación eliminada',
+    fontSize: 15,
     gravity: ToastGravity.BOTTOM,
-    //backgroundColor: Colors.blueGrey,
+    backgroundColor: Colors.green.shade500,
     textColor: Colors.white,
   );
 
@@ -77,9 +69,18 @@ abstract class ProductDetailsState extends State<ProductDetails> {
     if (result == true) {
       await _firebaseService.markAsSold(data.id);
       isSold = true;
+      showSellToast();
       update();
     }
   }
+
+  void showSellToast() => Fluttertoast.showToast(
+    msg: 'Artículo marcado como vendido',
+    fontSize: 15,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.green.shade500,
+    textColor: Colors.white,
+  );
 
   double locationDistance = -1;
 

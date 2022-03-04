@@ -18,3 +18,4 @@ export 'widgets/widgets.dart';
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:carousel_slider/carousel_slider.dart';
 export 'routes.dart';
+export 'provider/providers.dart'; 

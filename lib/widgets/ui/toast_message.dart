@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class ToastMessage extends StatelessWidget {
+class CustomToastMessage extends StatelessWidget {
 
    final toast = FToast();
-   final String text;
+   final String message;
+   final Color backgroundColor;
 
-  ToastMessage({Key? key, required this.text}) : super(key: key);
+  CustomToastMessage({Key? key, required this.message, required this.backgroundColor}) : super(key: key);
  
 
 
   @override
   Widget build(BuildContext context) {
 
+    return GestureDetector(
+      onTap: () => Fluttertoast.showToast(
+        msg: 'Ubicación compartida',
+        fontSize: 15,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      ),
+    );
+
     //Custom Toast
-    return Container(
+   /* return Container(
       padding: EdgeInsets.symmetric( horizontal: 20, vertical: 12 ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
@@ -31,7 +42,7 @@ class ToastMessage extends StatelessWidget {
           )
         ],
       ),
-    );
+    );*/
   }
 
  /* void showBottomToast() => toast.showToast(

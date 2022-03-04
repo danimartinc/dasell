@@ -28,13 +28,13 @@ class _ProductGoogleMapScreenState extends ProductGoogleMapState {
       appBar: AppBar(
         title: widget.isEditable ? Text('Elegir localización') : Text('Ubicación actual'),
         actions: widget.isEditable && pickedLocation != null
-            ? [
-                IconButton(
-                  icon: Icon(Icons.check),
-                  onPressed: () => Navigator.of(context).pop(pickedLocation),
-                ),
-              ]
-            : [],
+          ? [
+            IconButton(
+              icon: Icon(Icons.check),
+              onPressed: () => Navigator.of(context).pop(pickedLocation),
+            ),
+          ]
+        : [],
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(

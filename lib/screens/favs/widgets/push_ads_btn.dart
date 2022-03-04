@@ -30,16 +30,13 @@ class PushAdsBtn extends StatelessWidget {
               shape: StadiumBorder(),
               elevation: 0,
               splashColor: Colors.transparent,
-              //Disparamos el método getCoordsStartAndDestination para confirmar el destino
               onPressed: () => {
-                Provider.of<MenuProvider>(context, listen: false ).setIndex(3)
+                Provider.of<MenuProvider>(context, listen: false ).setIndex( 2 )
                 //Navigator.of(context).pushNamed( AddProduct.routeName ),
                 //Navigator.of(context).pushNamed( BottomNavigationScreen.routeName ),
               }
             ),
-
         ],
-
       ), 
     );
   }
