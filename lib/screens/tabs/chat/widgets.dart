@@ -1,6 +1,7 @@
 import 'package:DaSell/commons.dart';
 import 'package:DaSell/screens/tabs/utils/badge_requester.dart';
 
+import '../utils/badge_count.dart';
 import 'models.dart';
 
 class ChatRoomItem extends StatelessWidget {
@@ -33,11 +34,12 @@ class ChatRoomItem extends StatelessWidget {
             // request temporal para conseguir el
             // badge count del query.
             ///TODO: refactorizar para el valor que necesita mostrar .
-            BadgeRequester(
-              recieverId: 'receiverId',
-              docId: 'docId',
-              uid: 'uid',
-            ),
+            // BadgeRequester(
+            //   recieverId: 'receiverId',
+            //   docId: 'docId',
+            //   uid: 'uid',
+            // ),
+            BadgeCount(count: data.unreadCount),
           ],
         ),
         onTap: onTap,

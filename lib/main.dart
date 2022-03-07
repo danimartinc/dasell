@@ -1,6 +1,5 @@
 import 'commons.dart';
 
-
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_provider/theme_provider.dart';
@@ -8,10 +7,10 @@ import 'package:theme_provider/theme_provider.dart';
 import 'const/pallete.dart';
 import 'maps/blocs/blocs.dart';
 import 'maps/services/traffic_service.dart';
+
 //Screens
 import 'screens/auth/auth_screen.dart';
 import './screens/bottom_navigation.dart';
-
 
 void main() async {
   await initApp();
@@ -19,26 +18,17 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
-    final ThemeData theme = ThemeData();
-
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => GpsBloc()),
+        BlocProvider(create: (context) => LocationBloc()),
         BlocProvider(
-          create: (context) => GpsBloc()
-        ),
+            create: (context) =>
+                MapBloc(locationBloc: BlocProvider.of<LocationBloc>(context))),
         BlocProvider(
-          create: (context) => LocationBloc()
-        ),
-        BlocProvider(
-          create: (context) => MapBloc(locationBloc: BlocProvider.of<LocationBloc>(context))
-        ),
-        BlocProvider(
-          create: (context) => SearchBloc(trafficService: TrafficService())
-        ),
+            create: (context) => SearchBloc(trafficService: TrafficService())),
       ],
       child: MultiProvider(
         providers: [
@@ -65,7 +55,7 @@ class MyApp extends StatelessWidget {
               data: ThemeData(
                 fontFamily: 'Roboto',
                 primarySwatch: Palette.kToDark,
-               /* colorScheme: ColorScheme.fromSwatch().copyWith(
+                /* colorScheme: ColorScheme.fromSwatch().copyWith(
                   //Accent Color
                   secondary: Colors.red,
                 ),*/
@@ -87,7 +77,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-            ), 
+            ),
             AppTheme.dark(
               id: 'dark_theme',
             ).copyWith(
@@ -121,17 +111,19 @@ class MyApp extends StatelessWidget {
             child: Builder(
               builder: (themeContext) => MaterialApp(
                 navigatorKey: locator<NavigatorService>().navigatorKey,
-                onGenerateRoute: (routeSettings) {
-                  switch (routeSettings.name) {
-                    case 'chat':
-                      return MaterialPageRoute(
-                          builder: (context) => UsersChatScreen());
-                    //case "product":
-                    //return MaterialPageRoute(builder: (context) => AddProduct() );
-                    default:
-                      return MaterialPageRoute(builder: (context) => MyApp());
-                  }
-                },
+                // onGenerateRoute: (routeSettings) {
+                //   trace("CREATING ROUTE!", routeSettings.name);
+                //   switch (routeSettings.name) {
+                //     // case 'chat':
+                //       // return MaterialPageRoute(
+                //       //   builder: (context) => UsersChatScreen(),
+                //       // );
+                //     //case "product":
+                //     //return MaterialPageRoute(builder: (context) => AddProduct() );
+                //     default:
+                //       return MaterialPageRoute(builder: (context) => MyApp());
+                //   }
+                // },
                 title: 'DaSell',
                 theme: ThemeProvider.themeOf(themeContext).data,
                 debugShowCheckedModeBanner: false,
@@ -163,13 +155,12 @@ class MyApp extends StatelessWidget {
                         systemNavigationBarIconBrightness: Brightness.dark,
                       ),
                     );
-
                     return snapshot.hasData
                         ? BottomNavigationScreen()
                         : AuthScreen();
                   },
                 ),
-                routes: routes,   
+                routes: routes,
               ),
             ),
           ),
@@ -178,5 +169,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

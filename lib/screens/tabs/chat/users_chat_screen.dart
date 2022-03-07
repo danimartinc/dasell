@@ -12,6 +12,7 @@ class UsersChatScreen extends StatefulWidget {
 class _UsersChatScreenState extends UsersChatController {
   @override
   Widget build(BuildContext context) {
+    testMyId();
     return Scaffold(
       appBar: AppBar(
         title: Text('Chats', style: kAppbarTitleStyle),

@@ -1,10 +1,13 @@
 //Data
 import 'package:DaSell/data/categories.dart';
+
 //Models
 import 'package:DaSell/models/ad_location.dart';
 import 'package:DaSell/models/user.dart';
+
 //Providers
 import 'package:DaSell/provider/ad_provider.dart';
+
 //Screens
 import 'package:DaSell/screens/chats/chat_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -719,10 +722,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   icon: Icon(
                     FontAwesomeIcons.comments,
                   ),
-                  onPressed: () => Navigator.of(context).pushNamed(
-                    ChatScreen.routeName,
-                    arguments: userData,
-                  ),
+                  onPressed: () {
+                    trace("push chat screen?!");
+                    Navigator.of(context).pushNamed(
+                      ChatScreen.routeName,
+                      arguments: userData,
+                    );
+                  },
                 ),
               ),
             )

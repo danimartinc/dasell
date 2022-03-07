@@ -8,14 +8,20 @@ import 'models.dart';
 abstract class UsersChatController extends State<UsersChatScreen> {
   User? get myUser => FirebaseAuth.instance.currentUser!;
   late StreamSubscription chatStreamSub;
-  final List<ChatViewItemVo> dataItems = [];
+  List<ChatViewItemVo> dataItems = [];
 
   final _service = FirebaseService.get();
 
   @override
   void initState() {
-    chatStreamSub = _service.subscribeToChats(onChatDataChange);
+    chatStreamSub = _service.subscribeToMyChats(onChatDataChange);
+    // chatStreamSub = _service.subscribeToChats(onChatDataChange);
     super.initState();
+  }
+
+  testMyId() {
+    trace('calling testMyId');
+    _service.testMyId();
   }
 
   @override
@@ -36,16 +42,30 @@ abstract class UsersChatController extends State<UsersChatScreen> {
   }
 
   Future<void> onChatDataChange(
-      QuerySnapshot<Map<String, dynamic>> event) async {
+    QuerySnapshot<Map<String, dynamic>> event,
+  ) async {
+    trace('data changed!');
     // final chatRooms = event.docs.map((e) => ChatRoomVo.fromDoc(e)).toList();
     final chatRooms =
         event.docs.map((e) => ChatRoomVo.fromJson(e.data())).toList();
     final myId = myUser!.uid;
-    dataItems.clear();
+    // dataItems.clear();
+    dataItems = await _service.getUserChats(chatRooms);
+    update();
+    // dataItems.add(data);
+    // trace("List len:", dataItems.length);
+    return ;
+
+    // final messagesResults = await (
+    //     doc.reference
+    //         .collection('messages')
+    //         .where('receiverId', isEqualTo: widget.uid)
+    //         .where('isRead', isEqualTo: false))
+    //     .get();
 
     chatRooms.forEach((e) async {
       /// si nuestro user es parte del id.
-      if (e.docId!.contains(myId)) {
+      if (e.docId.contains(myId)) {
         // conseguimos el id del otro user
         final recieverId = e.getOtherUserId(myId);
         final reciever = await getUserInfo(recieverId);
@@ -74,6 +94,7 @@ abstract class UsersChatController extends State<UsersChatScreen> {
 
   /// Item on tap.
   void onItemTap(UserVo userModel) {
+    trace("PUSH CHAT SCREEN 1");
     context.push(ChatScreen(user: userModel));
     // Navigator.of(context).pushNamed(
     //   ChatScreen.routeName,

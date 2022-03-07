@@ -34,7 +34,8 @@ class PushNotificationService {
     print(message.data);
     //Añadimos información al flujo del messagesStream a la notificación
     //_messageStream.add( message.data['product'] ?? 'No data' );
-    locator<NavigatorService>().navigateTo('chat');
+    /// TODO: @Daniel, encontra una forma de navegar a chat sin romper la app.
+    // locator<NavigatorService>().navigateTo('chat');
     //_messageStream.add( message.notification!.title ?? 'No title' );
   }
 
@@ -43,15 +44,19 @@ class PushNotificationService {
     print('onMessage Handler ${message.messageId}');
     print(message.data);
     print(message.notification);
-    locator<NavigatorService>().navigateTo('chat');
     _messageStream.add(message.data['product'] ?? 'No data');
+    /// TODO: @Daniel, encontra una forma de navegar a chat sin romper la app.
+    // locator<NavigatorService>().navigateTo('chat');
+
     //_messageStream.add( message.notification!.title ?? 'No title' );
   }
 
   static Future _onMessageOpenApp(RemoteMessage message) async {
     print('onMessageOpenApp Handler ${message.messageId}');
     print(message.data);
-    locator<NavigatorService>().navigateTo('chat');
+    /// TODO: @Daniel, encontra una forma de navegar a chat sin romper la app.
+    // locator<NavigatorService>().navigateTo('chat');
+
     _messageStream.add(message.data['product'] ?? 'No data');
     //_messageStream.add( message.notification!.title ?? 'No title' );
   }

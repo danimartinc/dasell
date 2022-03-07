@@ -1,4 +1,4 @@
-
+import 'package:DaSell/commons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatRoomVo {
@@ -6,11 +6,15 @@ class ChatRoomVo {
   String? lastMessage;
   String? senderId;
   Timestamp? timeStamp;
-  String? docId;
+  String docId;
+
+  bool get sentByMe {
+    return senderId == FirebaseService.get().uid;
+  }
 
   /// no se si es válido
   DateTime? get dateTimeStamp {
-    if(timeStamp==null){
+    if (timeStamp == null) {
       return null;
     }
     return timeStamp!.toDate();
@@ -19,26 +23,16 @@ class ChatRoomVo {
 
   ChatRoomVo(
       {this.isRead,
-        this.lastMessage,
-        this.senderId,
-        this.timeStamp,
-        this.docId});
+      this.lastMessage,
+      this.senderId,
+      this.timeStamp,
+      required this.docId});
 
-
-  ChatRoomVo.fromDoc(DocumentSnapshot json) {
+  ChatRoomVo.fromJson(Map<String, dynamic> json) : docId = json['docId'] {
     isRead = json['isRead'];
     lastMessage = json['lastMessage'];
     senderId = json['senderId'];
     timeStamp = json['timeStamp'];
-    docId = json['docId'];
-  }
-
-  ChatRoomVo.fromJson(Map<String, dynamic> json) {
-    isRead = json['isRead'];
-    lastMessage = json['lastMessage'];
-    senderId = json['senderId'];
-    timeStamp = json['timeStamp'];
-    docId = json['docId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -52,6 +46,6 @@ class ChatRoomVo {
   }
 
   String getOtherUserId(String idToRemove) {
-    return docId!.replaceFirst(idToRemove, '').trim();
+    return docId.replaceFirst(idToRemove, '').trim();
   }
 }

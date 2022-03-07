@@ -14,7 +14,7 @@ import 'widgets/chat_back_button.dart';
 
 class ChatScreen extends StatefulWidget {
   final UserVo user;
-  static const routeName = './chat_screen';
+  static const routeName = '/chat_screen';
 
   const ChatScreen({Key? key, required this.user}) : super(key: key);
 

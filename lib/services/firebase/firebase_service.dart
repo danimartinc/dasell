@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:DaSell/commons.dart';
+import 'package:DaSell/screens/tabs/chat/models.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -36,9 +37,11 @@ class FirebaseService {
 
   void _onMyUserDataChange(DocumentSnapshot<Map<String, dynamic>> event) {
     myUserVo = UserVo.fromJson(event);
+    chatUsersMap[myUserVo!.uid] = myUserVo!;
   }
 
   bool get hasUser => auth.currentUser != null;
+
   bool get hasUserVo => myUserVo != null;
 
   String get uid => auth.currentUser!.uid;
@@ -98,6 +101,15 @@ class FirebaseService {
     return stream.listen(onData);
   }
 
+  StreamSubscription subscribeToMyChats(QueryStreamDataCallback onData) {
+    final stream = FirebaseFirestore.instance
+        .collection('chats')
+        .where('users', arrayContains: '$uid')
+        .orderBy('timeStamp', descending: true)
+        .snapshots();
+    return stream.listen(onData);
+  }
+
   StreamSubscription subscribeToUser(
     String userId,
     DocStreamDataCallback onData,
@@ -142,9 +154,121 @@ class FirebaseService {
       'lastMessage': message,
       'senderId': senderId,
       'timeStamp': ts,
-      'isRead': false,
+      'users': [senderId, receiverId]
     };
     await firestore.collection('chats').doc(docId).set(chatData);
+  }
+
+  Future<void> testMyId() async {
+    trace("Queryin my UID", uid);
+    firestore
+        .collection('chats')
+        .where('users', arrayContains: '$uid')
+        .get()
+        .then((e) {
+      // trace('resultttt:', e.docs);
+      e.docs.forEach((f) {
+        trace(f.data());
+      });
+    });
+  }
+
+  Map<String, UserVo> chatUsersMap = {};
+
+  Future<void> cacheMissingUsers(List<String> missingUids) async {
+    /// make sure we have the data cached.
+    final uids = missingUids
+        .where(
+          (id) => !chatUsersMap.containsKey(id),
+        )
+        .toList();
+    if (uids.isEmpty) {
+      trace("All users in cache!");
+      return;
+    }
+    final usersResponse = await firestore
+        .collection('users')
+        .where('uid', whereIn: uids)
+        .withConverter<UserVo>(
+            fromFirestore: (snapshot, _) => UserVo.fromJson(snapshot.data()),
+            toFirestore: (UserVo value, _) => value.toJson())
+        .get();
+
+    /// add into map.
+    usersResponse.docs.forEach((snapshot) {
+      final userVo = snapshot.data();
+      chatUsersMap[userVo.uid] = userVo;
+    });
+  }
+
+  Future<List<ChatViewItemVo>> getUserChats(List<ChatRoomVo> chatRooms) async {
+    var uids = chatRooms.map((e) => e.getOtherUserId(uid)).toList();
+    var chatIds = chatRooms.map((e) => e.docId).toList();
+    // trace('-----');
+    // trace(chatIds);
+    // trace(uid);
+    // trace('-----');
+    // var a = await firestore
+    //     .collection('chats')
+    //     .where('docId', whereIn: chatIds).
+    //     .where(
+    //       FieldPath(['messages', 'isRead']),
+    //       isEqualTo: false,
+    //     )
+    //     .get();
+    // trace("A is: ", a.size);
+
+    await cacheMissingUsers(uids);
+    final result = <ChatViewItemVo>[];
+    final readCounts = [];
+    for (var room in chatRooms) {
+      final otherUserId = room.getOtherUserId(uid);
+      final user = chatUsersMap[otherUserId];
+      if (user == null) {
+        print("Gran problema... el otro usuario no puede no existir");
+        return [];
+      }
+      var count = await getChatUnreadCount(roomId: room.docId);
+      String subtitle = room.lastMessage ?? '';
+      if (room.sentByMe) {
+        subtitle = 'Tu: $subtitle';
+      }
+      final chatRoomItem = ChatViewItemVo(
+        unreadCount: count,
+        receiver: user,
+        title: user.textName,
+        subtitle: subtitle,
+        time: room.dateTimeStamp,
+        imageUrl: user.profilePicture,
+      );
+      result.add(chatRoomItem);
+      // dataItems.add(data);
+    }
+
+    return result;
+    // trace('getting users chats', uids, "AND MAP:");
+    // trace('user maps', chatUsersMap);
+    // final users = await Future.wait(chatRooms.map((e)=> getUser(e.getOtherUserId(uid))));
+    // trace("We got all users: ", users);
+    // 28N1tTfEaSZr573YmNSwjn4gLZv1
+    // ggj4sFQXBiXx69Rl8dUZKHMpGcw2
+  }
+
+  Future<int> getChatUnreadCount({required String roomId}) async {
+    final query = await firestore
+        .collection('chats')
+        .doc(roomId)
+        .collection('messages')
+        .where(
+          'isRead',
+          isEqualTo: false,
+        )
+        .where(
+          'receiverId',
+          isEqualTo: uid,
+        )
+        .get();
+    return query.size;
   }
 }
 

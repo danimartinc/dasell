@@ -6,7 +6,7 @@ class ChatViewItemVo {
   final String? imageUrl;
   final DateTime? time;
   final String title, subtitle;
-
+  int unreadCount = 0;
   /// usado para el ValueKey y mandar a la otra pantalla.
   final UserVo receiver;
 
@@ -15,6 +15,7 @@ class ChatViewItemVo {
   }
 
   ChatViewItemVo({
+    this.unreadCount=0,
     required this.receiver,
     required this.title,
     required this.subtitle,
