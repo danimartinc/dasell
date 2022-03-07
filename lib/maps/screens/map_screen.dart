@@ -1,6 +1,5 @@
 import 'package:DaSell/commons.dart';
 import 'package:DaSell/maps/widgets/animated_fab_menu.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -13,12 +12,12 @@ import 'package:DaSell/maps/widgets/widgets.dart';
 class MapScreen extends StatefulWidget {
   static const routeName = './map_screen.dart';
 
-  // final Set<String> args;
-  final String receiverId;
+  final Set<String> args;
+  //final String receiverId; 
   const MapScreen({
     Key? key,
-    // required this.args,
-    required this.receiverId,
+    required this.args,
+    //required this.receiverId,
   }) : super(key: key);
 
   @override
@@ -32,10 +31,10 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     locationBloc = BlocProvider.of<LocationBloc>(context);
-    // locationBloc.sender = widget.args.elementAt(0);
-    // locationBloc.receiver = widget.args.elementAt(1);
-    locationBloc.sender = FirebaseService.get().uid;
-    locationBloc.receiver = widget.receiverId;
+    locationBloc.sender = widget.args.elementAt(0);
+    locationBloc.receiver = widget.args.elementAt(1);
+    //locationBloc.sender = FirebaseService.get().uid;
+    //locationBloc.receiver = widget.receiverId;
     // locationBloc.getCurrentPosition();
     locationBloc.startFollowingUser();
   }
@@ -52,7 +51,7 @@ class _MapScreenState extends State<MapScreen> {
       body: BlocBuilder<LocationBloc, LocationState>(
         builder: (context, locationState) {
           if (locationState.lastKnownLocation == null) {
-            return const Center(child: Text('Espere por favor...'));
+                const Center(child: Text('Espere por favor...'));
           }
 
           return BlocBuilder<MapBloc, MapState>(

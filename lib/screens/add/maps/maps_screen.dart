@@ -21,9 +21,26 @@ class ProductGoogleMapScreen extends StatefulWidget {
 
 class _ProductGoogleMapScreenState extends ProductGoogleMapState {
 
+  GoogleMapController? _googleMapController;
+
+    @override
+    void dispose() {
+      _googleMapController!.dispose();
+      super.dispose();
+    }
+
   @override
   Widget build(BuildContext context) {
-    
+
+    CameraPosition _initialCameraPosition = CameraPosition(
+      target: LatLng(
+        widget.placeLocation!.latitude!,
+        widget.placeLocation!.longitude!,
+      ),
+      zoom: 16,
+    );
+
+
     return Scaffold(
       appBar: AppBar(
         title: widget.isEditable ? Text('Elegir localización') : Text('Ubicación actual'),
@@ -37,21 +54,27 @@ class _ProductGoogleMapScreenState extends ProductGoogleMapState {
         : [],
       ),
       body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(
-            widget.placeLocation!.latitude!,
-            widget.placeLocation!.longitude!,
-          ),
-          zoom: 16,
-        ),
+        initialCameraPosition: _initialCameraPosition,
          //Tipo de mapa
         mapType: MapType.normal,
         //Punto que indica la posición actual del usuario
         myLocationEnabled: true,
+        myLocationButtonEnabled: false,
         buildingsEnabled: true,
+        tiltGesturesEnabled: true,
+        zoomControlsEnabled: false,
         indoorViewEnabled: true,
         onTap: widget.isEditable ? selectLocation : null,
         markers: getMarker,
+        onMapCreated: ( controller ) => _googleMapController = controller,
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+        onPressed: () => _googleMapController!.animateCamera(
+          CameraUpdate.newCameraPosition(_initialCameraPosition),
+        ),
+        child: const Icon(Icons.center_focus_strong),
       ),
     );
   }

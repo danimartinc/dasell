@@ -1,5 +1,6 @@
 import 'commons.dart';
 
+import 'maps/screens/screens.dart';
 import 'screens/add/add_images/adding_images_screen.dart';
 import 'screens/add/further_cat/further_cat.dart';
 import 'screens/add/price_location/price_and_location_screen.dart';
@@ -25,7 +26,7 @@ import 'widgets/loading/data_backup_home.dart';
     AddProduct.routeName: (context) => AddProduct(),
     HomeScreen.routeName: (context) => HomeScreen(),
     DataBackupHome.routeName: (context) => DataBackupHome(),
-    // MapLoadingScreen.routeName: (context) => MapLoadingScreen(),
+    MapLoadingScreen.routeName: (context) => MapLoadingScreen(),
     //MyMap.routeName: ( context ) => MyMap(),
     
   };

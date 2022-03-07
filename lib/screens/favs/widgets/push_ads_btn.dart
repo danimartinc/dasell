@@ -32,8 +32,6 @@ class PushAdsBtn extends StatelessWidget {
               splashColor: Colors.transparent,
               onPressed: () => {
                 Provider.of<MenuProvider>(context, listen: false ).setIndex( 2 )
-                //Navigator.of(context).pushNamed( AddProduct.routeName ),
-                //Navigator.of(context).pushNamed( BottomNavigationScreen.routeName ),
               }
             ),
         ],

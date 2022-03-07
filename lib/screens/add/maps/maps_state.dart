@@ -11,7 +11,6 @@ abstract class ProductGoogleMapState extends State<ProductGoogleMapScreen> {
   void selectLocation( LatLng position ) {
 
     setState(() {
-      //print("actualizando ubicacion");
       pickedLocation = position;
     });
   }

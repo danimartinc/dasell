@@ -33,54 +33,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   @override
   void initState() {
-  
-    //Obtenemos la instancia de FirebaseMessaging
-    //static FirebaseMessaging messaging = FirebaseMessaging.instance;
-  
-    // final fcm = FirebaseMessaging.instance;
-    //
-    // FirebaseMessaging.onMessage.listen(( RemoteMessage message ) {
-    //   RemoteNotification? notification = message.notification;
-    //   AndroidNotification? android = message.notification!.android;
-    // });
-    //
-    // FirebaseMessaging.onMessageOpenedApp.listen(( RemoteMessage message ) {
-    //   print('A new onMessageOpenedApp event was published!');
-    //   // Navigator.pushNamed(context, '/message',
-    //   // //MesageArguments,
-    //   //     arguments: MessageArguments( message, true));
-    // });
-
-
-
-//await Firebase.initializeApp();
-
-    // fcm.configure(
-    //
-    //   onMessage: (msg) {
-    //     print('onMessage');
-    //     print( msg );
-    //     return;
-    //   },
-    //
-    //   onLaunch: (msg) {
-    //     print('onLaunch');
-    //     print(msg);
-    //     return Navigator.of(context).pushNamed(
-    //       UsersChatScreen.routeName,
-    //     );
-    //   },
-    //
-    //   onResume: (msg) {
-    //     print('onResume');
-    //     print(msg);
-    //     return Navigator.of(context).pushNamed(
-    //       UsersChatScreen.routeName,
-    //     );
-    //   },
-    // );
-
-    //fcm.subscribeToTopic('chats');
 
     _pages = [
       {
@@ -145,12 +97,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                     label: 'Inicio',
                     //backgroundColor: Theme.of(context).primaryColor,
                     icon: menuProviderIndex == 0
-                        ? Icon(
-                            Icons.home_rounded,
-                        )
-                        : Icon(
-                          Icons.home_outlined,
-                        ),
+                      ? Icon(
+                        Icons.home_rounded,
+                      )
+                      : Icon(
+                        Icons.home_outlined,
+                      ),
                   ),
                   BottomNavigationBarItem(
                     label: 'Mis productos',

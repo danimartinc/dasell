@@ -1,17 +1,17 @@
+import '../../../../commons.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class TravelNavigationBar extends StatelessWidget {
 
   final List<TravelNavigationBarItem> items;
   final ValueChanged<int> onTap;
-  final int selectedPageIndex;
+  final int currentIndex;
 
   const TravelNavigationBar({
     Key? key,
     required this.items,
     required this.onTap,
-    this.selectedPageIndex = 0,
+    this.currentIndex = 0,
   })  : assert(items.length == 4, ''),
         super(key: key);
 
@@ -19,6 +19,7 @@ class TravelNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
 
     return CustomPaint(
       painter: _NavPainter(),
@@ -28,20 +29,17 @@ class TravelNavigationBar extends StatelessWidget {
           children: List.generate(
             items.length,
             (index) => Expanded(
-              child: Stack(
-                children: [
-                 /* Icon(
-                    selectedPageIndex == index
+              child:
+                  Icon(
+                    currentIndex == index
                       ? items[index].selectedIcon
                       : items[index].icon,
-                    color: selectedPageIndex == index
+                    color: currentIndex == index
                       ? Theme.of(context).primaryColor
                       : null,
-                  ),*/
-                ],
-              ), 
+                             ),
             ),
-          )..insert( 1, const Spacer() ),
+          )..insert(1, const Spacer()),
         ),
       ),
     );
@@ -50,7 +48,7 @@ class TravelNavigationBar extends StatelessWidget {
 
 class TravelNavigationBarItem {
 
-  final Stack icon;
+  final IconData icon;
   final IconData selectedIcon;
   final String label;
 

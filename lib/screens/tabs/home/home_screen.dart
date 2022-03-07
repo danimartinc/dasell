@@ -6,6 +6,7 @@ import 'home_state.dart';
 import 'widgets/no_products.dart';
 
 class HomeScreen extends StatefulWidget {
+
   static const routeName = './home_screen';
 
   @override
@@ -50,6 +51,7 @@ class _HomeScreenState extends HomeScreenState {
   }
 
   Widget getContent() {
+    
     if (isLoading) {
       return CommonProgress();
     }

@@ -4,6 +4,8 @@ import 'package:DaSell/interface/models/place.dart';
 import 'package:DaSell/interface/ui/detail/place_detail_screen.dart';
 
 
+import '../../../commons.dart';
+import '../../../provider/providers.dart';
 import 'widgets/place_card.dart';
 import 'widgets/travel_navigation_bar.dart';
 
@@ -16,6 +18,8 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+     final menuProviderIndex = Provider.of<MenuProvider>(context).index;
 
     return Scaffold(
       appBar: AppBar(
@@ -70,20 +74,39 @@ class FeedScreen extends StatelessWidget {
         onPressed: () {},
         child: const Icon(Icons.location_on),
       ),
-      /*bottomNavigationBar: TravelNavigationBar(
+      bottomNavigationBar: TravelNavigationBar(
         onTap: (index) {},
         items: [
           TravelNavigationBarItem(
             icon: CupertinoIcons.chat_bubble,
-            selectedIcon: CupertinoIcons.chat_bubble_fill, label: '',
+            selectedIcon: CupertinoIcons.chat_bubble_fill, 
+            label: 'sdsfdfsddfsdfs',
           ),
           TravelNavigationBarItem(
             icon: CupertinoIcons.square_split_2x2,
-            selectedIcon: CupertinoIcons.square_split_2x2_fill, label: '',
+            selectedIcon: CupertinoIcons.square_split_2x2_fill, 
+            label: 'wfwfwefwefwewfwfwe',
           ),
+             TravelNavigationBarItem(
+            icon: CupertinoIcons.square_split_2x2,
+            selectedIcon: CupertinoIcons.square_split_2x2_fill, 
+            label: 'wfwfwefwefwewfwfwe',
+          ),
+             TravelNavigationBarItem(
+            icon: CupertinoIcons.square_split_2x2,
+            selectedIcon: CupertinoIcons.square_split_2x2_fill, 
+            label: 'wfwfwefwefwewfwfwe',
+          ),
+               TravelNavigationBarItem(
+            icon: CupertinoIcons.square_split_2x2,
+            selectedIcon: CupertinoIcons.square_split_2x2_fill, 
+            label: 'wfwfwefwefwewfwfwe',
+          ),
+          
+
         ],
-        currentIndex: 
-      ),*/
+        currentIndex: menuProviderIndex
+      ),
     );
   }
 }

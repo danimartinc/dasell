@@ -89,9 +89,17 @@ class _ChatScreenState extends ChatScreenState {
       uploadImage(ImageSource.gallery);
     } else if (result == ChatAttachment.location) {
       /// open map ?
-      context.push(MapLoadingScreen(
+      /*context.push(MapLoadingScreen(
         receiverId: otherUser.uid,
-      ));
+      ));*/
+
+                    Navigator.of(context).pushReplacementNamed( 
+                        MapLoadingScreen.routeName, 
+                        arguments: {
+                          uid,
+                          otherUser.uid,
+                        }
+                      );
     }
     // ChatAttachment.camera
     //
