@@ -28,9 +28,12 @@ class FirebaseService {
 
   void _onFirebaseUserChange(User? event) {
     _myUserSubscription?.cancel();
+    _globalChatSubs?.cancel();
     if (event != null) {
       if (hasUser) {
         _myUserSubscription = subscribeToUser(uid, _onMyUserDataChange);
+        //// subscribimos al chat global para tener idea de counters.
+        listenGlobalChatCounter();
       }
     }
   }
@@ -169,8 +172,6 @@ class FirebaseService {
     await firestore.collection('chats').doc(docId).set(chatData);
   }
 
-
-
   Map<String, UserVo> chatUsersMap = {};
 
   Future<void> cacheMissingUsers(List<String> missingUids) async {
@@ -289,19 +290,40 @@ class FirebaseService {
     query.docs.forEach((d) {
       batcher.update(d.reference, {'isRead': true});
     });
-    trace("batch reset commiting!");
-    return batcher.commit();
-
-    // if (!isMe && doc['isRead'] == false) {
-    //   // print("RUNS TRANSACTION!");
-    //   FirebaseFirestore.instance.runTransaction(
-    //         (Transaction myTransaction) async => myTransaction.update(
-    //       data.reference,
-    //       {'isRead': true},
-    //     ),
-    //   );
-    // }
+    batcher.commit();
   }
+
+  final onGlobalRoomCount = ValueNotifier(0);
+
+  void listenGlobalChatCounter() {
+    _globalChatSubs?.cancel();
+    if (!hasUser) {
+      return;
+    }
+    final stream = firestore
+        .collection('chats')
+        .where('users', arrayContains: '$uid')
+        .snapshots();
+    trace("LISTEN to stream...", stream);
+    _globalChatSubs = stream.listen(_onGlobalStreamData);
+  }
+
+  void _onGlobalStreamData(QuerySnapshot<Map<String,dynamic>> e) async {
+    final rooms = e.docs.map((e) => e.data()['docId']).toList();
+    var totalCount = 0;
+    // Future.wait(rooms.map((r) => getChatUnreadCount(roomId: r))).then((value) {
+    //   trace("RESULTADO: $value");
+    // });
+    // trace("Result list: ", resultList);
+    for (var room in rooms) {
+      final roomCount = await getChatUnreadCount(roomId: room);
+      totalCount += roomCount;
+    }
+    trace("GLOBAL CHAT COUNTER ",  totalCount);
+    onGlobalRoomCount.value = totalCount;
+  }
+
+  StreamSubscription? _globalChatSubs;
 }
 
 ///Shortcurts

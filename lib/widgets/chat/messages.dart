@@ -23,7 +23,6 @@ class Messages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     initializeDateFormatting('es_ES', null);
 
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(

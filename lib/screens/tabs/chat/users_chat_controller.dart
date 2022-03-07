@@ -30,7 +30,6 @@ abstract class UsersChatController extends State<UsersChatScreen> {
   ) async {
     final chatRooms =
         event.docs.map((e) => ChatRoomVo.fromJson(e.data())).toList();
-    trace('data changed...! ', chatRooms.length);
     dataItems = await _service.getUserChats(chatRooms);
     update();
   }
