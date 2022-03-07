@@ -32,36 +32,33 @@ class Messages extends StatelessWidget {
           .orderBy('timeStamp', descending: true)
           .snapshots(),
       builder: (ctx, snapshot) {
-
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CommonProgress();
         }
-
         var documents = snapshot.data!.docs;
         var lastTime = DateTime.now();
-
         return ListView.builder(
           reverse: true,
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, i) {
-
             final data = documents[i];
             final doc = data.data();
             // print("DOC data: $doc");
             final isMe = doc['senderId'] == senderId;
             final time = (doc['timeStamp'] as Timestamp).toDate();
 
+            /// se corre en setState
             /// TODO: CHEQUEA de correr esta LOGICA, 1 sola vez cuando ingresas
             /// en el CHat ROOM
-            if (!isMe && doc['isRead'] == false) {
-              print("RUNS TRANSACTION!");
-              FirebaseFirestore.instance.runTransaction(
-                (Transaction myTransaction) async => myTransaction.update(
-                  data.reference,
-                  {'isRead': true},
-                ),
-              );
-            }
+            // if (!isMe && doc['isRead'] == false) {
+            //   // print("RUNS TRANSACTION!");
+            //   FirebaseFirestore.instance.runTransaction(
+            //     (Transaction myTransaction) async => myTransaction.update(
+            //       data.reference,
+            //       {'isRead': true},
+            //     ),
+            //   );
+            // }
 
             Widget? dateHeader;
 

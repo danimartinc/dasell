@@ -1,12 +1,10 @@
 import 'dart:async';
 
 import 'package:DaSell/commons.dart';
-import 'package:DaSell/screens/chats/chat_screen.dart';
 import 'package:DaSell/services/firebase/models/product_vo.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../provider/ad_provider.dart';
-import '../../widgets/ui/toast_message.dart';
+import '../chat_room/chat_screen.dart';
 import 'product_details.dart';
 import 'widgets/dialogs.dart';
 import 'widgets/widgets.dart';
@@ -53,16 +51,15 @@ abstract class ProductDetailsState extends State<ProductDetails> {
       //CustomToastMessage( message: 'Publicación eliminada', backgroundColor: Colors.green.shade600,);
       showDeleteToast();
     }
-
   }
 
   void showDeleteToast() => Fluttertoast.showToast(
-    msg: 'Publicación eliminada',
-    fontSize: 15,
-    gravity: ToastGravity.BOTTOM,
-    backgroundColor: Colors.green.shade500,
-    textColor: Colors.white,
-  );
+        msg: 'Publicación eliminada',
+        fontSize: 15,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.green.shade500,
+        textColor: Colors.white,
+      );
 
   Future<void> onSellTap() async {
     var result = await context.dialog(SellAlertDialog());
@@ -75,12 +72,12 @@ abstract class ProductDetailsState extends State<ProductDetails> {
   }
 
   void showSellToast() => Fluttertoast.showToast(
-    msg: 'Artículo marcado como vendido',
-    fontSize: 15,
-    gravity: ToastGravity.BOTTOM,
-    backgroundColor: Colors.green.shade500,
-    textColor: Colors.white,
-  );
+        msg: 'Artículo marcado como vendido',
+        fontSize: 15,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.green.shade500,
+        textColor: Colors.white,
+      );
 
   double locationDistance = -1;
 
@@ -138,7 +135,7 @@ abstract class ProductDetailsState extends State<ProductDetails> {
 
   void onChatTap() {
     trace("PUSH CHAT SCREEN 2");
-    context.push(ChatScreen(user: adUser!));
+    context.push(ChatRoomScreen(user: adUser!));
     //     () => Navigator.of(context).pushNamed(
     //   ChatScreen.routeName,
     //   arguments: userData,

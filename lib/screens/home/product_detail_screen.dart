@@ -2,14 +2,11 @@
 import 'package:DaSell/data/categories.dart';
 
 //Models
-import 'package:DaSell/models/ad_location.dart';
-import 'package:DaSell/models/user.dart';
 
 //Providers
 import 'package:DaSell/provider/ad_provider.dart';
 
 //Screens
-import 'package:DaSell/screens/chats/chat_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -21,6 +18,7 @@ import 'package:provider/provider.dart';
 
 import '../../commons.dart';
 import '../add/maps/maps_screen.dart';
+import '../chat_room/chat_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   static const routeName = './product_detail_screen';
@@ -725,7 +723,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   onPressed: () {
                     trace("push chat screen?!");
                     Navigator.of(context).pushNamed(
-                      ChatScreen.routeName,
+                      ChatRoomScreen.routeName,
                       arguments: userData,
                     );
                   },

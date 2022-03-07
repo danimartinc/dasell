@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:DaSell/commons.dart';
-import 'package:DaSell/screens/chats/chat_state.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 

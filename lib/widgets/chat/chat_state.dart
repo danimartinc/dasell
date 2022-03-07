@@ -1,22 +1,17 @@
-import '../../commons.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as pPath;
 
+import '../../commons.dart';
+import '../../screens/chat_room/chat_screen.dart';
 
-import '../../../provider/ad_provider.dart';
-import '../../screens/chats/chat_screen.dart';
-
-
-abstract class ChatScreenState extends State<ChatScreen> {
-
+abstract class ChatScreenState extends State<ChatRoomScreen> {
   TextEditingController messageController = TextEditingController();
   FocusNode focusNode = FocusNode();
   bool show = false;
 
-  
   @override
   void initState() {
     super.initState();
@@ -30,16 +25,16 @@ abstract class ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  void pickImage( BuildContext context, ImageSource src, ) async {
-
+  void pickImage(
+    BuildContext context,
+    ImageSource src,
+  ) async {
     File? _storedImage;
     File? _pickedImage;
 
     String? documentID;
     String? senderID;
     String? receiverID;
-
-    
 
     final picker = new ImagePicker();
 
@@ -61,7 +56,7 @@ abstract class ChatScreenState extends State<ChatScreen> {
     final savedImage = await _storedImage.copy('${appDir.path}/$fileName');
     _pickedImage = savedImage;
 
-    if ( senderID!.compareTo(receiverID!) > 0 ) {
+    if (senderID!.compareTo(receiverID!) > 0) {
       documentID = receiverID + senderID;
     } else {
       documentID = senderID + receiverID;
@@ -75,10 +70,11 @@ abstract class ChatScreenState extends State<ChatScreen> {
     );
   }
 
-
-
-  void sendMessage( String documentID, String senderID, String receiverID ) async {
-
+  void sendMessage(
+    String documentID,
+    String senderID,
+    String receiverID,
+  ) async {
     //FocusScope.of(context).unfocus();
     final ts = Timestamp.now();
     TextEditingController messageController = TextEditingController();
@@ -86,47 +82,35 @@ abstract class ChatScreenState extends State<ChatScreen> {
 
     messageController.clear();
 
-      await FirebaseFirestore.instance
-          .collection('chats')
-          .doc( documentID )
-          .collection('messages')
-          .add(
-            {
-              'message': enteredMessage,
-              'imageUrl': '',
-              'senderId': senderID,
-              'receiverId': receiverID,
-              'timeStamp': ts,
-              'isRead': false,
-            }
-          );
-      
-      await FirebaseFirestore.instance
-          .collection('chats')
-          .doc( documentID )
-          .set(
-            {
-              'docId': documentID,
-              'lastMessage': enteredMessage,
-              'senderId': senderID,
-              'timeStamp': ts,
-              'isRead': false,
-            },
-          );
+    await FirebaseFirestore.instance
+        .collection('chats')
+        .doc(documentID)
+        .collection('messages')
+        .add({
+      'message': enteredMessage,
+      'imageUrl': '',
+      'senderId': senderID,
+      'receiverId': receiverID,
+      'timeStamp': ts,
+      'isRead': false,
+    });
 
+    await FirebaseFirestore.instance.collection('chats').doc(documentID).set(
+      {
+        'docId': documentID,
+        'lastMessage': enteredMessage,
+        'senderId': senderID,
+        'timeStamp': ts,
+        'isRead': false,
+      },
+    );
 
-      setState(() {
-        enteredMessage = '';
-      });
-    }
+    setState(() {
+      enteredMessage = '';
+    });
+  }
 
-    void pickImageCamera( context ){
-    
-      ImageSource.camera;
-                            
-      Navigator.of(context).pop();
-    }
-                      
-
-
+  void pickImageCamera(context) {
+    Navigator.of(context).pop();
+  }
 }

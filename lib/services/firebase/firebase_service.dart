@@ -101,13 +101,23 @@ class FirebaseService {
     return stream.listen(onData);
   }
 
+  // QueryStreamDataCallback
   StreamSubscription subscribeToMyChats(QueryStreamDataCallback onData) {
     final stream = FirebaseFirestore.instance
         .collection('chats')
         .where('users', arrayContains: '$uid')
         .orderBy('timeStamp', descending: true)
+        // .withConverter<ChatRoomVo>(
+        //   fromFirestore: (e, _) => ChatRoomVo.fromJson(e.data()!),
+        //   toFirestore: (data, _) => data.toJson(),
+        // )
         .snapshots();
     return stream.listen(onData);
+    // return stream
+    //     .map(
+    //       (event) => event.docs.map((e) => e.data()).toList(),
+    //     )
+    //     .listen(onData);
   }
 
   StreamSubscription subscribeToUser(
@@ -148,30 +158,18 @@ class FirebaseService {
         .doc(docId)
         .collection('messages')
         .add(messageData);
-
     final chatData = {
       'docId': docId,
       'lastMessage': message,
       'senderId': senderId,
       'timeStamp': ts,
+      'lastModification': FieldValue.serverTimestamp(),
       'users': [senderId, receiverId]
     };
     await firestore.collection('chats').doc(docId).set(chatData);
   }
 
-  Future<void> testMyId() async {
-    trace("Queryin my UID", uid);
-    firestore
-        .collection('chats')
-        .where('users', arrayContains: '$uid')
-        .get()
-        .then((e) {
-      // trace('resultttt:', e.docs);
-      e.docs.forEach((f) {
-        trace(f.data());
-      });
-    });
-  }
+
 
   Map<String, UserVo> chatUsersMap = {};
 
@@ -203,7 +201,7 @@ class FirebaseService {
 
   Future<List<ChatViewItemVo>> getUserChats(List<ChatRoomVo> chatRooms) async {
     var uids = chatRooms.map((e) => e.getOtherUserId(uid)).toList();
-    var chatIds = chatRooms.map((e) => e.docId).toList();
+    // var chatIds = chatRooms.map((e) => e.docId).toList();
     // trace('-----');
     // trace(chatIds);
     // trace(uid);
@@ -220,7 +218,6 @@ class FirebaseService {
 
     await cacheMissingUsers(uids);
     final result = <ChatViewItemVo>[];
-    final readCounts = [];
     for (var room in chatRooms) {
       final otherUserId = room.getOtherUserId(uid);
       final user = chatUsersMap[otherUserId];
@@ -241,17 +238,11 @@ class FirebaseService {
         time: room.dateTimeStamp,
         imageUrl: user.profilePicture,
       );
+      chatRoomItem.roomVo = room;
       result.add(chatRoomItem);
       // dataItems.add(data);
     }
-
     return result;
-    // trace('getting users chats', uids, "AND MAP:");
-    // trace('user maps', chatUsersMap);
-    // final users = await Future.wait(chatRooms.map((e)=> getUser(e.getOtherUserId(uid))));
-    // trace("We got all users: ", users);
-    // 28N1tTfEaSZr573YmNSwjn4gLZv1
-    // ggj4sFQXBiXx69Rl8dUZKHMpGcw2
   }
 
   Future<int> getChatUnreadCount({required String roomId}) async {
@@ -269,6 +260,47 @@ class FirebaseService {
         )
         .get();
     return query.size;
+  }
+
+  /// podemos usar esto para invalidar el Stream que escucha la lista de chats.
+  Future<void> markRoomForUpdate(String roomId) async {
+    await firestore.collection('chats').doc(roomId).update({
+      'lastModification': FieldValue.serverTimestamp(),
+    });
+  }
+
+  Future<void> setChatUnreadZero({required String roomId}) async {
+    markRoomForUpdate(roomId);
+    final query = await firestore
+        .collection('chats')
+        .doc(roomId)
+        .collection('messages')
+        .where(
+          'isRead',
+          isEqualTo: false,
+        )
+        .where(
+          'receiverId',
+          isEqualTo: uid,
+        )
+        .get();
+
+    final batcher = firestore.batch();
+    query.docs.forEach((d) {
+      batcher.update(d.reference, {'isRead': true});
+    });
+    trace("batch reset commiting!");
+    return batcher.commit();
+
+    // if (!isMe && doc['isRead'] == false) {
+    //   // print("RUNS TRANSACTION!");
+    //   FirebaseFirestore.instance.runTransaction(
+    //         (Transaction myTransaction) async => myTransaction.update(
+    //       data.reference,
+    //       {'isRead': true},
+    //     ),
+    //   );
+    // }
   }
 }
 

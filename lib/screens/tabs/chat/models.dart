@@ -10,6 +10,9 @@ class ChatViewItemVo {
   /// usado para el ValueKey y mandar a la otra pantalla.
   final UserVo receiver;
 
+  /// guardamos la referencia original al doc de firebase.
+  ChatRoomVo? roomVo;
+
   String get widgetId {
     return receiver.uid;
   }

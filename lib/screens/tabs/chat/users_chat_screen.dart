@@ -12,7 +12,6 @@ class UsersChatScreen extends StatefulWidget {
 class _UsersChatScreenState extends UsersChatController {
   @override
   Widget build(BuildContext context) {
-    testMyId();
     return Scaffold(
       appBar: AppBar(
         title: Text('Chats', style: kAppbarTitleStyle),
@@ -21,7 +20,7 @@ class _UsersChatScreenState extends UsersChatController {
         itemCount: dataItems.length,
         itemBuilder: (context, index) => ChatRoomItem(
           data: dataItems[index],
-          onTap: () => onItemTap(dataItems[index].receiver),
+          onTap: () => onItemTap(dataItems[index]),
         ),
       ),
     );
