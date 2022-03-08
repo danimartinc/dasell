@@ -150,8 +150,22 @@ class ResponseProductVo {
 
   void toggleLike() {
     isFav = !isFav;
+
     /// TODO: update UI.
     FirebaseService.get().setLikeProduct(id, isFav);
+  }
+
+  bool showInFilter({
+    String? category,
+    required double priceStart,
+    required double priceEnd,
+  }) {
+    final _price = price ?? 0;
+    var valid = (_price >= priceStart) && (_price <= priceEnd);
+    if (valid && category != null && categories?.isNotEmpty == true) {
+      valid = category == categories!.first.trim().toLowerCase();
+    }
+    return valid;
   }
 }
 

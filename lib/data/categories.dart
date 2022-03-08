@@ -19,6 +19,14 @@ class CategoryVo {
   IconData get icon => _categoryIconByName[iconName]!;
 }
 
+/// Usamos este por ahora, para el Home...
+class CategoryItemVo {
+  final String name;
+  final IconData icon;
+
+  CategoryItemVo(this.name, this.icon);
+}
+
 final _categoryIconByName = <String, IconData>{
   "car": FontAwesomeIcons.car,
   "motorcycle": FontAwesomeIcons.motorcycle,
@@ -55,6 +63,13 @@ class Categories {
     'twitter'  : FontAwesomeIcons.twitter,
     'home'     : FontAwesomeIcons.home
   };*/
+
+  /// consumir esto en el HOME.
+  static List<CategoryItemVo> homeCategories = categories.map((e) {
+    final name = e['category'] as String;
+    final icon = e['icon'] as IconData;
+    return CategoryItemVo(name, icon);
+  }).toList(growable: false);
 
   static const List<Map<String, dynamic>> categories = [
     {

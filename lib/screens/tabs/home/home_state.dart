@@ -2,7 +2,6 @@ import 'package:DaSell/commons.dart';
 import 'package:DaSell/data/categories.dart';
 import 'package:DaSell/provider/ad_provider.dart';
 import 'package:DaSell/provider/menu_provider.dart';
-import 'package:DaSell/screens/home/product_detail_screen.dart';
 import 'package:DaSell/screens/home/search.dart';
 import 'package:DaSell/screens/product_details/product_details.dart';
 import 'package:DaSell/screens/tabs/home/widgets/sort_dialog.dart';
@@ -13,22 +12,83 @@ import 'package:location/location.dart';
 abstract class HomeScreenState extends State<HomeScreen>
     with WidgetsBindingObserver {
   final refreshController = RefreshController(initialRefresh: false);
-  var cats = Categories.storedCategories;
+
+  // no va mas esto.
+  // var cats = Categories.storedCategories;
+
+  /// improvisado para sacar el modelo de categorias.
+  final categories = Categories.homeCategories;
+
+  /// index de la categoria seleccionada.
+  int selectedCategoryIndex = -1;
+
+  /// atajo para tomar el Category model actual del index.
+  CategoryItemVo? get selectedCategory {
+    if (selectedCategoryIndex >= 0) {
+      return categories[selectedCategoryIndex];
+    }
+    return null;
+  }
+
+  void onCategorySelected(int index) {
+    selectedCategoryIndex = index;
+
+    /// request data?
+    // filterByCategory();
+    applyFilters();
+    update();
+  }
+
+  void applyFilters() {
+    /// clean category name just in case, if it exists...
+    /// if its null shows all.
+    var categoryName = selectedCategory?.name.trim().toLowerCase();
+    currentProducts = _allProducts.where(
+      (product) {
+        return product.showInFilter(
+          category: categoryName,
+          priceStart: priceRange.start,
+          priceEnd: priceRange.end,
+        );
+      },
+    ).toList();
+  }
+
+  // void filterByCategory(String? filterCategory) {
+  //   if (filterCategory == null) {
+  //     currentProducts = List.from(_allProducts);
+  //     update();
+  //     return;
+  //   }
+  //   filterCategory = filterCategory.trim().toLowerCase();
+  //   trace(filterCategory);
+  //   currentProducts = _allProducts.where((element) {
+  //     var mainCategory = '';
+  //     final list = element.categories;
+  //     if (list?.isNotEmpty == true) {
+  //       mainCategory = list!.first.trim().toLowerCase();
+  //     }
+  //     if (mainCategory == filterCategory) {
+  //       return true;
+  //     }
+  //     return false;
+  //   }).toList();
+  //   update();
+  // }
 
   final uid = FirebaseAuth.instance.currentUser!.uid;
-  final firestore = FirebaseFirestore.instance;
 
   List<dynamic> documents = [];
   List<AdModel?> prods = [];
   var priceRange = RangeValues(0, 2000);
-  final _firebaseService = FirebaseService.get();
+  final _service = FirebaseService.get();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
-    _firebaseService.updateUserToken();
-    _firebaseService.setUserOnline(true);
+    _service.updateUserToken();
+    _service.setUserOnline(true);
     _loadData();
   }
 
@@ -36,22 +96,19 @@ abstract class HomeScreenState extends State<HomeScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       //Online
-      _firebaseService.setUserOnline(true);
+      _service.setUserOnline(true);
     } else if (state == AppLifecycleState.inactive) {
       //Offline
-      _firebaseService.setUserOnline(false);
+      _service.setUserOnline(false);
     }
     super.didChangeAppLifecycleState(state);
   }
 
   void onPriceRangeChanged(RangeValues rv) {
     priceRange = rv;
-    currentProducts = _allProducts.where(
-      (product) {
-        var price = product.price ?? 0;
-        return (price >= priceRange.start) && (price <= priceRange.end);
-      },
-    ).toList();
+
+    /// apply filters.
+    applyFilters();
     update();
   }
 
@@ -93,7 +150,6 @@ abstract class HomeScreenState extends State<HomeScreen>
     // void onItemLike(ResponseProductVo vo) {
     //   FirebaseService.get().setLikeProduct(vo.id!, !vo.getFav());
     // }
-
   }
 
   void onSortTap() {
@@ -147,7 +203,7 @@ abstract class HomeScreenState extends State<HomeScreen>
     _allProducts.clear();
     isLoading = true;
     update();
-    final products = await _firebaseService.getProducts();
+    final products = await _service.getProducts();
     if (products == null) {
       trace('Error cargando productos.');
     } else {
@@ -182,6 +238,6 @@ abstract class HomeScreenState extends State<HomeScreen>
   }
 
   void onAddTap() {
-    Provider.of<MenuProvider>( context, listen: false ).setIndex(2);
+    Provider.of<MenuProvider>(context, listen: false).setIndex(2);
   }
 }
