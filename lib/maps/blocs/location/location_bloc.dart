@@ -37,7 +37,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
 
   Future getCurrentPosition() async {
+
     final position = await Geolocator.getCurrentPosition();
+
     add( OnNewUserLocationEvent( LatLng( position.latitude, position.longitude ) ) );
   }
 
@@ -53,6 +55,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
         print("location_bloc linea 50, Ubicacion: ${position.latitude} ${position.longitude}");
         lastUpdate = DateTime.now();
+        
         try {
           await FirebaseFirestore.instance.collection('location').doc(getDoc).set({
             'latitude': position.latitude,
@@ -82,9 +85,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     _receiver = doc;
   }
 
-  String get sender => _sender ?? "";
+  String get sender => _sender ?? '';
 
-  String get receiver => _receiver ?? "";
+  String get receiver => _receiver ?? '';
 
   String get getDoc {
 

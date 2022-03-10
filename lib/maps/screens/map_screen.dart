@@ -51,14 +51,12 @@ class _MapScreenState extends State<MapScreen> {
       body: BlocBuilder<LocationBloc, LocationState>(
         builder: (context, locationState) {
           if (locationState.lastKnownLocation == null) {
-            const Center(child: Text('Espere por favor...'));
+           return const Center(child: Text('Espere por favor...'));
           }
 
           return BlocBuilder<MapBloc, MapState>(
             builder: (context, mapState) {
-
               Map<String, Polyline> polylines = Map.from(mapState.polylines);
-
               if (!mapState.showMyRoute) {
                 polylines.removeWhere((key, value) => key == 'myRoute');
               }
