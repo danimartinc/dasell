@@ -26,5 +26,5 @@ class LocationState extends Equatable {
 
   
   @override
-  List<Object?> get props => [ followingUser, lastKnownLocation!, myLocationHistory ];
+  List<Object?> get props => [ followingUser, lastKnownLocation, myLocationHistory ];
 }

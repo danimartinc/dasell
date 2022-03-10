@@ -1,5 +1,6 @@
 import 'package:DaSell/commons.dart';
 import 'package:DaSell/maps/widgets/animated_fab_menu.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -10,6 +11,7 @@ import 'package:DaSell/maps/widgets/btn_toggle_user_route.dart';
 import 'package:DaSell/maps/widgets/widgets.dart';
 
 class MapScreen extends StatefulWidget {
+
   static const routeName = './map_screen.dart';
 
   final Set<String> args;
@@ -25,10 +27,16 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  
   late LocationBloc locationBloc;
 
   @override
   void initState() {
+
+    SystemChrome.setSystemUIOverlayStyle( const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
+
     super.initState();
     locationBloc = BlocProvider.of<LocationBloc>(context);
     locationBloc.sender = widget.args.elementAt(0);
@@ -53,6 +61,8 @@ class _MapScreenState extends State<MapScreen> {
           if (locationState.lastKnownLocation == null) {
            return const Center(child: Text('Espere por favor...'));
           }
+
+          print('Location después Center ${ locationState.lastKnownLocation }' );
 
           return BlocBuilder<MapBloc, MapState>(
             builder: (context, mapState) {

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MapLoadingScreen extends StatelessWidget {
-  
   static const routeName = './loading_screen';
   //final String receiverId;
 
