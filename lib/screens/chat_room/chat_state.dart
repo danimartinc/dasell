@@ -9,6 +9,7 @@ import '../../widgets/chat/widgets/bottom_sheet.dart';
 import 'chat_screen.dart';
 
 abstract class ChatRoomScreenState extends State<ChatRoomScreen> {
+
   late UserVo otherUser = widget.user;
   late final _service = FirebaseService.get();
   late StreamSubscription userSubscription;

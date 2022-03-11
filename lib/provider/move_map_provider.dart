@@ -76,5 +76,11 @@ class MoveMap extends ChangeNotifier {
     // currentMarkers['start'] = startMarker;
     // currentMarkers['end'] = endMarker;
   }
+
+  @override
+  void dispose() {
+    _mapController?.dispose();
+    super.dispose();
+  }
   
 }

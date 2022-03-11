@@ -1,10 +1,10 @@
 import '../../../../commons.dart';
 
-class OpenDialgosButton extends StatelessWidget {
+class OpenDialogsButton extends StatelessWidget {
 
   final VoidCallback onPressed;
 
-  const OpenDialgosButton({Key? key, required this.onPressed}) : super(key: key);
+  const OpenDialogsButton({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

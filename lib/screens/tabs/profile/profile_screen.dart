@@ -95,7 +95,7 @@ class _ProfileScreenState extends ProfileScreenState {
                   kGap10,
                   ProfileSwitches(),
                   kGap25,
-                  OpenDialgosButton(onPressed: onSignOutDialogPressed, ),
+                  OpenDialogsButton(onPressed: onSignOutDialogPressed, ),
                 ],
               ),
             ),

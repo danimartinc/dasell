@@ -31,7 +31,7 @@ trace(
   var msg = outputList.join(',');
   dev.log(
     msg,
-    name: 'Dasell',
+    name: 'DaSell',
     time: DateTime.now(),
     level: 0,
   );
