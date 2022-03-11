@@ -90,7 +90,6 @@ class Messages extends StatelessWidget {
 
             try{
                 if (doc['message'] != 'Ubicación') {
-                  print('Entra cuando NO es ubicacion');
                   displayItem = MessageBubble(
                     message: doc['message'],
                     isMe: isMe,
@@ -99,8 +98,6 @@ class Messages extends StatelessWidget {
                     isRead: doc['isRead'] ?? false,
                   );
                 } else {
-
-                   print('Entra cuando es ubicacion');
                   displayItem = InkWell(
                     onTap: () {
 

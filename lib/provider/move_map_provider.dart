@@ -13,8 +13,8 @@ class MoveMap extends ChangeNotifier {
   set controller( GoogleMapController c ) => _mapController = c;
   set center( LatLng c ) => mapCenter = c;
 
-  Future<void> moveCamera( LatLng newLocation )  async {
-    final cameraUpdate = await CameraUpdate.newLatLng( newLocation );
+  void moveCamera( LatLng newLocation ) {
+    final cameraUpdate = CameraUpdate.newLatLng( newLocation );
     _mapController?.animateCamera(cameraUpdate);
   }
 

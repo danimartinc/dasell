@@ -74,6 +74,7 @@ class _MapScreenState extends State<MapScreen> {
               return SingleChildScrollView(
                 child: Stack(
                   children: [
+                    //if( locationState.lastKnownLocation != null )
                     MapView(
                       initialLocation: locationState.lastKnownLocation!,
                       polylines: polylines.values.toSet(),

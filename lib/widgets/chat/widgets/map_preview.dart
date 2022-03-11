@@ -60,10 +60,10 @@ class _MapPreviewState extends State<MapPreview> {
     final MoveMap _provider = Provider.of<MoveMap>(context);
 
     return widget.fullScreen ?
-        Scaffold(
-          body: StreamBuilder<DocumentSnapshot>(
-              stream: _firestore.collection('location').doc( widget.documentId ).snapshots(),
-              builder: ( context, snapshot ){
+      Scaffold(
+        body: StreamBuilder<DocumentSnapshot>(
+          stream: _firestore.collection('location').doc( widget.documentId ).snapshots(),
+          builder: ( context, snapshot ){
 
                 if(snapshot.hasData) {
 
@@ -127,6 +127,7 @@ class _MapPreviewState extends State<MapPreview> {
                 child: StreamBuilder<DocumentSnapshot>(
                   stream: _firestore.collection('markers').doc( widget.documentId ).snapshots(),
                   builder: ( context, snapshot ) {
+
                     if(snapshot.hasData) {
 
                       print("[${snapshot.data!['latStart']},${snapshot.data!['latStart']}] -> [${snapshot.data!['lngEnd']},${snapshot.data!['lngEnd']}]");
@@ -142,13 +143,17 @@ class _MapPreviewState extends State<MapPreview> {
                           if(snapshot.hasData) {
                             _provider.destination = snapshot.data;
                             return StreamBuilder<DocumentSnapshot>(
-                                stream: _firestore.collection('location').doc(
-                                    widget.documentId).snapshots(),
+                                stream: _firestore.collection('location')
+                                        .doc( widget.documentId )
+                                        .snapshots(),
                                 builder: (context, snapshot) {
+
                                   if (snapshot.hasData) {
+
                                     print("final map en =${snapshot
                                         .data!['latitude']}, ${snapshot
                                         .data!['longitude']}");
+
                                     return dataText2(
                                         CameraPosition(
                                             target: LatLng(snapshot.data!['latitude'],
@@ -230,14 +235,14 @@ class _MapPreviewState extends State<MapPreview> {
       child: new GoogleMap(
           initialCameraPosition: position,
           compassEnabled: false,
-          myLocationEnabled: true,
+          myLocationEnabled: false,
           zoomControlsEnabled: false,
           myLocationButtonEnabled: false,
           zoomGesturesEnabled: widget.fullScreen ? true : false,
           scrollGesturesEnabled: widget.fullScreen ? true : false,
           tiltGesturesEnabled: false,
           rotateGesturesEnabled: true,
-          polylines: widget.fullScreen ? {provider.drawRoutePolyline()} : const {},
+          polylines: widget.fullScreen ? { provider.drawRoutePolyline() } : const {},
           markers: [
             Marker(
             anchor: const Offset(0.1, 1),

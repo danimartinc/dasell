@@ -88,10 +88,10 @@ class _BtnSharedState extends State<BtnShared> {
                 .collection('markers')
                 .doc(documentId)
                 .set({
-                  "latStart" : mapBloc?.state.markers["start"]?.position.latitude,
-                  "lngStart" : mapBloc?.state.markers["start"]?.position.longitude,
-                  "latEnd"   : mapBloc?.state.markers["end"]?.position.latitude,
-                  "lngEnd"   : mapBloc?.state.markers["end"]?.position.longitude,
+                  "latStart" : mapBloc?.state.markers["start"]!.position.latitude,
+                  "lngStart" : mapBloc?.state.markers["start"]!.position.longitude,
+                  "latEnd"   : mapBloc?.state.markers["end"]!.position.latitude,
+                  "lngEnd"   : mapBloc?.state.markers["end"]!.position.longitude,
                 }, SetOptions(merge: true));
 
           /*StreamBuilder(
