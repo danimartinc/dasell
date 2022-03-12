@@ -34,35 +34,32 @@ class _AdsTabScreenState extends State<AdsTabScreen> {
                   fontSize: 17,
                 ),
                 tabs: [
-                  //if( menuTabProviderIndex == 1 )           
-                 Tab(
+                  Tab(
                     text: '   Publicados   ',
                   ),
-                  //if( menuTabProviderIndex == 2 )       
                   Tab(
                     text: '  Favoritos  ',
                   ),
-                  //if( menuTabProviderIndex == 3 )       
                   Tab(
                     text: '  Vendidos  ',
                   ),
                 ],
                 onTap: (index) =>
-                    Provider.of<TabMenuProvider>(context, listen: false)
-                        .setIndex(index)
-                //selectedPageIndex = index;
-                ),
+                  Provider.of<TabMenuProvider>(context, listen: false).setIndex(index)
+              ),
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            MyAds(),
-            FavoriteAdsScreen(),
-            MySellAds()
-          ],
+        body: IndexedStack(
+          index: menuTabProviderIndex,
+      
+            children: [
+              MyAds(),
+              FavoriteAdsScreen(),
+              MySellAds()
+            ],
+          ),
         ),
-      ),
     );
   }
 }
