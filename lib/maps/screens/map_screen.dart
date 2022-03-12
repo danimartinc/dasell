@@ -57,11 +57,10 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       body: BlocBuilder<LocationBloc, LocationState>(
         builder: (context, locationState) {
+          
           if (locationState.lastKnownLocation == null) {
            return const Center(child: Text('Espere por favor...'));
           }
-
-          print('Location después Center ${ locationState.lastKnownLocation }' );
 
           return BlocBuilder<MapBloc, MapState>(
             builder: (context, mapState) {

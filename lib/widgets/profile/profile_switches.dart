@@ -5,7 +5,7 @@ import 'package:theme_provider/theme_provider.dart';
 
 
 
-class ProfileSwitches extends StatefulWidget {
+class ProfileSwitches extends StatefulWidget  {
   
   @override
   _ProfileSwitchesState createState() => _ProfileSwitchesState();
@@ -15,6 +15,16 @@ class _ProfileSwitchesState extends State<ProfileSwitches> {
   
   bool isDark = false;
   bool notification = true;
+
+  @override
+  void didChangeDependencies() {
+    
+    isDark = ThemeProvider.controllerOf(context).currentThemeId == 'dark_theme'
+    ? true
+    : false;
+
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +38,7 @@ class _ProfileSwitchesState extends State<ProfileSwitches> {
           ),
           activeColor: Theme.of(context).primaryColor,
           value: isDark,
-          onChanged: (value) {
+          onChanged: (value) async {
 
             setState(() {
               isDark = value;
@@ -37,7 +47,8 @@ class _ProfileSwitchesState extends State<ProfileSwitches> {
             ThemeProvider.controllerOf(context).setTheme(
               isDark ? 'dark_theme' : 'light_theme',
             );
-            ThemeProvider.controllerOf(context).saveThemeToDisk();
+
+            await ThemeProvider.controllerOf(context).saveThemeToDisk();
           
           },
         ),

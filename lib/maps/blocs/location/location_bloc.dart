@@ -23,7 +23,6 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     on<OnStopFollowingUser>((event, emit) => emit( state.copyWith( followingUser: false ) ));
     
     on<OnNewUserLocationEvent>((event, emit) {
-      print( 'TRAZA ${ event.newLocation } ' );
 
       emit( 
         state.copyWith(
@@ -31,8 +30,6 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           myLocationHistory: [ ...state.myLocationHistory, event.newLocation ],
         ) 
       );
-
-         print( 'TRAZA DESPUES EMIT ${ event.newLocation } ' );
 
     });
 

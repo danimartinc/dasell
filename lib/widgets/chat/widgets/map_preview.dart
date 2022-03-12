@@ -283,7 +283,7 @@ class _MapPreviewState extends State<MapPreview> {
     var status = await Permission.location.request();
     
     if (status.isGranted) {
-      print('done');
+      print('Permisos garantizados');
     } else if (status.isDenied) {
       _requestPermission();
     } else if (status.isPermanentlyDenied) {

@@ -1,6 +1,6 @@
 import 'package:DaSell/commons.dart';
 
-class MenuProvider extends ChangeNotifier{
+class TabMenuProvider extends ChangeNotifier {
 
   int index = 0;
 

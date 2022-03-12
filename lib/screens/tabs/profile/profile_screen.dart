@@ -123,7 +123,8 @@ class _ProfileScreenState extends ProfileScreenState {
                      ListTile(
                        title: Text('Ventas'),
                        onTap: () => {
-                         Provider.of<MenuProvider>(context, listen: false).setIndex(1),
+                        Provider.of<MenuProvider>(context, listen: false).setIndex(1),
+                        Provider.of<TabMenuProvider>(context, listen: false).setIndex(1),
                          //MySellAds(),
                          //Navigator.of(context).pushNamed( MySellAds.routeName ),
                          print('Navigator')

@@ -16,6 +16,8 @@ class _AdsTabScreenState extends State<AdsTabScreen> {
   @override
   Widget build(BuildContext context) {
 
+    final menuTabProviderIndex = Provider.of<TabMenuProvider>(context).index;
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -27,21 +29,29 @@ class _AdsTabScreenState extends State<AdsTabScreen> {
               new TabBar(
                 indicatorWeight: 3,
                 indicatorSize: TabBarIndicatorSize.label,
+                physics: BouncingScrollPhysics(),
                 labelStyle: TextStyle(
                   fontSize: 17,
                 ),
                 tabs: [
-                  Tab(
+                  //if( menuTabProviderIndex == 1 )           
+                 Tab(
                     text: '   Publicados   ',
                   ),
+                  //if( menuTabProviderIndex == 2 )       
                   Tab(
                     text: '  Favoritos  ',
                   ),
-                     Tab(
+                  //if( menuTabProviderIndex == 3 )       
+                  Tab(
                     text: '  Vendidos  ',
                   ),
                 ],
-              ),
+                onTap: (index) =>
+                    Provider.of<TabMenuProvider>(context, listen: false)
+                        .setIndex(index)
+                //selectedPageIndex = index;
+                ),
             ],
           ),
         ),

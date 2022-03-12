@@ -44,6 +44,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => new MenuProvider(),
           ),
+          ChangeNotifierProvider(
+            create: (_) => new TabMenuProvider(),
+          ),
         ],
         child: ThemeProvider(
           saveThemesOnChange: true,
