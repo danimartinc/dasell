@@ -12,6 +12,12 @@ class AdsTabScreen extends StatefulWidget {
 }
 
 class _AdsTabScreenState extends State<AdsTabScreen> {
+
+  final tabs = [
+    MyAds(),
+    FavoriteAdsScreen(),
+    MySellAds(),
+  ];
   
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,8 @@ class _AdsTabScreenState extends State<AdsTabScreen> {
     final menuTabProviderIndex = Provider.of<TabMenuProvider>(context).index;
 
     return DefaultTabController(
-      length: 3,
+      initialIndex: menuTabProviderIndex,
+      length: tabs.length,
       child: Scaffold(
         appBar: new AppBar(
           elevation: 5,
@@ -34,15 +41,9 @@ class _AdsTabScreenState extends State<AdsTabScreen> {
                   fontSize: 17,
                 ),
                 tabs: [
-                  Tab(
-                    text: '   Publicados   ',
-                  ),
-                  Tab(
-                    text: '  Favoritos  ',
-                  ),
-                  Tab(
-                    text: '  Vendidos  ',
-                  ),
+                  Tab( text: '   Publicados   ', ),
+                  Tab( text: '  Favoritos  ', ),
+                  Tab( text: '  Vendidos  ', ),
                 ],
                 onTap: (index) =>
                   Provider.of<TabMenuProvider>(context, listen: false).setIndex(index)
@@ -52,12 +53,7 @@ class _AdsTabScreenState extends State<AdsTabScreen> {
         ),
         body: IndexedStack(
           index: menuTabProviderIndex,
-      
-            children: [
-              MyAds(),
-              FavoriteAdsScreen(),
-              MySellAds()
-            ],
+          children: tabs
           ),
         ),
     );

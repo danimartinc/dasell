@@ -1,8 +1,8 @@
 import '../../../commons.dart';
 
-class SearchAdssBtn extends StatelessWidget {
+class SearchAdsBtn extends StatelessWidget {
 
-  const SearchAdssBtn({Key? key}) : super(key: key);
+  const SearchAdsBtn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +12,8 @@ class SearchAdssBtn extends StatelessWidget {
 
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          kGap300,
           Text(
             'No hay productos añadidos como favoritos',
             style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 18)  
@@ -39,8 +39,8 @@ class SearchAdssBtn extends StatelessWidget {
             shape: StadiumBorder(),
             elevation: 0,
             splashColor: Colors.transparent,
-            onPressed: () => {
-              Provider.of<MenuProvider>( context, listen: false ).setIndex(0)
+            onPressed: () {
+              Provider.of<MenuProvider>( context, listen: false ).setIndex(0);
             }
           ),
         ],

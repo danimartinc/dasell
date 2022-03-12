@@ -36,7 +36,7 @@ class _FavoriteAdsScreenState extends State<FavoriteAdsScreen> {
           var documents = snapshot.data!.docs;
         
         if ( documents.length == 0 ) {
-          return SearchAdssBtn(); 
+          return SearchAdsBtn(); 
         }
 
         return Padding(

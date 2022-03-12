@@ -13,8 +13,8 @@ class PushAdsBtn extends StatelessWidget {
 
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          kGap300,
           Text(
             'No tienes publicado ningún producto',
             style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 18)  ),
@@ -30,8 +30,8 @@ class PushAdsBtn extends StatelessWidget {
               shape: StadiumBorder(),
               elevation: 0,
               splashColor: Colors.transparent,
-              onPressed: () => {
-                Provider.of<MenuProvider>(context, listen: false ).setIndex( 2 )
+              onPressed: () {
+                Provider.of<MenuProvider>(context, listen: false ).setIndex( 2 );
               }
             ),
         ],
