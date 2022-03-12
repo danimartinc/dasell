@@ -111,19 +111,19 @@ class MyApp extends StatelessWidget {
             child: Builder(
               builder: (themeContext) => MaterialApp(
                 navigatorKey: locator<NavigatorService>().navigatorKey,
-                // onGenerateRoute: (routeSettings) {
-                //   trace("CREATING ROUTE!", routeSettings.name);
-                //   switch (routeSettings.name) {
-                //     // case 'chat':
-                //       // return MaterialPageRoute(
-                //       //   builder: (context) => UsersChatScreen(),
-                //       // );
-                //     //case "product":
+                onGenerateRoute: (routeSettings) {
+                  trace("CREATING ROUTE!", routeSettings.name);
+                  switch (routeSettings.name) {
+                    case 'chat':
+                      return MaterialPageRoute(
+                        builder: (context) => UsersChatScreen(),
+                      );
+                      //case "product":
                 //     //return MaterialPageRoute(builder: (context) => AddProduct() );
-                //     default:
-                //       return MaterialPageRoute(builder: (context) => MyApp());
-                //   }
-                // },
+                    default:
+                      return MaterialPageRoute(builder: (context) => MyApp());
+                  }
+                },
                 title: 'DaSell',
                 theme: ThemeProvider.themeOf(themeContext).data,
                 debugShowCheckedModeBanner: false,

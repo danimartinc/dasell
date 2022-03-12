@@ -7,7 +7,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:DaSell/maps/blocs/blocs.dart';
 import 'package:DaSell/maps/views/views.dart';
 
-import 'package:DaSell/maps/widgets/btn_toggle_user_route.dart';
 import 'package:DaSell/maps/widgets/widgets.dart';
 
 class MapScreen extends StatefulWidget {

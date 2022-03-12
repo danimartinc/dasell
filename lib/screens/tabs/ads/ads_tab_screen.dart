@@ -3,6 +3,7 @@ import '../../../commons.dart';
 //Screens
 import '../../favs/my_ads_screen.dart';
 import '../../favs/favorite_ads_screen.dart';
+import '../../favs/my_sell_ads_screen.dart';
 
 class AdsTabScreen extends StatefulWidget {
 
@@ -16,7 +17,7 @@ class _AdsTabScreenState extends State<AdsTabScreen> {
   Widget build(BuildContext context) {
 
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: new AppBar(
           elevation: 5,
@@ -36,6 +37,9 @@ class _AdsTabScreenState extends State<AdsTabScreen> {
                   Tab(
                     text: '  Favoritos  ',
                   ),
+                     Tab(
+                    text: '  Vendidos  ',
+                  ),
                 ],
               ),
             ],
@@ -45,6 +49,7 @@ class _AdsTabScreenState extends State<AdsTabScreen> {
           children: [
             MyAds(),
             FavoriteAdsScreen(),
+            MySellAds()
           ],
         ),
       ),

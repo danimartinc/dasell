@@ -1,7 +1,5 @@
 import 'package:DaSell/commons.dart';
 import 'package:DaSell/data/categories.dart';
-import 'package:DaSell/provider/ad_provider.dart';
-import 'package:DaSell/provider/menu_provider.dart';
 import 'package:DaSell/screens/home/search.dart';
 import 'package:DaSell/screens/product_details/product_details.dart';
 import 'package:DaSell/screens/tabs/home/widgets/sort_dialog.dart';

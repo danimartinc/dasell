@@ -1,7 +1,7 @@
 import 'package:DaSell/commons.dart';
-import 'package:location/location.dart';
 
 class SortDialog extends StatelessWidget {
+  
   final Function(int value)? onSelect;
   const SortDialog({Key? key, this.onSelect}) : super(key: key);
 

@@ -1,6 +1,5 @@
 import '../../commons.dart';
 import '../../screens/add/price_location/price_and_location_screen.dart';
-import 'data_backup_home.dart';
 
 const _duration = Duration(milliseconds: 500);
 

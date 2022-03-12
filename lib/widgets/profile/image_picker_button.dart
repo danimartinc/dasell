@@ -1,9 +1,6 @@
 import '../../commons.dart';
 import 'package:image_picker/image_picker.dart';
 
-//Providers
-import 'package:DaSell/provider/ad_provider.dart';
-
 
 
 class ImagePickerButton extends StatelessWidget {

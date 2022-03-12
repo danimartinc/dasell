@@ -13,9 +13,8 @@ class MoveMap extends ChangeNotifier {
   set controller( GoogleMapController c ) => _mapController = c;
   set center( LatLng c ) => mapCenter = c;
 
-  void moveCamera( LatLng newLocation ) {
-    final cameraUpdate = CameraUpdate.newLatLng( newLocation );
-    _mapController?.animateCamera(cameraUpdate);
+  Future<void> moveCamera( LatLng newLocation )  async {
+    final cameraUpdate = await CameraUpdate.newLatLng( newLocation );
   }
 
   Polyline drawRoutePolyline() {
@@ -28,6 +27,8 @@ class MoveMap extends ChangeNotifier {
       startCap: Cap.roundCap,
       endCap: Cap.roundCap,
     );
+
+    print( 'TRAZA DESTINATION: ${ destination }');
 
     return myRoute;
 

@@ -1,5 +1,4 @@
 import 'package:DaSell/commons.dart';
-import 'package:DaSell/screens/tabs/utils/badge_requester.dart';
 
 import '../utils/badge_count.dart';
 import 'models.dart';

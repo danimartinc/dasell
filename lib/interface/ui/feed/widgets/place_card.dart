@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:DaSell/interface/extensions/text_theme_x.dart';
 import 'package:DaSell/interface/models/place.dart';

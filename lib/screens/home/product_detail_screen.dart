@@ -1,22 +1,13 @@
+import '../../commons.dart';
+
+
 //Data
 import 'package:DaSell/data/categories.dart';
 
-//Models
-
-//Providers
-import 'package:DaSell/provider/ad_provider.dart';
-
 //Screens
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
-import '../../commons.dart';
+
 import '../add/maps/maps_screen.dart';
 import '../chat_room/chat_screen.dart';
 

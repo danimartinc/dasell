@@ -1,12 +1,13 @@
+import '../../commons.dart';
+
 //Widgets
 import 'package:DaSell/screens/tabs/home/widgets/ad_item_widget.dart';
 import 'package:DaSell/services/firebase/models/product_vo.dart';
-import 'package:DaSell/utils/app_utils.dart';
-import 'package:DaSell/widgets/home/ad_item.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+
+
 
 class Search extends SearchDelegate {
+  
   final List<ResponseProductVo> data;
   final ValueChanged<ResponseProductVo> onItemTap;
   final ValueChanged<ResponseProductVo> onItemLike;

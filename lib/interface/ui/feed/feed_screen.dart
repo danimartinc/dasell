@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:DaSell/interface/models/place.dart';
 import 'package:DaSell/interface/ui/detail/place_detail_screen.dart';
 
 
 import '../../../commons.dart';
-import '../../../provider/providers.dart';
 import 'widgets/place_card.dart';
 import 'widgets/travel_navigation_bar.dart';
 

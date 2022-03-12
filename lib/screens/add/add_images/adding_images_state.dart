@@ -1,7 +1,6 @@
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 import '../../../commons.dart';
-import '../../../provider/ad_provider.dart';
 import '../price_location/price_and_location_screen.dart';
 import 'adding_images_screen.dart';
 

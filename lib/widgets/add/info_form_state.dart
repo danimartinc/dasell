@@ -1,6 +1,5 @@
 import '../../commons.dart';
 
-import '../../provider/ad_provider.dart';
 import '../../screens/add/add_images/adding_images_screen.dart';
 import 'info_form_screen.dart';
 

@@ -6,6 +6,7 @@ import 'package:theme_provider/theme_provider.dart';
 
 
 class ProfileSwitches extends StatefulWidget {
+  
   @override
   _ProfileSwitchesState createState() => _ProfileSwitchesState();
 }
@@ -32,6 +33,7 @@ class _ProfileSwitchesState extends State<ProfileSwitches> {
             setState(() {
               isDark = value;
             });
+            
             ThemeProvider.controllerOf(context).setTheme(
               isDark ? 'dark_theme' : 'light_theme',
             );

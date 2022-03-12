@@ -1,14 +1,14 @@
 import 'package:DaSell/commons.dart';
-import 'package:flutter/material.dart';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:DaSell/maps/blocs/blocs.dart';
 import 'package:DaSell/maps/helpers/helpers.dart';
 
-import 'btn_cancel_monitoring.dart';
 
 class ManualMarker extends StatelessWidget {
+
   const ManualMarker({Key? key}) : super(key: key);
 
   @override
@@ -65,7 +65,7 @@ class _ManualMarkerBody extends StatelessWidget {
                   height: 50,
                   shape: const StadiumBorder(),
                   onPressed: () async {
-                    // TODO: loading
+                    //TODO: Loading
 
                     final start = locationBloc.state.lastKnownLocation;
                     if (start == null) return;

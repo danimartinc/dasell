@@ -10,15 +10,15 @@ class AddImageSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    bool isCamera = true;
-    List<Asset> images = <Asset>[];
-    var list = [];
-    String? _error;
+    //bool isCamera = true;
+    //List<Asset> images = <Asset>[];
+   // var list = [];
+    //String? _error;
 
     
-    File? storedImage;
-    File? pickedImage;
-    List<File> pathList = [];
+    //File? storedImage;
+    //File? pickedImage;
+    //List<File> pathList = [];
 
     return Container();
 /*

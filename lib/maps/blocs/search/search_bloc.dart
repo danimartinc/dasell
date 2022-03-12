@@ -5,7 +5,6 @@ import 'package:google_polyline_algorithm/google_polyline_algorithm.dart';
 
 import 'package:DaSell/maps/models/models.dart';
 import 'package:DaSell/maps/services/services.dart';
-import 'package:DaSell/maps/models/places_models.dart';
 import 'package:DaSell/maps/services/traffic_service.dart';
 
 part 'search_event.dart';

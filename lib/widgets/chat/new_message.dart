@@ -2,12 +2,10 @@ import 'dart:io';
 
 import 'package:DaSell/commons.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/material.dart';
 
-import 'widgets/bottom_sheet.dart';
-import 'widgets/emoji_select.dart';
 
 class NewMessage extends StatefulWidget {
+  
   final VoidCallback? onAttachTap;
   final String documentId;
   final String senderId;

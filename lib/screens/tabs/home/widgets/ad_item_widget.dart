@@ -1,8 +1,9 @@
 import 'package:DaSell/commons.dart';
 import 'package:DaSell/services/firebase/models/product_vo.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+
 
 class AdItemWidget extends StatelessWidget {
+  
   final ResponseProductVo data;
   final VoidCallback? onTap;
   final VoidCallback? onLikeTap;

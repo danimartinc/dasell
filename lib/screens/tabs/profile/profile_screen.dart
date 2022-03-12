@@ -1,3 +1,5 @@
+import 'package:DaSell/screens/favs/my_sell_ads_screen.dart';
+
 import '../../../commons.dart';
 import 'profile_state.dart';
 
@@ -92,10 +94,44 @@ class _ProfileScreenState extends ProfileScreenState {
                       fontSize: 16,
                     ),
                   ),
-                  kGap10,
-                  ProfileSwitches(),
-                  kGap25,
+                  ExpansionTile(
+                    title: Text(
+                    'Configuración',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 18,
+                    ),
+                    ),
+                    children: [
+                      kGap10,
+                      ProfileSwitches(),
+                      kGap25,
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: Text(
+                    'Mis productos',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 18,
+                    ),
+                    ),
+                    children: [
+                     ListTile(
+                       title: Text('Ventas'),
+                       onTap: () => {
+                         Provider.of<MenuProvider>(context, listen: false).setIndex(1),
+                         //MySellAds(),
+                         //Navigator.of(context).pushNamed( MySellAds.routeName ),
+                         print('Navigator')
+
+                       } 
+                     ),
+                    ],
+                  ),
                   OpenDialogsButton(onPressed: onSignOutDialogPressed, ),
+        
+                  
                 ],
               ),
             ),

@@ -1,11 +1,7 @@
-import 'package:DaSell/screens/add/price_location/widgets/choose_location_button.dart';
 import 'package:DaSell/screens/add/price_location/widgets/widgets.dart';
 
 import '../../../commons.dart';
 import 'price_and_location_state.dart';
-
-//Widgets
-import 'package:DaSell/widgets/ui/bottom_button.dart';
 
 
 

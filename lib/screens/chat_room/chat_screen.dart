@@ -1,12 +1,9 @@
 //Models
 import 'package:DaSell/commons.dart';
-import 'package:DaSell/maps/screens/screens.dart';
-import 'package:DaSell/provider/ad_provider.dart';
-import 'package:DaSell/utils/native_utils.dart';
+
 import 'package:DaSell/widgets/chat/messages.dart';
 import 'package:DaSell/widgets/chat/new_message.dart';
-import 'package:DaSell/widgets/chat/widgets/widgets.dart';
-import 'package:image_picker/image_picker.dart';
+
 
 import 'chat_state.dart';
 import 'widgets/chat_appbar_title.dart';

@@ -6,7 +6,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as pPath;
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../provider/ad_provider.dart';
+
 import 'widgets/signout_dialog.dart';
 
 

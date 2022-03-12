@@ -1,11 +1,9 @@
 import '../../commons.dart';
 
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 //Widgets
 import '../../widgets/auth/auth_form.dart';
 import 'auth_state.dart';
-import 'widgets/icon_auth_screen.dart';
 import 'widgets/widgets.dart';
 
 class AuthScreen extends StatefulWidget {

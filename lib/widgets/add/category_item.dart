@@ -1,8 +1,6 @@
 import '../../commons.dart';
 
 
-//Providers
-import 'package:DaSell/provider/ad_provider.dart';
 //Data
 import 'package:DaSell/data/categories.dart';
 //Screens

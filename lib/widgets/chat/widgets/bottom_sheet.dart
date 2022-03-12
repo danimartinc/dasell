@@ -1,12 +1,5 @@
-import 'dart:io';
-
-import 'package:DaSell/maps/screens/screens.dart';
-import 'package:image_picker/image_picker.dart';
-
 import '../../../commons.dart';
-import '../../../provider/ad_provider.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart' as pPath;
+
 
 enum ChatAttachment {
   camera,

@@ -1,24 +1,13 @@
 import 'package:DaSell/commons.dart';
-import 'package:DaSell/models/notification_model.dart';
+
 import 'package:DaSell/widgets/splashscreen/animation_screen.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/material.dart';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-//Screens
-import 'package:DaSell/screens/home/search.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
-import '../provider/menu_provider.dart';
-import 'tabs/home/home_screen.dart';
-import 'tabs/chat/users_chat_screen.dart';
-import 'tabs/profile/profile_screen.dart';
-import 'tabs/ads/ads_tab_screen.dart';
-import 'tabs/add_product/add_product_screen.dart';
+
 
 class BottomNavigationScreen extends StatefulWidget {
+
   static const routeName = './bottom_navigation';
 
   @override
@@ -121,7 +110,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                   ),
                   BottomNavigationBarItem(
                     label: 'Chats',
-                    icon: menuProviderIndex != 3
+                    icon: menuProviderIndex == 3
                         ? Stack(
                             children: [
                               Icon(Icons.chat_bubble),
