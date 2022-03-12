@@ -94,13 +94,15 @@ class _ProfileScreenState extends ProfileScreenState {
                       fontSize: 16,
                     ),
                   ),
+                  kGap15,
                   ExpansionTile(
+                    leading: Icon( FontAwesomeIcons.cog, size: 22,),
                     title: Text(
-                    'Configuración',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 18,
-                    ),
+                      'Configuración',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 18,
+                      ),
                     ),
                     children: [
                       kGap10,
@@ -109,6 +111,7 @@ class _ProfileScreenState extends ProfileScreenState {
                     ],
                   ),
                   ExpansionTile(
+                    leading: Icon( FontAwesomeIcons.handshake, size: 22,),
                     title: Text(
                     'Mis productos',
                     style: TextStyle(
@@ -129,6 +132,7 @@ class _ProfileScreenState extends ProfileScreenState {
                      ),
                     ],
                   ),
+                  kGap15,
                   OpenDialogsButton(onPressed: onSignOutDialogPressed, ),
         
                   
