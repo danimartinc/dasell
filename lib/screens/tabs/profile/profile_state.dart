@@ -116,39 +116,35 @@ abstract class ProfileScreenState extends State<ProfileScreen> {
 
     if( option == 1 ) {
     
-    try {
+      try {
 
-      final res = await _firestore
-        .collection('products')
-        .where('uid', isEqualTo: uid)
-        .get();
+        final res = await _firestore
+          .collection('products')
+          .where('uid', isEqualTo: uid)
+          .get();
 
-      final batcher = _firestore.batch();
-      
-      res.docs.forEach((d) {
-        batcher.delete(d.reference, );
-      });
-
-      batcher.commit();
-
-      await FirebaseFirestore.instance
-        .collection('users')
-        .doc(
-          uid.toString(),
-        )
-        .delete();
-      
-      setState(() {
+        final batcher = _firestore.batch();
         
-      });
-    
-      await FirebaseAuth.instance.signOut();
-        
-    } catch (e) {
-      print(e);
-    }
+        res.docs.forEach((d) {
+          batcher.delete(d.reference, );
+        });
+
+        batcher.commit();
+
+        await FirebaseFirestore.instance
+          .collection('users')
+          .doc(
+            uid.toString(),
+          )
+          .delete();
   
-  }
+        await FirebaseAuth.instance.signOut();
+          
+      } catch (e) {
+        print(e);
+      }
+  
+    }
   }
 }
 

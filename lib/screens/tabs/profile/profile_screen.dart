@@ -1,5 +1,3 @@
-import 'package:DaSell/screens/tabs/profile/widgets/deleteuser_dialog.dart';
-
 import '../../../commons.dart';
 import 'profile_state.dart';
 
