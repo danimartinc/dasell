@@ -66,6 +66,7 @@ class _ManualMarkerBody extends StatelessWidget {
                   shape: const StadiumBorder(),
                   onPressed: () async {
                     //TODO: Loading
+                    CommonProgress();
 
                     final start = locationBloc.state.lastKnownLocation;
                     if (start == null) return;
@@ -75,8 +76,7 @@ class _ManualMarkerBody extends StatelessWidget {
 
                     showLoadingMessage(context);
 
-                    final destination =
-                        await searchBloc.getCoorsStartToEnd(start, end);
+                    final destination = await searchBloc.getCoorsStartToEnd(start, end);
                     await mapBloc.drawRoutePolyline(destination);
 
                     searchBloc.add(OnDeactivateManualMarkerEvent());

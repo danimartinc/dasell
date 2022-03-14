@@ -1,14 +1,13 @@
+import 'package:DaSell/commons.dart';
 import 'package:DaSell/maps/models/route_destination.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 
 import '../../../maps/blocs/search/search_bloc.dart';
-import '../../../provider/move_map_provider.dart';
+
 
 
 class MapPreview extends StatefulWidget {
@@ -133,10 +132,11 @@ class _MapPreviewState extends State<MapPreview> {
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
-                                      print(
-                                          "[${snapshot.data!['latStart']},${snapshot.data!['latStart']}] -> [${snapshot.data!['lngEnd']},${snapshot.data!['lngEnd']}]");
-                                      final searchBloc =
-                                          BlocProvider.of<SearchBloc>(context);
+
+                                      print( "[${snapshot.data!['latStart']},${snapshot.data!['latStart']}] -> [${snapshot.data!['lngEnd']},${snapshot.data!['lngEnd']}]");
+                                      
+                                      final searchBloc = BlocProvider.of<SearchBloc>(context);
+
                                       final LatLng start = LatLng(
                                           snapshot.data!['latStart'],
                                           snapshot.data!['lngStart']);
@@ -147,51 +147,56 @@ class _MapPreviewState extends State<MapPreview> {
 
                                       return FutureBuilder<RouteDestination>(
                                           future: searchBloc.getCoorsStartToEnd(
-                                              start, end),
+                                              start, 
+                                              end
+                                          ),
                                           builder: (context, snapshot) {
                                             if (snapshot.hasData) {
-                                              _provider.destination =
-                                                  snapshot.data;
-                                              return StreamBuilder<
-                                                      DocumentSnapshot>(
+                                              _provider.destination = snapshot.data;
+                                              return StreamBuilder<DocumentSnapshot>(
                                                   stream: _firestore
                                                       .collection('location')
                                                       .doc(widget.documentId)
                                                       .snapshots(),
                                                   builder: (context, snapshot) {
                                                     if (snapshot.hasData) {
-                                                      print(
-                                                          "final map en =${snapshot.data!['latitude']}, ${snapshot.data!['longitude']}");
+
+                                                      print( "final map en =${snapshot.data!['latitude']}, ${snapshot.data!['longitude']}");
 
                                                       return dataText2(
-                                                          CameraPosition(
-                                                              target: LatLng(
-                                                                  snapshot.data![
-                                                                      'latitude'],
-                                                                  snapshot.data![
-                                                                      'longitude']),
-                                                              zoom: 16),
-                                                          _provider);
+                                                        CameraPosition(
+                                                          target: LatLng(
+                                                            snapshot.data!['latitude'],
+                                                            snapshot.data!['longitude']
+                                                          ),
+                                                          zoom: 16
+                                                        ),
+                                                       _provider
+                                                      );
                                                     } else {
                                                       return dataText(
-                                                          CameraPosition(
-                                                              target: LatLng(
-                                                                  25.7830661,
-                                                                  -100.3131327),
-                                                              //LatLng(40.0,-40.0),
-                                                              zoom: 15));
+                                                        
+                                                        CameraPosition(
+                                                          target: LatLng(
+                                                            25.7830661,
+                                                            -100.3131327),
+                                                            //LatLng(40.0,-40.0),
+                                                            zoom: 15
+                                                        ),
+                                                      );
                                                     }
                                                   });
                                             }
-                                            return Text("Cargando");
+                                            return CommonProgress();
                                           });
                                     }
                                     return dataText(CameraPosition(
-                                        target:
-                                            LatLng(25.7830661, -100.3131327),
-                                        //LatLng(40.0,-40.0),
-                                        zoom: 15));
-                                  }),
+                                      target: LatLng( 25.7830661, -100.3131327 ),
+                                      //LatLng(40.0,-40.0),
+                                      zoom: 15)
+                                    );
+                                  }
+                              ),
                             ),
                           ),
                           Container(
@@ -222,20 +227,25 @@ class _MapPreviewState extends State<MapPreview> {
 
   Widget dataText(CameraPosition position) {
 
-    return Text(
-      "esperando",
-      textAlign: TextAlign.start,
-      style: widget.isMe
-          ? Theme.of(context).textTheme.subtitle2!.copyWith(
-        fontFamily: 'Poppins',
-        fontSize: 14,
-      )
-      : TextStyle(
-        color:
-        Theme.of(context).scaffoldBackgroundColor,
-        fontFamily: 'Poppins',
-        fontSize: 14,
-      ),
+    return Column(
+      children: [
+        CommonProgress(),
+        Text(
+          'Obteniendo información',
+          textAlign: TextAlign.start,
+          style: widget.isMe
+              ? Theme.of(context).textTheme.subtitle2!.copyWith(
+            fontFamily: 'Poppins',
+            fontSize: 14,
+          )
+          : TextStyle(
+            color:
+            Theme.of(context).scaffoldBackgroundColor,
+            fontFamily: 'Poppins',
+            fontSize: 14,
+          ),
+        ),
+      ],
     );
   }
 

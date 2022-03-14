@@ -107,7 +107,6 @@ class AdProvider with ChangeNotifier {
   void addTitleAndStuff(
     String title,
     String desc,
-    //String author,
     String? condition, 
     [bool? makeShipments]
   ) {

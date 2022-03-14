@@ -42,7 +42,6 @@ abstract class InfoFormScreenState extends State<ProductInfoForm> {
       ).addTitleAndStuff(
         title,
         desc,
-        //author,
         sliderValueMap[ sliderValue!.toInt().toString() ],
         makeShipments
       );

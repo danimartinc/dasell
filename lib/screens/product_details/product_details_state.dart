@@ -54,12 +54,12 @@ abstract class ProductDetailsState extends State<ProductDetails> {
   }
 
   void showDeleteToast() => Fluttertoast.showToast(
-        msg: 'Publicación eliminada',
-        fontSize: 15,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.green.shade500,
-        textColor: Colors.white,
-      );
+    msg: 'Publicación eliminada',
+    fontSize: 15,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.green.shade500,
+    textColor: Colors.white,
+  );
 
   Future<void> onSellTap() async {
     var result = await context.dialog(SellAlertDialog());

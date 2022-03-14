@@ -1,4 +1,4 @@
-import 'package:DaSell/screens/favs/my_sell_ads_screen.dart';
+import 'package:DaSell/screens/tabs/profile/widgets/deleteuser_dialog.dart';
 
 import '../../../commons.dart';
 import 'profile_state.dart';
@@ -6,6 +6,7 @@ import 'profile_state.dart';
 //Widgets
 import '../../../widgets/profile/image_picker_button.dart';
 import '../../../widgets/profile/profile_switches.dart';
+import 'widgets/delete_user_btn.dart';
 import 'widgets/open_dialog_btn.dart';
 
 
@@ -132,6 +133,7 @@ class _ProfileScreenState extends ProfileScreenState {
                   ),
                   kGap15,
                   OpenDialogsButton(onPressed: onSignOutDialogPressed, ),
+                  DeleteUserBtn(onPressed: onDeleteUserDialogPressed ),
                 ],
               ),
             ),

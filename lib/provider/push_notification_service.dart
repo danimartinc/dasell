@@ -19,8 +19,7 @@ class PushNotificationService {
   //Mediante un StreamController, podemos emitir un valor para poder escuchar desde el método initState() del main
   //En el StreamController fluye información de tipo String
   //Mediante broadcast() emitimos a todos los Widget que esten escuchando el Stream y puedan suscribirse
-  static StreamController<String> _messageStream =
-      new StreamController.broadcast();
+  static StreamController<String> _messageStream = new StreamController.broadcast();
 
   //Getter para obtener la información del Stream que retorna un stream
   static Stream<String> get messagesStream => _messageStream.stream;
@@ -34,7 +33,7 @@ class PushNotificationService {
     //Añadimos información al flujo del messagesStream a la notificación
     //_messageStream.add( message.data['product'] ?? 'No data' );
     /// TODO: @Daniel, encontra una forma de navegar a chat sin romper la app.
-    locator<NavigatorService>().navigateTo('chat');
+    locator<NavigatorService>().navigateTo('/users_chat_screen');
     _messageStream.add( message.notification!.title ?? 'No title' );
   }
 
@@ -54,7 +53,7 @@ class PushNotificationService {
     print('onMessageOpenApp Handler ${message.messageId}');
     print(message.data);
     /// TODO: @Daniel, encontra una forma de navegar a chat sin romper la app.
-    locator<NavigatorService>().navigateTo('chat');
+    locator<NavigatorService>().navigateTo('/users_chat_screen');
 
     _messageStream.add(message.data['product'] ?? 'No data');
     //_messageStream.add( message.notification!.title ?? 'No title' );

@@ -1,7 +1,5 @@
-import 'package:multi_image_picker2/multi_image_picker2.dart';
-
 import '../../../../commons.dart';
-import 'dart:io';
+
 
 class AddImageSlider extends StatelessWidget {
 

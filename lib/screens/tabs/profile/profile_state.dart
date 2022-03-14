@@ -1,3 +1,5 @@
+import 'package:DaSell/screens/tabs/profile/widgets/deleteuser_dialog.dart';
+
 import '../../../commons.dart';
 import 'dart:io';
 
@@ -6,7 +8,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as pPath;
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 import 'widgets/signout_dialog.dart';
 
 
@@ -14,6 +15,8 @@ abstract class ProfileScreenState extends State<ProfileScreen> {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final uid = FirebaseAuth.instance.currentUser!.uid;
+  User? userId = FirebaseAuth.instance.currentUser;
+  
 
   void pickImage( BuildContext context, ImageSource src ) async {
     
@@ -78,9 +81,75 @@ abstract class ProfileScreenState extends State<ProfileScreen> {
         await GoogleSignIn().signOut();
         await FirebaseAuth.instance.signOut();
 
-      }
+      }    
+  }
+
+  /*Future<void> deleteAds() async {
+    
+    final res = await _firestore
+        .collection('products')
+        .where('uid', isEqualTo: uid)
+        .get();
+
+    final batcher = _firestore.batch();
+    
+    res.docs.forEach((d) {
+      batcher.delete(d.reference, );
+    });
+    batcher.commit();
+    
+    //return list.forEach(( doc ) => doc.delete() );
+    //return list.forEach( () => delete(list) );
+    //return list.map((e) => ResponseProductVo.fromJson(e.data())).toList();
+  }*/
+
+  void onDeleteUserDialogPressed() {
+    showDialog(
+      context: context,
+      builder: (context) => DeleteUserDialog(
+        onSelect: deleteUser,
+      ),
+    );
+  }
+
+  Future<void> deleteUser( int option ) async {
+
+    if( option == 1 ) {
+    
+    try {
+
+      final res = await _firestore
+        .collection('products')
+        .where('uid', isEqualTo: uid)
+        .get();
+
+      final batcher = _firestore.batch();
       
+      res.docs.forEach((d) {
+        batcher.delete(d.reference, );
+      });
+
+      batcher.commit();
+
+      await FirebaseFirestore.instance
+        .collection('users')
+        .doc(
+          uid.toString(),
+        )
+        .delete();
+      
+      setState(() {
+        
+      });
+    
+      await FirebaseAuth.instance.signOut();
+        
+    } catch (e) {
+      print(e);
     }
+  
+  }
+  }
+}
 
-
- }
+ 

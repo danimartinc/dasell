@@ -1,11 +1,9 @@
+import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../commons.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:DaSell/maps/blocs/blocs.dart';
-
-
-
-
 
 
 class BtnShared extends StatefulWidget {
@@ -92,38 +90,22 @@ class _BtnSharedState extends State<BtnShared> {
                   "latEnd"   : mapBloc?.state.markers["end"]!.position.latitude,
                   "lngEnd"   : mapBloc?.state.markers["end"]!.position.longitude,
                 }, SetOptions(merge: true));
-
-          /*StreamBuilder(
-           stream: MapBloc().locationBloc,
-            builder: ( BuildContext context, AsyncSnapshot snapshot ) {
             
-            switch (snapshot.connectionState) {
-              case ConnectionState.done:
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(bottom: 10),
-                  itemCount: snapshot.data != null ? snapshot.data.length : 0,
-                  itemBuilder: ( BuildContext context, int index ) {
-
-                  
-
-                    Navigator.pushNamed( context, MapScreen.routeName, arguments: {
-                          'location': widget.initialLocation,
-                          'polylines': widget.polylines.values.toSet(), 
-                          'markers': mapState.markers.values.toSet(),
-                      } 
-                      );
-
-      
-
+            showSharedToast();
           }
         ),
-      ),*/
-        }
-    ),
       ),
     );
-
   }
+
+
+  void showSharedToast() => Fluttertoast.showToast(
+    msg: 'Ubicación compartida',
+    fontSize: 15,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: Colors.black54,
+    textColor: Colors.white,
+  );
+
+  
 }

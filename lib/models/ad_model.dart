@@ -11,7 +11,6 @@ class AdModel {
   String? id;
   double? price;
   String? title;
- // String? author;
   String? description;
   List<dynamic>? categories;
   List<File>? fileImages;
@@ -30,7 +29,6 @@ class AdModel {
     this.id,
     this.price,
     this.title,
-    //this.author,
     this.categories,
     this.description,
     this.createdAt,

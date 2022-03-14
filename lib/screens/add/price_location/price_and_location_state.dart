@@ -2,7 +2,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 import '../../../commons.dart';
-import '../../../provider/ad_provider.dart';
 import '../../../widgets/loading/data_backup_home.dart';
 import '../maps/maps_screen.dart';
 import 'price_and_location_screen.dart';

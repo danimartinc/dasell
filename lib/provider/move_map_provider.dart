@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../maps/helpers/widgets_to_marker.dart';
 import '../maps/models/route_destination.dart';
 
 class MoveMap extends ChangeNotifier {
@@ -13,8 +12,8 @@ class MoveMap extends ChangeNotifier {
   set controller( GoogleMapController c ) => _mapController = c;
   set center( LatLng c ) => mapCenter = c;
 
-  Future<void> moveCamera( LatLng newLocation )  async {
-    final cameraUpdate = await CameraUpdate.newLatLng( newLocation );
+  void moveCamera( LatLng newLocation ) {
+    final cameraUpdate = CameraUpdate.newLatLng( newLocation );
   }
 
   Polyline drawRoutePolyline() {
@@ -27,8 +26,6 @@ class MoveMap extends ChangeNotifier {
       startCap: Cap.roundCap,
       endCap: Cap.roundCap,
     );
-
-    print( 'TRAZA DESTINATION: ${ destination }');
 
     return myRoute;
 

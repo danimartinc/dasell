@@ -122,9 +122,9 @@ class MyApp extends StatelessWidget {
                         builder: (context) => UsersChatScreen(),
                       );
                       //case "product":
-                //     //return MaterialPageRoute(builder: (context) => AddProduct() );
-                    default:
-                      return MaterialPageRoute(builder: (context) => MyApp());
+                     //return MaterialPageRoute(builder: (context) => AddProduct() );
+                  default:
+                    return MaterialPageRoute(builder: (context) => MyApp());
                   }
                 },
                 title: 'DaSell',
