@@ -6,6 +6,7 @@ import 'package:animate_do/animate_do.dart';
 
 
 
+
 class BottomNavigationScreen extends StatefulWidget {
 
   static const routeName = './bottom_navigation';
@@ -15,6 +16,7 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
+  
   int selectedPageIndex = 0;
   late List<Map<String, Object>> _pages;
 
@@ -48,7 +50,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final int number = Provider.of<NotificationModel>(context).number;
+ 
     final menuProviderIndex = Provider.of<MenuProvider>(context).index;
 
     return Material(
@@ -119,8 +121,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                                 right: 0.0,
                                 // child: Icon( Icons.brightness_1, size: 8, color: Colors.redAccent, )
                                 child: ValueListenableBuilder<int>(
-                                  valueListenable:
-                                      FirebaseService.get().onGlobalRoomCount,
+                                  valueListenable: FirebaseService.get().onGlobalRoomCount,
                                   builder: (_, number, __) {
                                     return BounceInDown(
                                       from: 10,
@@ -167,11 +168,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                           ),
                   ),
                 ],
-                onTap: (index) =>
-                    Provider.of<MenuProvider>(context, listen: false)
-                        .setIndex(index)
-                //selectedPageIndex = index;
-                ),
+                onTap: (index) => Provider.of<MenuProvider>(context, listen: false).setIndex(index)
+            ),
           ),
           IgnorePointer(
             child: AnimationScreen(color: Theme.of(context).accentColor),

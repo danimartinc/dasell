@@ -165,12 +165,6 @@ class FilterCategoryItem extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: color,
-                // gradient: LinearGradient(colors: [
-                //   color.withOpacity(0.40),
-                //   color.withOpacity(0.5),
-                //   color.withOpacity(0.6),
-                // ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-                // borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
                 icon,
@@ -178,7 +172,7 @@ class FilterCategoryItem extends StatelessWidget {
                 color: active ? Colors.grey : white,
               ),
             ),
-            SizedBox(height: 6),
+            kGap6,
             Text(
               name,
               overflow: TextOverflow.ellipsis,

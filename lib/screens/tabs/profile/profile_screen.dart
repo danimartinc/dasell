@@ -24,6 +24,8 @@ class _ProfileScreenState extends ProfileScreenState {
   @override
   Widget build(BuildContext context) {
 
+    var color = Theme.of(context).primaryColor;
+
     return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
       stream: FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
       builder: ( context, snapshot) {
@@ -94,6 +96,19 @@ class _ProfileScreenState extends ProfileScreenState {
                     ),
                   ),
                   kGap15,
+                  Padding(
+                    padding: const EdgeInsets.symmetric( horizontal: 90, ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [      
+                        OpenDialogsButton( onTap: onSignOutDialogPressed, ),    
+                        DeleteUserBtn(onTap: onDeleteUserDialogPressed ),
+                      
+                
+                    ],
+                  ),
+                   ),
+       
                   ExpansionTile(
                     leading: Icon( FontAwesomeIcons.cog, size: 22,),
                     title: Text(
@@ -112,7 +127,7 @@ class _ProfileScreenState extends ProfileScreenState {
                   ExpansionTile(
                     leading: Icon( FontAwesomeIcons.handshake, size: 22,),
                     title: Text(
-                    'Mis productos',
+                    'Transacciones',
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 18,
@@ -120,18 +135,19 @@ class _ProfileScreenState extends ProfileScreenState {
                     ),
                     children: [
                      ListTile(
-                       title: Text('Ventas'),
-                       onTap: () {
-                        
-                        Provider.of<TabMenuProvider>(context, listen: false).setIndex(2);
-                        Provider.of<MenuProvider>(context, listen: false).setIndex(1);
-                       } 
+                       title: Text('Ventas',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 18,
+                      ),
+                      ),
+                    onTap: () {
+                      Provider.of<TabMenuProvider>(context, listen: false).setIndex(2);
+                      Provider.of<MenuProvider>(context, listen: false).setIndex(1);
+                    } 
                      ),
                     ],
                   ),
-                  kGap15,
-                  OpenDialogsButton(onPressed: onSignOutDialogPressed, ),
-                  DeleteUserBtn(onPressed: onDeleteUserDialogPressed ),
                 ],
               ),
             ),

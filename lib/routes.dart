@@ -14,7 +14,7 @@ import 'package:DaSell/screens/favs/my_sell_ads_screen.dart';
 
   Map<String, Widget Function(BuildContext)> routes = {
 
-    UsersChatScreen.routeName: (context) => UsersChatScreen(),
+    //UsersChatScreen.routeName: (context) => UsersChatScreen(),
     FurtherCat.routeName: (context) => FurtherCat(),
     ProductInfoOne.routeName: (context) => ProductInfoOne(),
     AddingImagesScreen.routeName: (context) => AddingImagesScreen(),
