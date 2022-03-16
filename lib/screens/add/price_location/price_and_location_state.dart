@@ -193,16 +193,17 @@ abstract class PriceLocationScreenState extends State<PriceAndLocationScreen> {
   void onDonatePressed() {
 
     textController.clear();
-                            FocusScope.of(context).unfocus();
-                            setState(() {
-                              if (isDonate) {
-                                containerHeight = 80;
-                              } else {
-                                containerHeight = 0;
-                              }
-                              isDonate = !isDonate;
-                            });
-
-
+    
+    FocusScope.of(context).unfocus();
+    
+    setState(() {
+    
+      if (isDonate) {
+        containerHeight = 80;
+      } else {
+        containerHeight = 0;
+      }
+      isDonate = !isDonate;
+    });
   }
  }
