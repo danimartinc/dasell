@@ -103,19 +103,16 @@ class _ProfileScreenState extends ProfileScreenState {
                       children: [      
                         OpenDialogsButton( onTap: onSignOutDialogPressed, ),    
                         DeleteUserBtn(onTap: onDeleteUserDialogPressed ),
-                      
-                
-                    ],
+                      ],
+                    ),
                   ),
-                   ),
-       
                   ExpansionTile(
-                    leading: Icon( FontAwesomeIcons.cog, size: 22,),
+                    leading: Icon( FontAwesomeIcons.cog, size: 22, ),
                     title: Text(
                       'Configuración',
                       style: TextStyle(
                         fontFamily: 'Poppins',
-                        fontSize: 18,
+                        fontSize: 17,
                       ),
                     ),
                     children: [
@@ -130,7 +127,7 @@ class _ProfileScreenState extends ProfileScreenState {
                     'Transacciones',
                     style: TextStyle(
                       fontFamily: 'Poppins',
-                      fontSize: 18,
+                      fontSize: 17,
                     ),
                     ),
                     children: [
@@ -138,7 +135,7 @@ class _ProfileScreenState extends ProfileScreenState {
                        title: Text('Ventas',
                       style: TextStyle(
                         fontFamily: 'Poppins',
-                        fontSize: 18,
+                        fontSize: 16,
                       ),
                       ),
                     onTap: () {

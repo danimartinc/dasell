@@ -93,7 +93,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       polylineId: const PolylineId('route'),
       color: Colors.black,
       width: 5,
-      points: destination.points,
+      points: destination.points!,
       startCap: Cap.roundCap,
       endCap: Cap.roundCap,
     );
@@ -114,7 +114,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     final startMarker = Marker(
       anchor: const Offset(0.1, 1),
       markerId: const MarkerId('start'),
-      position: destination.points.first,
+      position: destination.points!.first,
       icon: startMaker,
       // infoWindow: InfoWindow(
       //   title: 'Inicio',
@@ -124,7 +124,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     final endMarker = Marker(
       markerId: const MarkerId('end'),
-      position: destination.points.last,
+      position: destination.points!.last,
       icon: endMaker,
       // anchor: const Offset(0,0),
       // infoWindow: InfoWindow(

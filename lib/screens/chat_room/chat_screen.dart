@@ -22,6 +22,8 @@ class ChatRoomScreen extends StatefulWidget {
 class _ChatRoomScreenState extends ChatRoomScreenState {
   @override
   Widget build(BuildContext context) {
+
+    print('Useeeeeeeeeeeeeeeeer: ${ otherUser }');
     return Stack(
       children: [
         Container(

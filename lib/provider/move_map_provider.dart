@@ -22,7 +22,7 @@ class MoveMap extends ChangeNotifier {
       polylineId: const PolylineId('route'),
       color: Colors.black,
       width: 5,
-      points: destination!.points,
+      points: destination?.points ?? [],
       startCap: Cap.roundCap,
       endCap: Cap.roundCap,
     );

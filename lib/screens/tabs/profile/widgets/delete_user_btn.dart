@@ -36,6 +36,7 @@ class DeleteUserBtn extends StatelessWidget {
             ),
           ),
         ),
+        kGap5,
         Text('Eliminar cuenta',
           overflow: TextOverflow.ellipsis,)
       ],

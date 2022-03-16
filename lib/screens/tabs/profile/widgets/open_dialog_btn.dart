@@ -35,6 +35,7 @@ class OpenDialogsButton extends StatelessWidget {
               ),
             ),
           ),
+          kGap5,
           Text('Cerrar sesión',
             overflow: TextOverflow.ellipsis,
           ),

@@ -1,5 +1,6 @@
 import 'package:DaSell/commons.dart';
 import 'package:DaSell/maps/models/route_destination.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -36,6 +37,10 @@ class _MapPreviewState extends State<MapPreview> {
 
   @override
   void initState() {
+
+    SystemChrome.setSystemUIOverlayStyle( const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
 
     super.initState();
     _requestPermission();
