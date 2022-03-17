@@ -265,9 +265,12 @@ class FirebaseService {
 
   /// podemos usar esto para invalidar el Stream que escucha la lista de chats.
   Future<void> markRoomForUpdate(String roomId) async {
+    trace('Entra al update');
     await firestore.collection('chats').doc(roomId).update({
       'lastModification': FieldValue.serverTimestamp(),
     });
+
+    trace('Guardar lastModfication');
   }
 
   Future<void> setChatUnreadZero({required String roomId}) async {

@@ -1,6 +1,9 @@
+import 'package:DaSell/screens/favs/my_ads_state.dart';
+
 import '../../commons.dart';
 //Widgets
 import '../../widgets/home/ad_item.dart';
+import '../tabs/home/widgets/ad_item_widget.dart';
 import 'widgets/widgets.dart';
 
 
@@ -10,9 +13,10 @@ class MyAds extends StatefulWidget {
   _MyAdsState createState() => _MyAdsState();
 }
 
-class _MyAdsState extends State<MyAds> {
+class _MyAdsState extends MyAdsScreenState {
 
   final uid = FirebaseAuth.instance.currentUser!.uid;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,15 @@ class _MyAdsState extends State<MyAds> {
           .snapshots(),
       builder: ( context, snapshot ) {
 
-        //Comprobamos que si tenemos información
+        if (isLoading) {
+          return CommonProgress();
+        }
+        
+        if (currentProducts.isEmpty) {
+          return SearchAdsBtn(); 
+        }
+
+        /*//Comprobamos que si tenemos información
         if ( snapshot.hasData ) {
         
           //Widget con la información  
@@ -35,18 +47,27 @@ class _MyAdsState extends State<MyAds> {
 
             if( documents.length == 0 ) {
               return PushAdsBtn();
-            }
+            }*/
 
             return Padding(
               padding: EdgeInsets.all(10),
               child: GridView.builder(
-                itemCount: documents.length,
+                itemCount: currentProducts.length,
                 itemBuilder: (context, i) {
-                  return AdItem(
+
+                  final vo = currentProducts[i];
+                  return AdItemWidget(
+                    data: vo,
+                    onTap: () => onItemTap(vo),
+                    onLikeTap: () => onItemLike(vo),
+                  );
+
+                  //TODO: Widget viejo
+                  /*return AdItem(
                     documents[i],
                     documents[i]['uid'] == uid,
                     uid,
-                  );
+                  );*/
                 },
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: 3 / 2,
@@ -55,10 +76,7 @@ class _MyAdsState extends State<MyAds> {
                   crossAxisSpacing: 10,
                 ),
               ),
-            );
-        } else {
-          return CommonProgress();
-        }       
+            );    
       },
     );
   }
