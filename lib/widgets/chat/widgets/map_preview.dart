@@ -52,13 +52,12 @@ class _MapPreviewState extends State<MapPreview> {
   Widget build(BuildContext context) {
 
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    final MoveMap _provider = Provider.of<MoveMap>(context);
 
     return ChangeNotifierProvider(
       create: (context) => MoveMap(),
       child: Builder(
         builder: (context) {
-
-          final MoveMap _provider = Provider.of<MoveMap>(context);
 
           return widget.fullScreen
               ? Scaffold(
