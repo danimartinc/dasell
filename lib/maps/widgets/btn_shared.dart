@@ -1,3 +1,4 @@
+import 'package:DaSell/maps/widgets/btn_cancel_monitoring.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../commons.dart';
@@ -94,9 +95,8 @@ class _BtnSharedState extends State<BtnShared> {
                 }, SetOptions(merge: true));
             
             showSharedToast();
+            
             }else{
-
-              
               showErrorSharedToast();
             }
           }

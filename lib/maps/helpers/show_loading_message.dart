@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:DaSell/const/styles.dart';
+import 'package:DaSell/commons.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 
 void showLoadingMessage( BuildContext context ) {
 
@@ -21,7 +21,7 @@ void showLoadingMessage( BuildContext context ) {
             children: const [
               Text('Calculando ruta'),
               kGap15,
-              CircularProgressIndicator( strokeWidth: 3, color: Colors.black )
+              CommonProgress(),
             ],
           ),
         ),

@@ -4,7 +4,9 @@ import 'users_chat_controller.dart';
 import 'widgets.dart';
 
 class UsersChatScreen extends StatefulWidget {
+
   static const routeName = '/users_chat_screen';
+  
   @override
   createState() => _UsersChatScreenState();
 }

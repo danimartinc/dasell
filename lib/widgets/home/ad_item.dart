@@ -2,8 +2,8 @@ import 'package:DaSell/widgets/home/widgets/widgets.dart';
 
 import '../../commons.dart';
 
-//Screens
-import 'package:DaSell/screens/home/product_detail_screen.dart';
+
+import '../../screens/product_details/product_details.dart';
 
 
 class AdItem extends StatefulWidget {
@@ -36,7 +36,7 @@ class _AdItemState extends State<AdItem> {
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         onTap: () => Navigator.of(context).pushNamed(
-          ProductDetailScreen.routeName,
+          ProductDetails.routeName,
             arguments: {
               'docs': widget.documents,
               'isMe': widget.isMe,

@@ -17,11 +17,8 @@ class SearchResult {
     this.description,
   });
 
-  //TODO: 
-  // name, description, latlon
-
   @override
   String toString() {
-    return '{ cancel: $cancel, manual: $manual }';
+    return '{ cancel: $cancel, manual: $manual, position: $position, name: $name, description: $description }';
   }
 }

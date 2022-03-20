@@ -20,16 +20,14 @@ import 'package:DaSell/screens/favs/my_sell_ads_screen.dart';
     AddingImagesScreen.routeName: (context) => AddingImagesScreen(),
     PriceAndLocationScreen.routeName: (context) => PriceAndLocationScreen(),
     BottomNavigationScreen.routeName: (context) => BottomNavigationScreen(),
-    /// navegar normalmente.
+    //Navegar normalmente
     ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
     //ChatScreen.routeName: (context) => ChatScreen(),
     AddProduct.routeName: (context) => AddProduct(),
     HomeScreen.routeName: (context) => HomeScreen(),
     DataBackupHome.routeName: (context) => DataBackupHome(),
     MapLoadingScreen.routeName: (context) => MapLoadingScreen(),
-     MySellAds.routeName: (context) => MySellAds(),
-    //MyMap.routeName: ( context ) => MyMap(),
-    
+     MySellAds.routeName: (context) => MySellAds(),   
   };
 
 

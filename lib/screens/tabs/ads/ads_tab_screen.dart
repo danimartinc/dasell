@@ -41,7 +41,7 @@ class _AdsTabScreenState extends State<AdsTabScreen> {
                   fontSize: 17,
                 ),
                 tabs: [
-                  Tab( text: '   Publicados   ', ),
+                  Tab( text: '  Publicados   ', ),
                   Tab( text: '  Favoritos  ', ),
                   Tab( text: '  Vendidos  ', ),
                 ],

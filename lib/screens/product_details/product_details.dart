@@ -12,6 +12,8 @@ class ProductDetails extends StatefulWidget {
   final ResponseProductVo data;
   final double scrollOffset;
 
+  static const routeName = './products_details';
+
   const ProductDetails({
     Key? key,
     required this.data,  
@@ -39,8 +41,6 @@ class _ProductDetailsState extends ProductDetailsState {
         setState(() {
           scrollOffset = _scrollController!.offset;
         });
-
-        //context.read<AppBarCubit>().setOffset(_scrollController!.offset);
       });
     super.initState();
   }
@@ -184,8 +184,8 @@ class _ProductDetailsState extends ProductDetailsState {
                                           locationText,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(fontFamily: 'Poppins'),
-                                        ),
-                                )
+                                      ),
+                                ),
                               ],
                             ),
                           ),
@@ -195,8 +195,7 @@ class _ProductDetailsState extends ProductDetailsState {
                           flex: 1,
                           child: Container(
                             height: 170,
-                            decoration:
-                                BoxDecoration(color: Theme.of(context).cardColor),
+                            decoration: BoxDecoration(color: Theme.of(context).cardColor),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,

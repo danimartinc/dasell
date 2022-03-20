@@ -112,7 +112,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                   ),
                   BottomNavigationBarItem(
                     label: 'Chats',
-                    icon: menuProviderIndex == 3
+                    icon: menuProviderIndex != 3
                         ? Stack(
                             children: [
                               Icon(Icons.chat_bubble),
