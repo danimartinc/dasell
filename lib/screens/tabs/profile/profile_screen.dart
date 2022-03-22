@@ -54,7 +54,7 @@ class _ProfileScreenState extends ProfileScreenState {
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.black, width: 2),
                           ),
-                          child: snapshot.data!['profilePicture'] == ''
+                          child: snapshot.data?['profilePicture'] == ''
                              //name: doc.data()['name'] ?? ''
                             ? SvgPicture.asset(
                               'assets/images/boy.svg',

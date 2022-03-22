@@ -31,15 +31,15 @@ class _MyAdsState extends MyAdsScreenState {
           .snapshots(),
       builder: ( context, snapshot ) {
 
-        if (isLoading) {
+       /* if (isLoading) {
           return CommonProgress();
         }
         
         if (myProducts.isEmpty) {
           return PushAdsBtn(); 
-        }
+        }*/
 
-        /*//Comprobamos que si tenemos información
+        //Comprobamos que si tenemos información
         if ( snapshot.hasData ) {
         
           //Widget con la información  
@@ -47,27 +47,27 @@ class _MyAdsState extends MyAdsScreenState {
 
             if( documents.length == 0 ) {
               return PushAdsBtn();
-            }*/
+            }
 
             return Padding(
               padding: EdgeInsets.all(10),
               child: GridView.builder(
-                itemCount: myProducts.length,
+                itemCount: documents.length,
                 itemBuilder: (context, i) {
 
-                  final vo = myProducts[i];
+              /*    final vo = documents[i];
                   return AdItemWidget(
                     data: vo,
                     onTap: () => onItemTap(vo),
                     onLikeTap: () => onItemLike(vo),
-                  );
+                  );*/
 
                   //TODO: Widget viejo
-                  /*return AdItem(
+                  return AdItem(
                     documents[i],
                     documents[i]['uid'] == uid,
                     uid,
-                  );*/
+                  );
                 },
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: 3 / 2,
@@ -76,7 +76,11 @@ class _MyAdsState extends MyAdsScreenState {
                   crossAxisSpacing: 10,
                 ),
               ),
-            );    
+            );
+               } else {
+          return CommonProgress();
+        }  
+
       },
     );
   }

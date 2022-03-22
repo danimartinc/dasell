@@ -161,6 +161,7 @@ class FirebaseService {
         .doc(docId)
         .collection('messages')
         .add(messageData);
+        
     final chatData = {
       'docId': docId,
       'lastMessage': message,
@@ -169,6 +170,7 @@ class FirebaseService {
       'lastModification': FieldValue.serverTimestamp(),
       'users': [senderId, receiverId]
     };
+
     await firestore.collection('chats').doc(docId).set(chatData);
   }
 
@@ -220,8 +222,12 @@ class FirebaseService {
     await cacheMissingUsers(uids);
     final result = <ChatViewItemVo>[];
     for (var room in chatRooms) {
+
       final otherUserId = room.getOtherUserId(uid);
       final user = chatUsersMap[otherUserId];
+
+      trace( 'otherUser ${ otherUserId }');
+      trace( 'user ${ user }' );
       if (user == null) {
         print("Gran problema... el otro usuario no puede no existir");
         return [];
@@ -229,7 +235,7 @@ class FirebaseService {
       var count = await getChatUnreadCount(roomId: room.docId);
       String subtitle = room.lastMessage ?? '';
       if (room.sentByMe) {
-        subtitle = 'Tu: $subtitle';
+        subtitle = 'Tú: $subtitle';
       }
       final chatRoomItem = ChatViewItemVo(
         unreadCount: count,

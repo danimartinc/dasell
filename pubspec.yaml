@@ -29,7 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   gap: any
   cupertino_icons: ^1.0.4
-  cloud_firestore: ^3.1.7
+  cloud_firestore: ^3.1.10
   firebase_auth: ^3.3.6
   flutter_svg: ^1.0.3
   provider: ^6.0.2

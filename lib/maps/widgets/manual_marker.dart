@@ -83,7 +83,8 @@ class _ManualMarkerBody extends StatelessWidget {
                     Navigator.pop(context);
                   },
                 ),
-              )),
+              )
+          ),
 
           //BtnCancelMonitoring()
         ],

@@ -8,6 +8,7 @@ import '../../commons.dart';
 import '../../screens/chat_room/chat_screen.dart';
 
 abstract class ChatScreenState extends State<ChatRoomScreen> {
+  
   TextEditingController messageController = TextEditingController();
   FocusNode focusNode = FocusNode();
   bool show = false;

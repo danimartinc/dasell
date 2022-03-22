@@ -6,6 +6,7 @@ import '../../chat_room/chat_screen.dart';
 import 'models.dart';
 
 abstract class UsersChatController extends State<UsersChatScreen> {
+
   User? get myUser => FirebaseAuth.instance.currentUser!;
   late StreamSubscription chatStreamSub;
   List<ChatViewItemVo> dataItems = [];
@@ -28,8 +29,7 @@ abstract class UsersChatController extends State<UsersChatScreen> {
   Future<void> onChatDataChange(
     QuerySnapshot<Map<String, dynamic>> event,
   ) async {
-    final chatRooms =
-        event.docs.map((e) => ChatRoomVo.fromJson(e.data())).toList();
+    final chatRooms = event.docs.map((e) => ChatRoomVo.fromJson(e.data())).toList();
     dataItems = await _service.getUserChats(chatRooms);
     update();
   }

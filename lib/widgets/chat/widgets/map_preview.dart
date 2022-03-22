@@ -1,14 +1,18 @@
 import 'package:DaSell/commons.dart';
 import 'package:DaSell/maps/models/route_destination.dart';
+import 'package:DaSell/maps/widgets/btn_cancel_monitoring.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../maps/blocs/location/location_bloc.dart';
 import '../../../maps/blocs/search/search_bloc.dart';
 import '../../../maps/helpers/widgets_to_marker.dart';
+import '../../../maps/widgets/cancel_monitoring_dialog.dart';
 
 
 
@@ -26,7 +30,7 @@ class MapPreview extends StatefulWidget {
     required this.time,
     required this.documentId,
     this.fullScreen = false,
-    this.initialLocation
+    this.initialLocation,
   });
 
   @override
@@ -46,6 +50,9 @@ class _MapPreviewState extends State<MapPreview> {
     super.initState();
     _requestPermission();
   }
+  
+  late ChatRoomVo room;
+  LocationBloc? locationBloc;
 
 
 
@@ -72,27 +79,35 @@ class _MapPreviewState extends State<MapPreview> {
                                 .doc(widget.documentId)
                                 .snapshots(),
                             builder: (context, snapshot) {
+
                               if (snapshot.hasData) {
-                                print(
-                                    "final map en =${snapshot.data!['latitude']}, ${snapshot.data!['longitude']}");
+                                print( "final map en =${snapshot.data!['latitude']}, ${snapshot.data!['longitude']}");
 
                                 return dataText2(
                                     CameraPosition(
-                                        target: LatLng(snapshot.data!['latitude'],
-                                            snapshot.data!['longitude']),
-                                        zoom: 16),
+                                      target: LatLng(
+                                        snapshot.data!['latitude'],
+                                        snapshot.data!['longitude']
+                                      ),
+                                      zoom: 16
+                                    ),
                                     _provider,
                                     customMarker: snapshotMarker.data
                                 );
                               } else {
-                                return dataText(CameraPosition(
-                                    target: LatLng(25.7830661,
-                                        -100.3131327), //LatLng(40.0,-40.0),
-                                    zoom: 15));
+                                return dataText(
+                                  CameraPosition(
+                                    target: LatLng(
+                                      25.7830661,
+                                      -100.3131327
+                                    ), //LatLng(40.0,-40.0),
+                                    zoom: 15
+                                  ),
+                                );
                               }
                             });
                       }
-                      return Text("cargando...");
+                      return Text("Cargando información");
                     },
                   )
                 )
@@ -109,16 +124,16 @@ class _MapPreviewState extends State<MapPreview> {
                         maxHeight: MediaQuery.of(context).size.height * (1 / 4),
                       ),
                       decoration: widget.isMe
-                          ? BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomRight: Radius.zero,
-                              ),
-                              color: Theme.of(context).cardColor,
-                            )
-                          : BoxDecoration(
+                        ? BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                              bottomRight: Radius.zero,
+                            ),
+                            color: Theme.of(context).cardColor,
+                        )
+                        : BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 bottomLeft: Radius.zero,
@@ -189,8 +204,7 @@ class _MapPreviewState extends State<MapPreview> {
                                                        _provider
                                                       );
                                                     } else {
-                                                      return dataText(
-                                                        
+                                                      return dataText(   
                                                         CameraPosition(
                                                           target: LatLng(
                                                             25.7830661,
@@ -238,8 +252,6 @@ class _MapPreviewState extends State<MapPreview> {
     );
   }
 
-//TODO: Boton cancelar seguimiento
-
   Widget dataText(CameraPosition position) {
 
     return Column(
@@ -266,6 +278,7 @@ class _MapPreviewState extends State<MapPreview> {
 
   Widget dataText2(CameraPosition position, MoveMap provider, {List<Marker>? customMarker} ) {
 
+
     print("Map con pos=${position.target.latitude}, ${position.target.longitude}");
     provider.moveCamera(position.target);
     List<Marker> markers = widget.fullScreen ? [
@@ -286,26 +299,62 @@ class _MapPreviewState extends State<MapPreview> {
     ];
     return SizedBox(
       height: widget.fullScreen ? double.infinity : MediaQuery.of(context).size.height * (1 / 5),
-      child: new GoogleMap(
-          initialCameraPosition: position,
-          compassEnabled: false,
-          myLocationEnabled: true,
-          zoomControlsEnabled: false,
-          myLocationButtonEnabled: false,
-          zoomGesturesEnabled: widget.fullScreen ? true : false,
-          scrollGesturesEnabled: widget.fullScreen ? true : false,
-          tiltGesturesEnabled: false,
-          rotateGesturesEnabled: true,
-          polylines: widget.fullScreen ? { provider.drawRoutePolyline() } : const {},
-          markers: markers.toSet(),
-            onMapCreated: ( controller ) => provider.controller = controller,
-            onCameraMove: ( position2 ) => provider.center = position2.target
-      
+      child: Stack(
+        children: [
+          new GoogleMap(
+            initialCameraPosition: position,
+            compassEnabled: false,
+            myLocationEnabled: true,
+            zoomControlsEnabled: false,
+            myLocationButtonEnabled: false,
+            zoomGesturesEnabled: widget.fullScreen ? true : false,
+            scrollGesturesEnabled: widget.fullScreen ? true : false,
+            tiltGesturesEnabled: false,
+            rotateGesturesEnabled: true,
+            polylines: widget.fullScreen ? { provider.drawRoutePolyline() } : const {},
+            markers: markers.toSet(),
+              onMapCreated: ( controller ) => provider.controller = controller,
+              onCameraMove: ( position2 ) => provider.center = position2.target
+        
+          ),
+          if( widget.fullScreen && widget.isMe )
+            //CancelMonitoringDialog()
+            BtnCancelMonitoring(onPressed: onDialogPressed )
+        ] 
       ),
     
     );
 
   }
+    
+    void cancelMonitoring( int option ) async {
+
+      if( option == 1 ) {   
+        // TODO: Disparar dispose, cancelar seguimiento
+        locationBloc?.close();
+        showCancelMonitoringToast(); 
+      }
+    }
+
+    void onDialogPressed() {
+      showDialog(
+        context: context,
+        builder: (context) => CancelMonitoringDialog(
+          onSelect: cancelMonitoring,
+        ),
+      );
+    }
+
+
+    
+  void showCancelMonitoringToast() => Fluttertoast.showToast(
+      msg: 'Has dejado de compartir tu ubicación actual',
+      fontSize: 15,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black54,
+      textColor: Colors.white,
+  );
+
 
 
   _requestPermission() async {
@@ -320,7 +369,6 @@ class _MapPreviewState extends State<MapPreview> {
       openAppSettings();
     }
   }
-
 }
 
 Future<List<Marker>> customMarkers(RouteDestination destination) async {
