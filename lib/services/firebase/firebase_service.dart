@@ -8,6 +8,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'models/product_vo.dart';
 
 class FirebaseService {
+  
   static FirebaseService get() => locator.get();
 
   late final firestore = FirebaseFirestore.instance;
@@ -232,6 +233,8 @@ class FirebaseService {
         print("Gran problema... el otro usuario no puede no existir");
         return [];
       }
+
+      trace( 'user después de NULL ${ user }' );
       var count = await getChatUnreadCount(roomId: room.docId);
       String subtitle = room.lastMessage ?? '';
       if (room.sentByMe) {
@@ -274,9 +277,10 @@ class FirebaseService {
     trace('Entra al update');
     await firestore.collection('chats').doc(roomId).update({
       'lastModification': FieldValue.serverTimestamp(),
-    });
-
-    trace('Guardar lastModfication');
+    }).then((value) => print("Update LastModification"))
+      .catchError((error) => print("Failed to add LastModification: $error"));
+    
+    trace('Update lastModification');
   }
 
   Future<void> setChatUnreadZero({required String roomId}) async {

@@ -23,7 +23,8 @@ class _ChatRoomScreenState extends ChatRoomScreenState {
   @override
   Widget build(BuildContext context) {
 
-    print('Useeeeeeeeeeeeeeeeer: ${ otherUser }');
+    trace('User en chatscreen: ${ otherUser }');
+
     return Stack(
       children: [
         Container(

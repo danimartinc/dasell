@@ -331,7 +331,7 @@ class _MapPreviewState extends State<MapPreview> {
 
       if( option == 1 ) {   
         // TODO: Disparar dispose, cancelar seguimiento
-        locationBloc?.close();
+        locationBloc?.stopFollowingUser();
         showCancelMonitoringToast(); 
       }
     }

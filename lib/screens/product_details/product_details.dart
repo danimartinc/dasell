@@ -9,6 +9,7 @@ import 'widgets/image_slider.dart';
 import 'widgets/widgets.dart';
 
 class ProductDetails extends StatefulWidget {
+  
   final ResponseProductVo data;
   final double scrollOffset;
 

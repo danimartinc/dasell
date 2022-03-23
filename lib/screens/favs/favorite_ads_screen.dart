@@ -1,4 +1,4 @@
-import 'package:DaSell/screens/favs/my_ads_state.dart';
+import 'package:DaSell/screens/favs/widgets/my_ads_state.dart';
 
 import '../../commons.dart';
 
@@ -37,21 +37,21 @@ class _FavoriteAdsScreenState extends FavoriteAdsScreenState {
           .snapshots(),
       builder: ( context, snapshot ) {
 
-        if (isLoading) {
+       /* if (isLoading) {
           return CommonProgress();
         }
         
         if (myFavProducts.isEmpty) {
           return SearchAdsBtn(); 
-        }
+        }*/
 
 
-       /* if ( snapshot.hasData) {
+       if ( snapshot.hasData) {
           var documents = snapshot.data!.docs;
         
         if ( documents.length == 0 ) {
           return SearchAdsBtn(); 
-        }*/
+        }
 
         return Padding(
           padding: EdgeInsets.all(10),
@@ -68,9 +68,9 @@ class _FavoriteAdsScreenState extends FavoriteAdsScreenState {
 
               //TODO: Widget anterior
               /*return AdItem(
-                documents[i],
-                documents[i]['uid'] == uid,
-                uid,
+                  documents[i],
+                  documents[i]['uid'] == uid,
+                  uid,
               );*/
             },
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -81,6 +81,9 @@ class _FavoriteAdsScreenState extends FavoriteAdsScreenState {
             ),
           ),
         );
+           } else {
+          return CommonProgress();
+        }  
         
       },
     );

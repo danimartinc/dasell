@@ -136,7 +136,10 @@ abstract class ProfileScreenState extends State<ProfileScreen> {
           .doc(
             uid.toString(),
           )
-          .delete();
+          .delete()
+          .then((value) => print("Update LastModification"))
+          .catchError((error) => print("Failed to add LastModification: $error"));
+
   
         await FirebaseAuth.instance.signOut();
           

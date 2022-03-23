@@ -115,7 +115,7 @@ class MyApp extends StatelessWidget {
               builder: (themeContext) => MaterialApp(
                 navigatorKey: locator<NavigatorService>().navigatorKey,
                 onGenerateRoute: (routeSettings) {
-                  trace("CREATING ROUTE!", routeSettings.name);
+                  trace("CREATING ROUTE!", routeSettings.name );
                   switch (routeSettings.name) {
                     case 'chat':
                       return MaterialPageRoute(

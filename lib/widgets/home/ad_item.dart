@@ -3,6 +3,7 @@ import 'package:DaSell/widgets/home/widgets/widgets.dart';
 import '../../commons.dart';
 
 
+import '../../screens/home/product_detail_screen.dart';
 import '../../screens/product_details/product_details.dart';
 
 
@@ -29,19 +30,14 @@ class _AdItemState extends State<AdItem> {
   @override
   Widget build( BuildContext context ) {
     
-   // final index = ModalRoute.of(context)!.settings.arguments as int;
-   // final cats  = Categories.categories.json[index];
-  
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         onTap: () => Navigator.of(context).pushNamed(
-          ProductDetails.routeName,
+          ProductDetailScreen.routeName,
             arguments: {
               'docs': widget.documents,
               'isMe': widget.isMe,
-              //'indexCategory': index,
-              //'indexFurther': i 
             },
         ),
         child: GridTile(

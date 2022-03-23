@@ -39,8 +39,7 @@ abstract class ChatRoomScreenState extends State<ChatRoomScreen> {
   void _loadData() {
     /// TODO: esto podria ser borrado y accedido desde "_service.chatUsersMap"...
     /// asumiendo que el usuario viene de la lista de chatRooms.
-    userSubscription =
-        _service.subscribeToUser(otherUser.uid, onUserDataChange);
+    userSubscription = _service.subscribeToUser(otherUser.uid, onUserDataChange);
     docId = _service.getChatDocId(otherUser);
     /// actualizar UNREAD COUNT to 0
     trace("RESET COUNTER!");

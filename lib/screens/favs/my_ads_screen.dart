@@ -1,9 +1,10 @@
-import 'package:DaSell/screens/favs/my_ads_state.dart';
+import 'package:DaSell/screens/favs/widgets/my_ads_state.dart';
 
 import '../../commons.dart';
 //Widgets
 import '../../widgets/home/ad_item.dart';
 import '../tabs/home/widgets/ad_item_widget.dart';
+import 'widgets/my_ad_item.dart';
 import 'widgets/widgets.dart';
 
 
@@ -31,7 +32,7 @@ class _MyAdsState extends MyAdsScreenState {
           .snapshots(),
       builder: ( context, snapshot ) {
 
-       /* if (isLoading) {
+       /*if (isLoading) {
           return CommonProgress();
         }
         
@@ -55,8 +56,9 @@ class _MyAdsState extends MyAdsScreenState {
                 itemCount: documents.length,
                 itemBuilder: (context, i) {
 
-              /*    final vo = documents[i];
-                  return AdItemWidget(
+                  //final vo = myProducts[i];
+
+                 /* return MyAdItem(
                     data: vo,
                     onTap: () => onItemTap(vo),
                     onLikeTap: () => onItemLike(vo),

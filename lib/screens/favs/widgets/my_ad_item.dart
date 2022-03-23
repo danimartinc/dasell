@@ -2,18 +2,17 @@ import 'package:DaSell/commons.dart';
 import 'package:DaSell/services/firebase/models/product_vo.dart';
 
 
-class AdItemWidget extends StatelessWidget {
+class MyAdItem extends StatelessWidget {
   
   final ResponseProductVo data;
-  final ResponseProductVo? uid;
   final VoidCallback? onTap;
   final VoidCallback? onLikeTap;
 
-  const AdItemWidget({
+  const MyAdItem({
     Key? key,
     required this.data,
     this.onTap,
-    this.onLikeTap, this.uid,
+    this.onLikeTap,
   }) : super(key: key);
 
   @override
@@ -72,7 +71,8 @@ class AdItemWidget extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: data.getHasPrice() ? Colors.pink[200] : Colors.white,
+                      color:
+                          data.getHasPrice() ? Colors.pink[200] : Colors.white,
                     ),
                   ),
               ],

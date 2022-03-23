@@ -12,6 +12,7 @@ import '../add/maps/maps_screen.dart';
 import '../chat_room/chat_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
+
   static const routeName = './product_detail_screen';
 
   @override
@@ -19,6 +20,7 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  
   final Map<int, String> cal = {
     1: 'Jan',
     2: 'Feb',
