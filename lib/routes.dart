@@ -27,7 +27,7 @@ import 'package:DaSell/screens/favs/my_sell_ads_screen.dart';
     HomeScreen.routeName: (context) => HomeScreen(),
     DataBackupHome.routeName: (context) => DataBackupHome(),
     MapLoadingScreen.routeName: (context) => MapLoadingScreen(),
-     MySellAds.routeName: (context) => MySellAds(),   
+    MySellAds.routeName: (context) => MySellAds(),   
   };
 
 

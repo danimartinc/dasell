@@ -56,7 +56,39 @@ class _BtnSharedState extends State<BtnShared> {
               documentId = locationBloc!.sender + locationBloc!.receiver;
             }
 
-            //mapBloc?.state.markers;
+  //            Future<void> sendMessage(
+  //   String message, {
+  //   required String docId,
+  //   required String senderId,
+  //   required String receiverId,
+  // }) async {
+  //   final ts = Timestamp.now();
+
+  //   final messageData = {
+  //     'message': message,
+  //     'imageUrl': '',
+  //     'senderId': senderId,
+  //     'receiverId': receiverId,
+  //     'timeStamp': ts,
+  //     'isRead': false,
+  //   };
+  //   await firestore
+  //       .collection('chats')
+  //       .doc(docId)
+  //       .collection('messages')
+  //       .add(messageData);
+        
+  //   final chatData = {
+  //     'docId': docId,
+  //     'lastMessage': message,
+  //     'senderId': senderId,
+  //     'timeStamp': ts,
+  //     'lastModification': FieldValue.serverTimestamp(),
+  //     'users': [senderId, receiverId]
+  //   };
+
+  //   await firestore.collection('chats').doc(docId).set(chatData);
+  // }
 
             await FirebaseFirestore.instance
                 .collection('chats')
@@ -69,6 +101,7 @@ class _BtnSharedState extends State<BtnShared> {
                     'senderId': locationBloc?.sender,
                     'receiverId': locationBloc?.receiver,
                     'timeStamp': ts,
+                    'isRead': false,
                   }
                 );
 
@@ -81,6 +114,7 @@ class _BtnSharedState extends State<BtnShared> {
                     'lastMessage': 'Ubicación',
                     'senderId': locationBloc?.sender,
                     'timeStamp': ts,
+                    'lastModification': FieldValue.serverTimestamp(),
                   },
                 );
 

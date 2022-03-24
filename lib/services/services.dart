@@ -13,7 +13,7 @@ Future<void> initApp() async {
   setupLocator();
   await FirebaseService.get().init();
   await DataService.get().init();
-  await PushNotificationService.initializeApp();
+  //await PushNotificationService.initializeApp();
 }
 
 void setupLocator() {

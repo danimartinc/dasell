@@ -15,8 +15,10 @@ abstract class UsersChatController extends State<UsersChatScreen> {
 
   @override
   void initState() {
-    //chatStreamSub = _service.subscribeToMyChats(onChatDataChange);
-     chatStreamSub = _service.subscribeToChats(onChatDataChange);
+    //TODO: CON ESTE MÉTODO RETORNA CADA VEZ QUE ENVÍAS UN MENSAJE, PERO LISTA LOS CHATS
+    chatStreamSub = _service.subscribeToMyChats(onChatDataChange);
+    //TODO: NO LISTA NINGÚN CHAT, NO SE SI HACE RELOAD
+    //chatStreamSub = _service.subscribeToChats(onChatDataChange);
     super.initState();
   }
 
