@@ -63,6 +63,7 @@ class _ProductDetailsState extends ProductDetailsState {
         visible: hasChat,
         child: FittedBox(
           child: FloatingActionButton.extended(
+            heroTag: 'FromChat',
             backgroundColor: Theme.of(context).primaryColor,
             foregroundColor: Colors.white,
             elevation: 15,

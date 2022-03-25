@@ -2,13 +2,13 @@ import 'package:DaSell/commons.dart';
 import 'package:DaSell/services/firebase/models/product_vo.dart';
 
 
-class MyAdItem extends StatelessWidget {
+class MySellAdItem extends StatelessWidget {
   
   final ResponseProductVo data;
   final VoidCallback? onTap;
   final VoidCallback? onLikeTap;
 
-  const MyAdItem({
+  const MySellAdItem({
     Key? key,
     required this.data,
     this.onTap,

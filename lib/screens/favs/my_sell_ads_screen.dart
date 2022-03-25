@@ -1,7 +1,13 @@
+import 'package:DaSell/screens/favs/widgets/my_ads_state.dart';
+
 import '../../commons.dart';
 
 //Widgets
+import '../../services/firebase/models/product_vo.dart';
 import '../../widgets/home/ad_item.dart';
+import '../tabs/home/widgets/ad_item_widget.dart';
+import 'widgets/my_ad_item.dart';
+import 'widgets/my_sell_ad_item.dart';
 import 'widgets/widgets.dart';
 
 
@@ -11,10 +17,10 @@ class MySellAds extends StatefulWidget {
    static const routeName = './my_sell_ads_screen';
   
   @override
-  _MyAdsState createState() => _MyAdsState();
+  createState() => _MySellAdsState();
 }
 
-class _MyAdsState extends State<MySellAds> {
+class _MySellAdsState extends MySellAdsScreenState {
 
   final uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -32,6 +38,8 @@ class _MyAdsState extends State<MySellAds> {
           .snapshots(),
       builder: ( context, snapshot ) {
 
+        mySellProducts = [];
+
         //Comprobamos que si tenemos información
         if ( snapshot.hasData ) {
         
@@ -42,16 +50,33 @@ class _MyAdsState extends State<MySellAds> {
               return PushAdsBtn();
             }
 
+        for( QueryDocumentSnapshot<Map<String, dynamic>> element in documents ) {
+
+          Map<String, dynamic> elementData = element.data();
+
+          mySellProducts.add(
+            ResponseProductVo.fromJson( elementData )
+          );
+        }
+
             return Padding(
               padding: EdgeInsets.all(10),
               child: GridView.builder(
                 itemCount: documents.length,
                 itemBuilder: (context, i) {
-                  return AdItem(
+
+                  final vo = mySellProducts[i];
+
+                 return AdItemWidget(
+                    data: vo,
+                    onTap: () => onItemTap(vo),
+                    onLikeTap: () => onItemLike(vo),
+                );
+                  /*return AdItem(
                     documents[i],
                     documents[i]['uid'] == uid,
                     uid,
-                  );
+                  );*/
                 },
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: 3 / 2,

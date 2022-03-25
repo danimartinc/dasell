@@ -2,6 +2,7 @@ import 'package:DaSell/screens/favs/widgets/my_ads_state.dart';
 
 import '../../commons.dart';
 //Widgets
+import '../../services/firebase/models/product_vo.dart';
 import '../../widgets/home/ad_item.dart';
 import '../tabs/home/widgets/ad_item_widget.dart';
 import 'widgets/my_ad_item.dart';
@@ -11,7 +12,7 @@ import 'widgets/widgets.dart';
 class MyAds extends StatefulWidget {
   
   @override
-  _MyAdsState createState() => _MyAdsState();
+  createState() => _MyAdsState();
 }
 
 class _MyAdsState extends MyAdsScreenState {
@@ -32,6 +33,8 @@ class _MyAdsState extends MyAdsScreenState {
           .snapshots(),
       builder: ( context, snapshot ) {
 
+        myProducts = [];
+
        /*if (isLoading) {
           return CommonProgress();
         }
@@ -50,26 +53,36 @@ class _MyAdsState extends MyAdsScreenState {
               return PushAdsBtn();
             }
 
+            
+        for( QueryDocumentSnapshot<Map<String, dynamic>> element in documents ) {
+
+          Map<String, dynamic> elementData = element.data();
+
+          myProducts.add(
+            ResponseProductVo.fromJson( elementData )
+          );
+        }
+
             return Padding(
               padding: EdgeInsets.all(10),
               child: GridView.builder(
                 itemCount: documents.length,
                 itemBuilder: (context, i) {
 
-                  //final vo = myProducts[i];
+                  final vo = myProducts[i];
 
-                 /* return MyAdItem(
+                 return AdItemWidget(
                     data: vo,
                     onTap: () => onItemTap(vo),
                     onLikeTap: () => onItemLike(vo),
-                  );*/
+                );
 
                   //TODO: Widget viejo
-                  return AdItem(
+                  /*return AdItem(
                     documents[i],
                     documents[i]['uid'] == uid,
                     uid,
-                  );
+                  );*/
                 },
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: 3 / 2,

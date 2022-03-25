@@ -1,4 +1,5 @@
 import 'package:DaSell/screens/favs/widgets/my_ads_state.dart';
+import 'package:DaSell/services/firebase/models/product_vo.dart';
 
 import '../../commons.dart';
 
@@ -14,7 +15,7 @@ class FavoriteAdsScreen extends StatefulWidget {
   static const routeName = './favorite_ads_screen';
   
   @override
-  _FavoriteAdsScreenState createState() => _FavoriteAdsScreenState();
+  createState() => _FavoriteAdsScreenState();
 }
 
 class _FavoriteAdsScreenState extends FavoriteAdsScreenState {
@@ -37,6 +38,8 @@ class _FavoriteAdsScreenState extends FavoriteAdsScreenState {
           .snapshots(),
       builder: ( context, snapshot ) {
 
+        myFavProducts = [];
+
        /* if (isLoading) {
           return CommonProgress();
         }
@@ -53,10 +56,19 @@ class _FavoriteAdsScreenState extends FavoriteAdsScreenState {
           return SearchAdsBtn(); 
         }
 
+        for( QueryDocumentSnapshot<Map<String, dynamic>> element in documents ) {
+
+          Map<String, dynamic> elementData = element.data();
+
+          myFavProducts.add(
+            ResponseProductVo.fromJson( elementData )
+          );
+        }
+
         return Padding(
           padding: EdgeInsets.all(10),
           child: GridView.builder(
-            itemCount: myFavProducts.length,
+            itemCount: documents.length,
             itemBuilder: (context, i) {
 
               final vo = myFavProducts[i];

@@ -69,6 +69,7 @@ class _ProductGoogleMapScreenState extends ProductGoogleMapState {
         onMapCreated: ( controller ) => _googleMapController = controller,
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'Position',
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         onPressed: () => _googleMapController!.animateCamera(

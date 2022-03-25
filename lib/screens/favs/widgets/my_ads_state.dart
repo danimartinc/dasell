@@ -1,4 +1,5 @@
 import 'package:DaSell/screens/favs/my_ads_screen.dart';
+import 'package:DaSell/screens/favs/my_sell_ads_screen.dart';
 
 import '../../../commons.dart';
 import '../../../services/firebase/models/product_vo.dart';
@@ -33,6 +34,32 @@ abstract class MyAdsScreenState extends State<MyAds> {
  abstract class FavoriteAdsScreenState extends State<FavoriteAdsScreen> {
 
    List<ResponseProductVo> myFavProducts = [];
+
+    void onItemTap(ResponseProductVo vo) {
+    context.push(
+      ProductDetails(
+        data: vo,
+      )
+    );
+    // Navigator.of(context).pushNamed(
+    //   ProductDetailScreen.routeName,
+    //   arguments: {
+    //     'docs': vo,
+    //     'isMe': vo.isMe,
+    //   },
+    // );
+  }
+
+   void onItemLike(ResponseProductVo vo) {
+    vo.toggleLike();
+  }
+
+ }
+
+ 
+ abstract class MySellAdsScreenState extends State<MySellAds> {
+
+   List<ResponseProductVo> mySellProducts = [];
 
     void onItemTap(ResponseProductVo vo) {
     context.push(
