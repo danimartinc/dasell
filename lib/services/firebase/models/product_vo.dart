@@ -26,6 +26,8 @@ class ResponseProductVo {
   /// usado para localizacion
   double fromLoc = 0;
 
+  String? tag;
+
   ResponseProductVo(
       {this.images,
       this.description,
@@ -88,7 +90,7 @@ class ResponseProductVo {
     return isSold ?? false;
   }
 
-  String get textId => '$id';
+  String get textId => 'favoritos - ${id}' 'publicados - ${ id }';
 
   String get itemImageUrl {
     return images?.first ?? '';

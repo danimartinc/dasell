@@ -22,9 +22,7 @@ class ChatRoomScreen extends StatefulWidget {
 class _ChatRoomScreenState extends ChatRoomScreenState {
   @override
   Widget build(BuildContext context) {
-
-    trace('User en chatscreen: ${ otherUser }');
-
+    
     return Stack(
       children: [
         Container(

@@ -7,7 +7,6 @@ import '../../services/firebase/models/product_vo.dart';
 import '../../widgets/home/ad_item.dart';
 import '../tabs/home/widgets/ad_item_widget.dart';
 import 'widgets/my_ad_item.dart';
-import 'widgets/my_sell_ad_item.dart';
 import 'widgets/widgets.dart';
 
 
@@ -67,7 +66,10 @@ class _MySellAdsState extends MySellAdsScreenState {
 
                   final vo = mySellProducts[i];
 
-                 return AdItemWidget(
+                  vo.tag = 'sells-productid$i';
+
+                return AdItemWidget(
+                    tag: vo.tag,
                     data: vo,
                     onTap: () => onItemTap(vo),
                     onLikeTap: () => onItemLike(vo),
