@@ -79,7 +79,10 @@ class _HomeScreenState extends HomeScreenState {
       padding: EdgeInsets.all(10),
       itemCount: currentProducts.length,
       itemBuilder: (context, i) {
+
         final vo = currentProducts[i];
+        vo.tag = 'home_${ vo.id }';
+        
         return AdItemWidget(
           data: vo,
           onTap: () => onItemTap(vo),

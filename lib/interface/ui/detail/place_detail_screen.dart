@@ -38,7 +38,7 @@ class _PlaceDetailScreenState extends State<PlaceDetailScreen> {
   }
 
   void _isScrollingListener() {
-    // TODO(brocodev): review scroll bug
+    
     // final percent = _controller.position.pixels / widget.screenHeight;
     // if (!_controller.position.isScrollingNotifier.value) {
     //   if (percent < .3 && percent > .1) {

@@ -48,6 +48,7 @@ abstract class ProductDetailsState extends State<ProductDetails> {
     if (result == true) {
       await _firebaseService.deleteAd(data.id);
       update();
+      Provider.of<MenuProvider>( context, listen: false ).setIndex(0);
       //CustomToastMessage( message: 'Publicación eliminada', backgroundColor: Colors.green.shade600,);
       showDeleteToast();
     }

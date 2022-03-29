@@ -1,4 +1,4 @@
-import 'package:DaSell/screens/favs/widgets/my_ads_state.dart';
+import 'package:DaSell/screens/favs/my_ads_state.dart';
 
 import '../../commons.dart';
 
@@ -6,7 +6,6 @@ import '../../commons.dart';
 import '../../services/firebase/models/product_vo.dart';
 import '../../widgets/home/ad_item.dart';
 import '../tabs/home/widgets/ad_item_widget.dart';
-import 'widgets/my_ad_item.dart';
 import 'widgets/widgets.dart';
 
 
@@ -46,7 +45,7 @@ class _MySellAdsState extends MySellAdsScreenState {
           var documents = snapshot.data!.docs;
 
             if( documents.length == 0 ) {
-              return PushAdsBtn();
+              return SellAdsMsg();
             }
 
         for( QueryDocumentSnapshot<Map<String, dynamic>> element in documents ) {
@@ -66,10 +65,9 @@ class _MySellAdsState extends MySellAdsScreenState {
 
                   final vo = mySellProducts[i];
 
-                  vo.tag = 'sells-productid$i';
+                  vo.tag = 'vendidos_${ vo.id }';
 
                 return AdItemWidget(
-                    tag: vo.tag,
                     data: vo,
                     onTap: () => onItemTap(vo),
                     onLikeTap: () => onItemLike(vo),

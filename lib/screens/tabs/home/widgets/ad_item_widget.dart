@@ -8,13 +8,12 @@ class AdItemWidget extends StatelessWidget {
   final ResponseProductVo? uid;
   final VoidCallback? onTap;
   final VoidCallback? onLikeTap;
-  final String? tag;
 
   const AdItemWidget({
     Key? key,
     required this.data,
     this.onTap,
-    this.onLikeTap, this.uid, this.tag,
+    this.onLikeTap, this.uid,
   }) : super(key: key);
 
   @override
@@ -39,7 +38,7 @@ class AdItemWidget extends StatelessWidget {
         child: GridTile(
           child: Hero(
             //tag: 'tagImage$index',
-            tag: data.textId,
+            tag: data.tag!,
             child: CachedNetworkImage(
               imageUrl: data.itemImageUrl,
               errorWidget: (context, url, error) => Icon(Icons.error),

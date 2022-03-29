@@ -3,17 +3,19 @@ import 'package:DaSell/commons.dart';
 class ActionButtonMoreOptions extends StatelessWidget {
 
   final VoidCallback? onDelete, onSell;
+  final Color? iconColor;
 
   const ActionButtonMoreOptions({
     Key? key,
     this.onDelete,
     this.onSell,
+    this.iconColor = Colors.white
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      icon: Icon(Icons.more_vert),
+      icon: Icon(Icons.more_vert, color: iconColor,),
       itemBuilder: (_) => [
         PopupMenuItem(
           child: Text('Eliminar publicación'),

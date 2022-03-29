@@ -1,4 +1,4 @@
-import 'package:DaSell/screens/favs/widgets/my_ads_state.dart';
+import 'package:DaSell/screens/favs/my_ads_state.dart';
 import 'package:DaSell/services/firebase/models/product_vo.dart';
 
 import '../../commons.dart';
@@ -72,6 +72,8 @@ class _FavoriteAdsScreenState extends FavoriteAdsScreenState {
             itemBuilder: (context, i) {
 
               final vo = myFavProducts[i];
+              vo.tag = 'favoritos_${ vo.id }';
+              
               return AdItemWidget(
                 data: vo,
                 onTap: () => onItemTap(vo),

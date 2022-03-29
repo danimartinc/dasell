@@ -91,7 +91,7 @@ class _ProductDetailsState extends ProductDetailsState {
               Stack(
                 children: [
                   Hero(
-                    tag: data.id.toString(),
+                    tag: data.tag!,
                     child: ProductImageSlider(
                       images: data.images!,
                       onChanged: onImageChanged,
@@ -314,16 +314,17 @@ class _ProductDetailsState extends ProductDetailsState {
 PreferredSizeWidget? _customAppBar() {
 
   final Size screenSize = MediaQuery.of(context).size;
+  final color = Color.lerp( Colors.indigo.shade800, Colors.white, (scrollOffset / 230).clamp(0, 1).toDouble());
 
   return PreferredSize(
     preferredSize: Size(screenSize.width, kToolbarHeight ),    
     child: AppBar(
       elevation: 0.0,
+      leading: BackButton(color: color ),
       backgroundColor: Colors.indigo.shade800.withOpacity((scrollOffset / 230).clamp(0, 1).toDouble()),
-      actions: [
-              
+      actions: [          
         if(data.isMe)
-        ActionButtonMoreOptions(onDelete: onDeleteTap, onSell: onSellTap),
+        ActionButtonMoreOptions(onDelete: onDeleteTap, onSell: onSellTap, iconColor: color,),
       ],
     ),      
   );    

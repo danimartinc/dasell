@@ -1,11 +1,10 @@
-import 'package:DaSell/screens/favs/widgets/my_ads_state.dart';
+import 'package:DaSell/screens/favs/my_ads_state.dart';
 
 import '../../commons.dart';
 //Widgets
 import '../../services/firebase/models/product_vo.dart';
 import '../../widgets/home/ad_item.dart';
 import '../tabs/home/widgets/ad_item_widget.dart';
-import 'widgets/my_ad_item.dart';
 import 'widgets/widgets.dart';
 
 
@@ -70,6 +69,7 @@ class _MyAdsState extends MyAdsScreenState {
                 itemBuilder: (context, i) {
 
                   final vo = myProducts[i];
+                  vo.tag = 'publicados_${ vo.id }';
 
                  return AdItemWidget(
                     data: vo,

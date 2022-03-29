@@ -35,48 +35,49 @@ class DataBackupCompletedPage extends AnimatedWidget {
               const SizedBox( height: 60, ),
               Expanded(
                 child: TweenAnimationBuilder(
-                        tween: Tween( begin: 0.0, end: 1.0 ),
-                        duration: const Duration( milliseconds: 400, ),
-                        builder: ( _ , double? value, child ){
-                          return Opacity(
-                            opacity: value!,
-                            child: Transform.translate(
-                              offset: Offset( 
-                                0.0, 
-                                50 * ( 1 - value ),
-                              ),
-                              child: child,
-                            ),
-                          );
-                        }, 
-                        child: Column(
-                            children: [
-                              const Text('El artículo se ha publicado correctamente',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              const Spacer(),
-                              OutlinedButton(
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric( vertical: 20.0, horizontal: 40.0 ),
-                                  child: Text('Aceptar', 
-                                    style: TextStyle( 
-                                      color: mainDataBackupColor,
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {
-                                   Navigator.of(context).pushReplacementNamed( BottomNavigationScreen.routeName );
-                                },
-                              ),
-                              kGap40,
-                            ],
+                  tween: Tween( begin: 0.0, end: 1.0 ),
+                  duration: const Duration( milliseconds: 400, ),
+                  builder: ( _ , double? value, child ){
+                    
+                    return Opacity(
+                      opacity: value!,
+                      child: Transform.translate(
+                        offset: Offset( 
+                          0.0, 
+                          50 * ( 1 - value ),
                         ),
+                        child: child,
+                      ),
+                    );
+                  }, 
+                  child: Column(
+                    children: [
+                      const Text('El artículo se ha publicado correctamente',
+                        style: TextStyle(
+                          fontSize: 17,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const Spacer(),
+                      OutlinedButton(
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric( vertical: 20.0, horizontal: 40.0 ),
+                          child: Text('Aceptar', 
+                            style: TextStyle( 
+                              color: mainDataBackupColor,
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          Provider.of<MenuProvider>( context, listen: false ).setIndex(0);
+                        }
+                      ),
+                      kGap40,
+                    ],
                   ),
+                ),
               )
-              ],
+            ],
           ),
         ),
       ) : const SizedBox.shrink();

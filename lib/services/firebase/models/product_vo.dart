@@ -28,8 +28,8 @@ class ResponseProductVo {
 
   String? tag;
 
-  ResponseProductVo(
-      {this.images,
+  ResponseProductVo({
+      this.images,
       this.description,
       this.title,
       bool isFav = false,
@@ -41,7 +41,9 @@ class ResponseProductVo {
       this.location,
       this.categories,
       required this.id,
-      this.makeShipments}) {
+      this.makeShipments,
+      this.tag,
+  }) {
     onLikeChanged.value = isFav;
   }
 
@@ -118,6 +120,7 @@ class ResponseProductVo {
         : null;
     categories = json['categories'].cast<String>();
     makeShipments = json['makeShipments'];
+    tag = json['tag'];
   }
 
   Map<String, dynamic> toJson() {
@@ -137,6 +140,7 @@ class ResponseProductVo {
     data['categories'] = this.categories;
     data['id'] = this.id;
     data['makeShipments'] = this.makeShipments;
+    data['tag'] = this.tag;
     return data;
   }
 
