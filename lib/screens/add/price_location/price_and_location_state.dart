@@ -105,10 +105,10 @@ abstract class PriceLocationScreenState extends State<PriceAndLocationScreen> {
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Precio incorrecto'),
-          content: Text('Please provide your location to proceed further'),
+          content: Text('Por favor, indique su ubicación para seguir adelante'),
           actions: [
             ElevatedButton(
-              child: Text('Provide Location'),
+              child: Text('Proporcione la ubicación'),
               onPressed: () {
                 getUserLocation();
                 Navigator.of(context).pop();

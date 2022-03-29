@@ -28,51 +28,6 @@ class MoveMap extends ChangeNotifier {
     );
 
     return myRoute;
-
-    // double kms = destination.distance / 1000;
-    // kms = (kms * 100).floorToDouble();
-    // kms /= 100;
-    //
-    // int tripDuration = (destination.duration / 60).floorToDouble().toInt();
-    //
-    // // Custom Markers
-    // // final startMaker = await getAssetImageMarker();
-    // // final endMaker = await getNetworkImageMarker();
-    //
-    // final startMaker = await getStartCustomMarker( tripDuration, 'Su ubicación' );
-    // final endMaker = await getEndCustomMarker( kms.toInt(), destination.endPlace.text );
-    //
-    // final startMarker = Marker(
-    //   anchor: const Offset(0.1, 1),
-    //   markerId: const MarkerId('start'),
-    //   position: destination.points.first,
-    //   icon: startMaker,
-    //   // infoWindow: InfoWindow(
-    //   //   title: 'Inicio',
-    //   //   snippet: 'Kms: $kms, duration: $tripDuration',
-    //   // )
-    // );
-    //
-    // final endMarker = Marker(
-    //   markerId: const MarkerId('end'),
-    //   position: destination.points.last,
-    //   icon: endMaker,
-    //   // anchor: const Offset(0,0),
-    //   // infoWindow: InfoWindow(
-    //   //   title: destination.endPlace.text,
-    //   //   snippet: destination.endPlace.placeName,
-    //   // )
-    // );
-    //
-    //
-    //
-    // final curretPolylines = Map<String, Polyline>.from( state.polylines );
-    // curretPolylines['route'] = myRoute;
-    //
-    //
-    // final currentMarkers = Map<String, Marker>.from( state.markers );
-    // currentMarkers['start'] = startMarker;
-    // currentMarkers['end'] = endMarker;
   }
 
   @override

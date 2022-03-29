@@ -69,7 +69,8 @@ class DataBackupCompletedPage extends AnimatedWidget {
                           ),
                         ),
                         onPressed: () {
-                          Provider.of<MenuProvider>( context, listen: false ).setIndex(0);
+                          Provider.of<MenuProvider>( context, listen: false ).setIndex( 0 );
+                          Navigator.of(context).maybePop();
                         }
                       ),
                       kGap40,

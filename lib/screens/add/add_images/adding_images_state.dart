@@ -54,11 +54,7 @@ abstract class AddingImagesScreenState extends State<AddingImagesScreen> {
       if (error == null) _error = 'No se ha detectado el error';
     });
   }
-
- 
-
-
-
+  
   Future<void> takePicture() async {
 
     isCamera = true;
@@ -121,15 +117,7 @@ abstract class AddingImagesScreenState extends State<AddingImagesScreen> {
       Provider.of<AdProvider>(context, listen: false).addImageAssets(images);
     }
 
-    Navigator.of(context).pushNamed(PriceAndLocationScreen.routeName);
-}
-
-
-
-
-
-
-
-
+    Navigator.of(context).pushReplacementNamed(PriceAndLocationScreen.routeName);
+  }
 
 }

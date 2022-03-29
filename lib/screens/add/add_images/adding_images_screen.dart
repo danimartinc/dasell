@@ -157,8 +157,7 @@ class _AddingImagesScreenState extends AddingImagesScreenState {
                       ),
                     ),
                   ),
-                ),
-          
+                ),     
           ],
         ),
         ],

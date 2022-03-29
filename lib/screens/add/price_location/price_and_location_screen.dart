@@ -20,10 +20,6 @@ class _PriceAndLocationScreenState extends PriceLocationScreenState {
   @override
   Widget build(BuildContext context) {
 
-    /*final PreferredSizeWidget appBar = AppBar(
-      title: Text('Introduzca precio y localización'),
-    );*/
-
     return Scaffold(
       appBar: PriceLocationAppBar(),
       body: SingleChildScrollView(

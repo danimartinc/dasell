@@ -4,8 +4,6 @@ import '../../../commons.dart';
 
 //Data
 import 'package:DaSell/data/categories.dart';
-//Providers
-import 'package:DaSell/provider/ad_provider.dart';
 //Screens
 import 'package:DaSell/screens/add/product_info_one/product_info_one.dart';
 
@@ -21,8 +19,8 @@ class FurtherCat extends StatelessWidget {
     final index = ModalRoute.of(context)!.settings.arguments as int;
     final cats  = Categories.categories[index];
 
-    final String icon = 'home';
-    final String? color;
+    //final String icon = 'home';
+    //final String? color;
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +39,7 @@ class FurtherCat extends StatelessWidget {
                     context,
                     listen: false,
                   ).addCategory( cats['further'][i] );
-                  Navigator.of(context).pushNamed(
+                  Navigator.of(context).pushReplacementNamed(
                     ProductInfoOne.routeName,
                     //arguments: index,
                     arguments: { 

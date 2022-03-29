@@ -46,7 +46,7 @@ abstract class InfoFormScreenState extends State<ProductInfoForm> {
         makeShipments
       );
 
-      Navigator.of(context).pushNamed( AddingImagesScreen.routeName );
+      Navigator.of(context).pushReplacementNamed( AddingImagesScreen.routeName );
     }
   }
 
@@ -100,15 +100,4 @@ abstract class InfoFormScreenState extends State<ProductInfoForm> {
     return null;
 
   }
-
-  
-                     
-                      
-
-  
-        
-    
-   
-
-
- }
+}

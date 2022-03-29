@@ -24,9 +24,9 @@ class _ProductInfoFormState extends InfoFormScreenState {
 
     final data = ModalRoute.of(context)!.settings.arguments as Map<String?, dynamic>;
     final indexCategory = data["indexCategory"];
-    final indexFurther  = data["indexFurther"];
+    //final indexFurther  = data["indexFurther"];
   
-    final cats  = Categories.categories[indexCategory!];
+    //final cats  = Categories.categories[indexCategory!];
     
     return ListView(
       children: [
