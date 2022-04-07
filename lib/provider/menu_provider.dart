@@ -6,7 +6,6 @@ class MenuProvider extends ChangeNotifier{
 
   void setIndex ( int index ){
     this.index = index;
-    trace( index );
     notifyListeners();
   }
 }

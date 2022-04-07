@@ -226,6 +226,10 @@ class _ProductDetailsState extends ProductDetailsState {
                         color: Colors.indigo.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(5),
                       ),
+                      //TODO: ANAND, From this widget, which indicates which user has published the product, 
+                      //in the form "Product published by", make this widget selectable in the same way as 
+                      //I indicated in the first screenshot I sent you. 
+                      //In this widget you have to add the average rating that has received by the rest of the users by means of a stars rating.
                       child: Row(
                         children: [
                           if (!hasAdUser) CommonProgress(),
