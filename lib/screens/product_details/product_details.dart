@@ -307,7 +307,7 @@ class _ProductDetailsState extends ProductDetailsState {
               ),
             ],
           ),
-        ]
+        ],
         ),
       ),
        )
