@@ -90,33 +90,12 @@ class _BtnSharedState extends State<BtnShared> {
   //   await firestore.collection('chats').doc(docId).set(chatData);
   // }
 
-            await FirebaseFirestore.instance
-                .collection('chats')
-                .doc(documentId)
-                .collection('messages')
-                .add(
-                  {
-                    'message': "Ubicación",
-                    'imageUrl': '', 
-                    'senderId': locationBloc?.sender,
-                    'receiverId': locationBloc?.receiver,
-                    'timeStamp': ts,
-                    'isRead': false,
-                  }
-                );
-
-            await FirebaseFirestore.instance
-                .collection('chats')
-                .doc(documentId)
-                .set(
-                  {
-                    'docId': documentId,
-                    'lastMessage': 'Ubicación',
-                    'senderId': locationBloc?.sender,
-                    'timeStamp': ts,
-                    'lastModification': FieldValue.serverTimestamp(),
-                  },
-                );
+            FirebaseService.get().sendMessage(
+                'Ubicación',
+                docId: documentId,
+                senderId: locationBloc!.sender,
+                receiverId: locationBloc!.receiver
+            );
 
             await FirebaseFirestore.instance
                 .collection('markers')
