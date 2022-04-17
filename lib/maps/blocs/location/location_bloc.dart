@@ -77,6 +77,11 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     print("now we are sharing location");
   }
 
+  void cancelSharing() {
+    isSharing = false;
+    print("now we are NOT sharing location");
+  }
+
   set sender(String doc) {
     _sender = doc;
   }

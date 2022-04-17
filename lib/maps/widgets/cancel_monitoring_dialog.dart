@@ -1,3 +1,5 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../commons.dart';
 import '../blocs/blocs.dart';
 import 'btn_cancel_monitoring.dart';
@@ -33,6 +35,8 @@ class _CancelMonitoringDialogState extends MonitoringState {
         ElevatedButton(
           child: Text('Confirmar'),
           onPressed: () async {
+            locationBloc = BlocProvider.of<LocationBloc>(context);
+            locationBloc?.cancelSharing();
             widget.onSelect?.call(1);
             Navigator.of(context).pop();
           },

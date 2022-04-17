@@ -46,7 +46,7 @@ class _MapPreviewState extends State<MapPreview> {
     SystemChrome.setSystemUIOverlayStyle( const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-
+    locationBloc = BlocProvider.of<LocationBloc>(context);
     super.initState();
     _requestPermission();
   }
@@ -317,7 +317,7 @@ class _MapPreviewState extends State<MapPreview> {
               onCameraMove: ( position2 ) => provider.center = position2.target
         
           ),
-          if( widget.fullScreen && widget.isMe )
+          if( widget.fullScreen && widget.isMe && (locationBloc?.isSharing ?? false) )
             //CancelMonitoringDialog()
             BtnCancelMonitoring(onPressed: onDialogPressed )
         ] 
